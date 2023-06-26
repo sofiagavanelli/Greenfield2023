@@ -1,1 +1,1 @@
-**Progetto Distributed and Pervasive Systems, A.Y. 2022/23**
+**Project of Distributed and Pervasive Systems course, A.Y. 2022/23**
