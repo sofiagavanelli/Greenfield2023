@@ -1,0 +1,38 @@
+syntax = "proto3";
+package com.example.chat;
+
+import "google/protobuf/empty.proto";
+
+/*Then, if there are other robots in Greenfield, the
+cleaning robot presents itself to the other ones by sending them
+• its position in the grid
+• its district
+• its ID
+• its port number for communications*/
+
+message Presentation {
+
+    int32 port = 1;
+    int32 district = 2;
+    int32 id = 3;
+
+}
+
+message Request {
+
+    int32 from = 1;
+    int64 time = 2;
+
+}
+
+message Authorization {
+    int32 from = 1;
+    string ok = 2;
+}
+
+service RobotService {
+
+    rpc presentationMsg(Presentation) returns (google.protobuf.Empty);
+    rpc requestMechanic(Request) returns (Authorization);
+
+}
