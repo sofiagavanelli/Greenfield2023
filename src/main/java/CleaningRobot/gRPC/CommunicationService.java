@@ -11,6 +11,20 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
 
     @Override
+    public void removalMsg(CommunicationServiceOuterClass.Goodbye request, StreamObserver<Empty> responseObserver) {
+
+        System.out.println(request);
+
+        RobotList.getInstance().remove(request.getId());
+
+        responseObserver.onNext(null);
+
+        //completo e finisco la comunicazione
+        responseObserver.onCompleted();
+
+    }
+
+    @Override
     public void presentationMsg(CommunicationServiceOuterClass.Presentation request, StreamObserver<Empty> responseObserver) {
 
         System.out.println(request);

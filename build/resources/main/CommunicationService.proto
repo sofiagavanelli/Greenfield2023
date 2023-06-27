@@ -15,7 +15,13 @@ message Presentation {
     int32 port = 1;
     int32 district = 2;
     int32 id = 3;
+    int32 x = 4;
+    int32 y = 5;
 
+}
+
+message Goodbye {
+    int32 id = 1;
 }
 
 message Request {
@@ -32,6 +38,7 @@ message Authorization {
 
 service CommunicationService {
 
+    rpc removalMsg(Goodbye) returns (google.protobuf.Empty);
     rpc presentationMsg(Presentation) returns (google.protobuf.Empty);
     rpc requestMechanic(Request) returns (Authorization);
 

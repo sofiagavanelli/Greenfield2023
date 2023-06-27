@@ -20,6 +20,10 @@ message Presentation {
 
 }
 
+message Goodbye {
+    int32 id = 1;
+}
+
 message Request {
 
     int32 from = 1;
@@ -34,6 +38,7 @@ message Authorization {
 
 service CommunicationService {
 
+    rpc removalMsg(Goodbye) returns (google.protobuf.Empty);
     rpc presentationMsg(Presentation) returns (google.protobuf.Empty);
     rpc requestMechanic(Request) returns (Authorization);
 

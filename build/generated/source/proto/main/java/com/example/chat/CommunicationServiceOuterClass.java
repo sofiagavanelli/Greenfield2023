@@ -772,6 +772,492 @@ public final class CommunicationServiceOuterClass {
 
   }
 
+  public interface GoodbyeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.example.chat.Goodbye)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 id = 1;</code>
+     * @return The id.
+     */
+    int getId();
+  }
+  /**
+   * Protobuf type {@code com.example.chat.Goodbye}
+   */
+  public  static final class Goodbye extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.example.chat.Goodbye)
+      GoodbyeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use Goodbye.newBuilder() to construct.
+    private Goodbye(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private Goodbye() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Goodbye();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Goodbye(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              id_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.chat.CommunicationServiceOuterClass.Goodbye.class, com.example.chat.CommunicationServiceOuterClass.Goodbye.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <code>int32 id = 1;</code>
+     * @return The id.
+     */
+    public int getId() {
+      return id_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (id_ != 0) {
+        output.writeInt32(1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (id_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.example.chat.CommunicationServiceOuterClass.Goodbye)) {
+        return super.equals(obj);
+      }
+      com.example.chat.CommunicationServiceOuterClass.Goodbye other = (com.example.chat.CommunicationServiceOuterClass.Goodbye) obj;
+
+      if (getId()
+          != other.getId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.example.chat.CommunicationServiceOuterClass.Goodbye prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.example.chat.Goodbye}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.example.chat.Goodbye)
+        com.example.chat.CommunicationServiceOuterClass.GoodbyeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.chat.CommunicationServiceOuterClass.Goodbye.class, com.example.chat.CommunicationServiceOuterClass.Goodbye.Builder.class);
+      }
+
+      // Construct using com.example.chat.CommunicationServiceOuterClass.Goodbye.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_descriptor;
+      }
+
+      @java.lang.Override
+      public com.example.chat.CommunicationServiceOuterClass.Goodbye getDefaultInstanceForType() {
+        return com.example.chat.CommunicationServiceOuterClass.Goodbye.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.example.chat.CommunicationServiceOuterClass.Goodbye build() {
+        com.example.chat.CommunicationServiceOuterClass.Goodbye result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.example.chat.CommunicationServiceOuterClass.Goodbye buildPartial() {
+        com.example.chat.CommunicationServiceOuterClass.Goodbye result = new com.example.chat.CommunicationServiceOuterClass.Goodbye(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.chat.CommunicationServiceOuterClass.Goodbye) {
+          return mergeFrom((com.example.chat.CommunicationServiceOuterClass.Goodbye)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.chat.CommunicationServiceOuterClass.Goodbye other) {
+        if (other == com.example.chat.CommunicationServiceOuterClass.Goodbye.getDefaultInstance()) return this;
+        if (other.getId() != 0) {
+          setId(other.getId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.chat.CommunicationServiceOuterClass.Goodbye parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.chat.CommunicationServiceOuterClass.Goodbye) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int id_ ;
+      /**
+       * <code>int32 id = 1;</code>
+       * @return The id.
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>int32 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(int value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.example.chat.Goodbye)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.example.chat.Goodbye)
+    private static final com.example.chat.CommunicationServiceOuterClass.Goodbye DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.example.chat.CommunicationServiceOuterClass.Goodbye();
+    }
+
+    public static com.example.chat.CommunicationServiceOuterClass.Goodbye getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Goodbye>
+        PARSER = new com.google.protobuf.AbstractParser<Goodbye>() {
+      @java.lang.Override
+      public Goodbye parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Goodbye(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Goodbye> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Goodbye> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.example.chat.CommunicationServiceOuterClass.Goodbye getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface RequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.example.chat.Request)
       com.google.protobuf.MessageOrBuilder {
@@ -1967,6 +2453,11 @@ public final class CommunicationServiceOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_chat_Presentation_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_example_chat_Goodbye_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_example_chat_Goodbye_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_chat_Request_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -1988,14 +2479,16 @@ public final class CommunicationServiceOuterClass {
       "\n\032CommunicationService.proto\022\020com.exampl" +
       "e.chat\032\033google/protobuf/empty.proto\"P\n\014P" +
       "resentation\022\014\n\004port\030\001 \001(\005\022\020\n\010district\030\002 " +
-      "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"%\n" +
-      "\007Request\022\014\n\004from\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\")\n\r" +
-      "Authorization\022\014\n\004from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\t2" +
-      "\260\001\n\024CommunicationService\022I\n\017presentation" +
-      "Msg\022\036.com.example.chat.Presentation\032\026.go" +
-      "ogle.protobuf.Empty\022M\n\017requestMechanic\022\031" +
-      ".com.example.chat.Request\032\037.com.example." +
-      "chat.Authorizationb\006proto3"
+      "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"\025\n" +
+      "\007Goodbye\022\n\n\002id\030\001 \001(\005\"%\n\007Request\022\014\n\004from\030" +
+      "\001 \001(\005\022\014\n\004time\030\002 \001(\003\")\n\rAuthorization\022\014\n\004" +
+      "from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\t2\361\001\n\024Communication" +
+      "Service\022?\n\nremovalMsg\022\031.com.example.chat" +
+      ".Goodbye\032\026.google.protobuf.Empty\022I\n\017pres" +
+      "entationMsg\022\036.com.example.chat.Presentat" +
+      "ion\032\026.google.protobuf.Empty\022M\n\017requestMe" +
+      "chanic\022\031.com.example.chat.Request\032\037.com." +
+      "example.chat.Authorizationb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2008,14 +2501,20 @@ public final class CommunicationServiceOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Presentation_descriptor,
         new java.lang.String[] { "Port", "District", "Id", "X", "Y", });
-    internal_static_com_example_chat_Request_descriptor =
+    internal_static_com_example_chat_Goodbye_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_com_example_chat_Goodbye_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_example_chat_Goodbye_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_com_example_chat_Request_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_com_example_chat_Request_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Request_descriptor,
         new java.lang.String[] { "From", "Time", });
     internal_static_com_example_chat_Authorization_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_com_example_chat_Authorization_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Authorization_descriptor,

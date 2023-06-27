@@ -33,6 +33,10 @@ public class RobotInfo {
         this.district = district;
     }
 
+    public RobotInfo(int robotID) {
+        this.id = robotID;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

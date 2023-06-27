@@ -27,6 +27,37 @@ public final class CommunicationServiceGrpc {
   public static final String SERVICE_NAME = "com.example.chat.CommunicationService";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.Goodbye,
+      com.google.protobuf.Empty> getRemovalMsgMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "removalMsg",
+      requestType = com.example.chat.CommunicationServiceOuterClass.Goodbye.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.Goodbye,
+      com.google.protobuf.Empty> getRemovalMsgMethod() {
+    io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.Goodbye, com.google.protobuf.Empty> getRemovalMsgMethod;
+    if ((getRemovalMsgMethod = CommunicationServiceGrpc.getRemovalMsgMethod) == null) {
+      synchronized (CommunicationServiceGrpc.class) {
+        if ((getRemovalMsgMethod = CommunicationServiceGrpc.getRemovalMsgMethod) == null) {
+          CommunicationServiceGrpc.getRemovalMsgMethod = getRemovalMsgMethod =
+              io.grpc.MethodDescriptor.<com.example.chat.CommunicationServiceOuterClass.Goodbye, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "removalMsg"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.chat.CommunicationServiceOuterClass.Goodbye.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new CommunicationServiceMethodDescriptorSupplier("removalMsg"))
+              .build();
+        }
+      }
+    }
+    return getRemovalMsgMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.Presentation,
       com.google.protobuf.Empty> getPresentationMsgMethod;
 
@@ -118,6 +149,13 @@ public final class CommunicationServiceGrpc {
 
     /**
      */
+    public void removalMsg(com.example.chat.CommunicationServiceOuterClass.Goodbye request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      asyncUnimplementedUnaryCall(getRemovalMsgMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void presentationMsg(com.example.chat.CommunicationServiceOuterClass.Presentation request,
         io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       asyncUnimplementedUnaryCall(getPresentationMsgMethod(), responseObserver);
@@ -132,6 +170,13 @@ public final class CommunicationServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getRemovalMsgMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.chat.CommunicationServiceOuterClass.Goodbye,
+                com.google.protobuf.Empty>(
+                  this, METHODID_REMOVAL_MSG)))
           .addMethod(
             getPresentationMsgMethod(),
             asyncUnaryCall(
@@ -166,6 +211,14 @@ public final class CommunicationServiceGrpc {
     protected CommunicationServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new CommunicationServiceStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public void removalMsg(com.example.chat.CommunicationServiceOuterClass.Goodbye request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getRemovalMsgMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -205,6 +258,13 @@ public final class CommunicationServiceGrpc {
 
     /**
      */
+    public com.google.protobuf.Empty removalMsg(com.example.chat.CommunicationServiceOuterClass.Goodbye request) {
+      return blockingUnaryCall(
+          getChannel(), getRemovalMsgMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public com.google.protobuf.Empty presentationMsg(com.example.chat.CommunicationServiceOuterClass.Presentation request) {
       return blockingUnaryCall(
           getChannel(), getPresentationMsgMethod(), getCallOptions(), request);
@@ -238,6 +298,14 @@ public final class CommunicationServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> removalMsg(
+        com.example.chat.CommunicationServiceOuterClass.Goodbye request) {
+      return futureUnaryCall(
+          getChannel().newCall(getRemovalMsgMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> presentationMsg(
         com.example.chat.CommunicationServiceOuterClass.Presentation request) {
       return futureUnaryCall(
@@ -253,8 +321,9 @@ public final class CommunicationServiceGrpc {
     }
   }
 
-  private static final int METHODID_PRESENTATION_MSG = 0;
-  private static final int METHODID_REQUEST_MECHANIC = 1;
+  private static final int METHODID_REMOVAL_MSG = 0;
+  private static final int METHODID_PRESENTATION_MSG = 1;
+  private static final int METHODID_REQUEST_MECHANIC = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -273,6 +342,10 @@ public final class CommunicationServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_REMOVAL_MSG:
+          serviceImpl.removalMsg((com.example.chat.CommunicationServiceOuterClass.Goodbye) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
         case METHODID_PRESENTATION_MSG:
           serviceImpl.presentationMsg((com.example.chat.CommunicationServiceOuterClass.Presentation) request,
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
@@ -342,6 +415,7 @@ public final class CommunicationServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new CommunicationServiceFileDescriptorSupplier())
+              .addMethod(getRemovalMsgMethod())
               .addMethod(getPresentationMsgMethod())
               .addMethod(getRequestMechanicMethod())
               .build();

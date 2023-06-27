@@ -66,6 +66,24 @@ public class RobotList {
 
     }
 
+    public boolean remove(int robotID) {
+
+        List<RobotInfo> listCopy = getRobotslist();
+
+        if(listCopy.contains(robotID))
+            listCopy.remove(new RobotInfo(robotID));
+
+        /*then you should send back:
+            • the starting position in Greenfield of the robot
+            • the list of robots already located in the smart city, specifying for
+                each of them the related ID, the IP address, and the port number
+                for communication*/
+
+        return true;
+
+    }
+
+
 
 
 }
