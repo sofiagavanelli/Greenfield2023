@@ -62,8 +62,9 @@ public class Robot {
         /*gRPCclient.setBots(robotInfoList);*/
 
         try {
+            List<RobotInfo> list = RobotList.getInstance().getRobotslist();
             //int[] RobotPortInfo, int botPort, int botDistrict, int botID
-            RobotP2P.firstMSG(RobotPortInfo, botPort, botDistrict, botId);
+            RobotP2P.firstMSG(list, botPort, botDistrict, botId, x, y);
         }  catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -117,7 +118,7 @@ public class Robot {
         RobotList.getInstance().setRobotslist(copyRobs);
         //gRPCclient.setBots(copyRobs);
 
-        bot.setConnections(copyRobs);
+        //bot.setConnections(copyRobs);
 
         //then you should receive back the position and the district !!!!
         for (RobotInfo r : robs.getRobotslist()){

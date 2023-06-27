@@ -16,16 +16,13 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         System.out.println(request);
 
         //creo un robot e lo aggiungo
-        RobotInfo newBot = new RobotInfo(request.getId(), request.getPort());
+        //int id, int portN, int x, int y, int district
+        RobotInfo newBot = new RobotInfo(request.getId(), request.getPort(), request.getX(), request.getY(), request.getDistrict());
         RobotList.getInstance().add(newBot);
-
-        //IMPORTANTE
-        //devo fare in modo che se ricevo un messaggio da un nuovo robot allora mi devo memorizzare quella nuova info!!!!!
-
-        System.out.println(request.getId());
 
         //passo la risposta nello stream
         //Empty response = null;
+        //onNext is the callback
         responseObserver.onNext(null);
 
         //completo e finisco la comunicazione

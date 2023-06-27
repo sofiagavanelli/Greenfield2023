@@ -35,6 +35,18 @@ public final class CommunicationServiceOuterClass {
      * @return The id.
      */
     int getId();
+
+    /**
+     * <code>int32 x = 4;</code>
+     * @return The x.
+     */
+    int getX();
+
+    /**
+     * <code>int32 y = 5;</code>
+     * @return The y.
+     */
+    int getY();
   }
   /**
    * Protobuf type {@code com.example.chat.Presentation}
@@ -94,6 +106,16 @@ public final class CommunicationServiceOuterClass {
             case 24: {
 
               id_ = input.readInt32();
+              break;
+            }
+            case 32: {
+
+              x_ = input.readInt32();
+              break;
+            }
+            case 40: {
+
+              y_ = input.readInt32();
               break;
             }
             default: {
@@ -158,6 +180,26 @@ public final class CommunicationServiceOuterClass {
       return id_;
     }
 
+    public static final int X_FIELD_NUMBER = 4;
+    private int x_;
+    /**
+     * <code>int32 x = 4;</code>
+     * @return The x.
+     */
+    public int getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 5;
+    private int y_;
+    /**
+     * <code>int32 y = 5;</code>
+     * @return The y.
+     */
+    public int getY() {
+      return y_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -181,6 +223,12 @@ public final class CommunicationServiceOuterClass {
       if (id_ != 0) {
         output.writeInt32(3, id_);
       }
+      if (x_ != 0) {
+        output.writeInt32(4, x_);
+      }
+      if (y_ != 0) {
+        output.writeInt32(5, y_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -201,6 +249,14 @@ public final class CommunicationServiceOuterClass {
       if (id_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, id_);
+      }
+      if (x_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, x_);
+      }
+      if (y_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, y_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -223,6 +279,10 @@ public final class CommunicationServiceOuterClass {
           != other.getDistrict()) return false;
       if (getId()
           != other.getId()) return false;
+      if (getX()
+          != other.getX()) return false;
+      if (getY()
+          != other.getY()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -240,6 +300,10 @@ public final class CommunicationServiceOuterClass {
       hash = (53 * hash) + getDistrict();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId();
+      hash = (37 * hash) + X_FIELD_NUMBER;
+      hash = (53 * hash) + getX();
+      hash = (37 * hash) + Y_FIELD_NUMBER;
+      hash = (53 * hash) + getY();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -379,6 +443,10 @@ public final class CommunicationServiceOuterClass {
 
         id_ = 0;
 
+        x_ = 0;
+
+        y_ = 0;
+
         return this;
       }
 
@@ -408,6 +476,8 @@ public final class CommunicationServiceOuterClass {
         result.port_ = port_;
         result.district_ = district_;
         result.id_ = id_;
+        result.x_ = x_;
+        result.y_ = y_;
         onBuilt();
         return result;
       }
@@ -464,6 +534,12 @@ public final class CommunicationServiceOuterClass {
         }
         if (other.getId() != 0) {
           setId(other.getId());
+        }
+        if (other.getX() != 0) {
+          setX(other.getX());
+        }
+        if (other.getY() != 0) {
+          setY(other.getY());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -580,6 +656,66 @@ public final class CommunicationServiceOuterClass {
       public Builder clearId() {
         
         id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int x_ ;
+      /**
+       * <code>int32 x = 4;</code>
+       * @return The x.
+       */
+      public int getX() {
+        return x_;
+      }
+      /**
+       * <code>int32 x = 4;</code>
+       * @param value The x to set.
+       * @return This builder for chaining.
+       */
+      public Builder setX(int value) {
+        
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 x = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearX() {
+        
+        x_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int y_ ;
+      /**
+       * <code>int32 y = 5;</code>
+       * @return The y.
+       */
+      public int getY() {
+        return y_;
+      }
+      /**
+       * <code>int32 y = 5;</code>
+       * @param value The y to set.
+       * @return This builder for chaining.
+       */
+      public Builder setY(int value) {
+        
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 y = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearY() {
+        
+        y_ = 0;
         onChanged();
         return this;
       }
@@ -1850,16 +1986,16 @@ public final class CommunicationServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\032CommunicationService.proto\022\020com.exampl" +
-      "e.chat\032\033google/protobuf/empty.proto\":\n\014P" +
+      "e.chat\032\033google/protobuf/empty.proto\"P\n\014P" +
       "resentation\022\014\n\004port\030\001 \001(\005\022\020\n\010district\030\002 " +
-      "\001(\005\022\n\n\002id\030\003 \001(\005\"%\n\007Request\022\014\n\004from\030\001 \001(\005" +
-      "\022\014\n\004time\030\002 \001(\003\")\n\rAuthorization\022\014\n\004from\030" +
-      "\001 \001(\005\022\n\n\002ok\030\002 \001(\t2\260\001\n\024CommunicationServi" +
-      "ce\022I\n\017presentationMsg\022\036.com.example.chat" +
-      ".Presentation\032\026.google.protobuf.Empty\022M\n" +
-      "\017requestMechanic\022\031.com.example.chat.Requ" +
-      "est\032\037.com.example.chat.Authorizationb\006pr" +
-      "oto3"
+      "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"%\n" +
+      "\007Request\022\014\n\004from\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\")\n\r" +
+      "Authorization\022\014\n\004from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\t2" +
+      "\260\001\n\024CommunicationService\022I\n\017presentation" +
+      "Msg\022\036.com.example.chat.Presentation\032\026.go" +
+      "ogle.protobuf.Empty\022M\n\017requestMechanic\022\031" +
+      ".com.example.chat.Request\032\037.com.example." +
+      "chat.Authorizationb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1871,7 +2007,7 @@ public final class CommunicationServiceOuterClass {
     internal_static_com_example_chat_Presentation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Presentation_descriptor,
-        new java.lang.String[] { "Port", "District", "Id", });
+        new java.lang.String[] { "Port", "District", "Id", "X", "Y", });
     internal_static_com_example_chat_Request_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_example_chat_Request_fieldAccessorTable = new

@@ -1,6 +1,7 @@
 package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
+import AdminServer.beans.RobotList;
 import com.example.chat.CommunicationServiceGrpc;
 import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
@@ -69,11 +70,11 @@ public class RobotP2P {
 
     }
 
-    public static void firstMSG(int[] RobotPortInfo, int botPort, int botDistrict, int botID) throws InterruptedException {
+    public static void firstMSG(/*int[] RobotPortInfo*/List<RobotInfo> listCopy, int botPort, int botDistrict, int botID, int x, int y) throws InterruptedException {
 
-        for (int element : RobotPortInfo) {
+        for (RobotInfo element : listCopy) {
 
-            String target = "localhost:" + element;
+            String target = "localhost:" + element.getPortN();
             System.out.println("sto per creare un channel come target: " + target);
 
             //plaintext channel on the address (ip/port) which offers the GreetingService service
@@ -87,6 +88,8 @@ public class RobotP2P {
                     .setPort(botPort)
                     .setDistrict(botDistrict)
                     .setId(botID)
+                    .setX(x)
+                    .setY(y)
                     .build();
 
             //calling the RPC method. since it is asynchronous, we need to define handlers
@@ -94,6 +97,9 @@ public class RobotP2P {
 
                 @Override
                 public void onNext(Empty value) {
+
+                    List<RobotInfo> list = RobotList.getInstance().getRobotslist();
+                    System.out.println(list.toString());
 
                 }
 
@@ -127,45 +133,49 @@ public class RobotP2P {
         //for (int element : RobotPortInfo) {
         for (RobotInfo element : listCopy) {
 
-            String target = "localhost:" + element.getPortN();
-            System.out.println("sto per creare un channel come target: " + target);
+            if(element.getPortN() != botPort) { //in questo caso non mando il messaggio a me stesso
 
-            //plaintext channel on the address (ip/port) which offers the GreetingService service
-            final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
+                String target = "localhost:" + element.getPortN();
+                System.out.println("sto per creare un channel come target: " + target);
 
-            //creating an asynchronous stub on the channel
-            CommunicationServiceGrpc. CommunicationServiceStub stub =  CommunicationServiceGrpc.newStub(channel);
+                //plaintext channel on the address (ip/port) which offers the GreetingService service
+                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
-            //creating the HelloResponse object which will be provided as input to the RPC method
-            CommunicationServiceOuterClass.Request ask =  CommunicationServiceOuterClass.Request.newBuilder()
-                    .setFrom(botPort)
-                    .setTime(System.currentTimeMillis())
-                    .build();
+                //creating an asynchronous stub on the channel
+                CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
-            //calling the RPC method. since it is asynchronous, we need to define handlers
-            stub.requestMechanic(ask, new StreamObserver< CommunicationServiceOuterClass.Authorization>() {
+                //creating the HelloResponse object which will be provided as input to the RPC method
+                CommunicationServiceOuterClass.Request ask = CommunicationServiceOuterClass.Request.newBuilder()
+                        .setFrom(botPort)
+                        .setTime(System.currentTimeMillis())
+                        .build();
 
-                @Override
-                public void onNext( CommunicationServiceOuterClass.Authorization value) {
+                //calling the RPC method. since it is asynchronous, we need to define handlers
+                stub.requestMechanic(ask, new StreamObserver<CommunicationServiceOuterClass.Authorization>() {
 
-                }
+                    @Override
+                    public void onNext(CommunicationServiceOuterClass.Authorization value) {
 
-                @Override
-                public void onError(Throwable t) {
+                    }
 
-                }
+                    @Override
+                    public void onError(Throwable t) {
 
-                @Override
-                public void onCompleted() {
+                    }
 
-                }
+                    @Override
+                    public void onCompleted() {
 
-                //streamGreeting(request, new StreamObserver<HelloResponse>() {
+                    }
 
-            });
+                    //streamGreeting(request, new StreamObserver<HelloResponse>() {
 
-            //you need this. otherwise the method will terminate before that answers from the server are received
-            channel.awaitTermination(10, TimeUnit.SECONDS);
+                });
+
+                //you need this. otherwise the method will terminate before that answers from the server are received
+                channel.awaitTermination(10, TimeUnit.SECONDS);
+
+            }
 
         }
 

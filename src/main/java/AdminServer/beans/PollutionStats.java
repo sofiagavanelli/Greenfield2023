@@ -1,5 +1,7 @@
 package AdminServer.beans;
 
+import Utils.MqttMsg;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ public class PollutionStats {
 
     //@XmlElement(name="my_averages")
     HashMap<Integer, HashMap<Long, List<Double>>> RobotAverages; //List<Double> !!
+    HashMap<Integer, List<MqttMsg>> AveragesTime;
 
     HashMap<Integer, List<Double>> AveragesNoTime;
 
@@ -32,23 +35,27 @@ public class PollutionStats {
         return new HashMap<Integer, HashMap<Long, List<Double>>>(RobotAverages);
     }
 
-    public void addAverages(Integer ID, Long timestamp, List<Double> data) {
+    public void addAverages(Integer ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
 
-        HashMap<Long, List<Double>> previous = new HashMap<>();
+        //HashMap<Long, List<Double>> previous = new HashMap<>();
+        List<MqttMsg> previous = new ArrayList<>();
 
         List<Double> copyNoTime = new ArrayList<>();
 
         if(RobotAverages.get(ID) != null) {
-            previous = RobotAverages.get(ID);
+            //previous = RobotAverages.get(ID);
+            previous = AveragesTime.get(ID);
 
             copyNoTime = AveragesNoTime.get(ID);
         }
 
-        copyNoTime.addAll(data);
+        copyNoTime.addAll(msg.getAverages());
         AveragesNoTime.put(ID, copyNoTime);
 
-        previous.put(timestamp, data);
-        RobotAverages.put(ID, previous);
+        //previous.put(timestamp, data);
+        //RobotAverages.put(ID, previous);
+        previous.add(msg);
+        AveragesTime.put(msg.getRobotID(), previous);
 
     }
 
@@ -85,5 +92,27 @@ public class PollutionStats {
             return null;
 
     }
+
+    /*public Double getBetween(long t1, long t2) {
+
+        double averageOne;
+        double sum;
+        double averageAll;
+
+        boolean higher = true;
+
+        List<RobotInfo> IDs = RobotList.getInstance().getRobotslist();
+        int numBots = IDs.size(); //for the last average
+
+        for (RobotInfo element : IDs) {
+
+            while (higher) {
+
+            }
+
+        }
+
+
+    }*/
 
 }

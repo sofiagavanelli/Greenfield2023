@@ -47,7 +47,7 @@ public class MqttSub implements MqttCallback {
         //System.out.println(msg.getRobotID());
         //System.out.println(msg.getAverages());
 
-        dummy.addAverages(msg.getRobotID(), msg.getTimestamp(), msg.getAverages());
+        dummy.addAverages(msg.getRobotID(), msg);
 
         /*System.out.println(clientId +" Received a Message! - Callback - Thread PID: " + Thread.currentThread().getId() +
                 "\n\tTopic: " + topic +
