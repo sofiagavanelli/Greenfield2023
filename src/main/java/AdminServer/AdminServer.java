@@ -6,6 +6,8 @@ import org.eclipse.paho.client.mqttv3.*;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import AdminServer.MQTT.MqttSub;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
@@ -15,6 +17,10 @@ public class AdminServer {
     //the server itself is a server which also subscribes to the mqtt broker
     private static final String HOST = "localhost";
     private static final int PORT = 1337;
+
+    static {
+        Logger.getLogger("com.sun.jersey").setLevel(Level.SEVERE);
+    }
 
     public static void main(String[] args) throws IOException, MqttException {
         MqttClient client;
@@ -42,7 +48,6 @@ public class AdminServer {
             System.out.println(clientId + " Subscribed to topics : " + topic);
 
             System.out.println("I'm here'!");
-            //////////******server???*******////////////
             HttpServer server = HttpServerFactory.create("http://"+HOST+":"+PORT+"/");
             server.start();
 

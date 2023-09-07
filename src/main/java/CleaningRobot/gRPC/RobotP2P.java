@@ -10,6 +10,7 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -128,7 +129,8 @@ public class RobotP2P {
 
         /*List<RobotInfo> copy = RobotList.getInstance().getRobotslist();
         System.out.println(copy); */
-        int[] RobotPortInfo = setBots(listCopy);
+        //inutile: int[] RobotPortInfo = setBots(listCopy);
+        List<Integer> authorizations = new ArrayList<>();
 
         //for (int element : RobotPortInfo) {
         for (RobotInfo element : listCopy) {
@@ -156,6 +158,10 @@ public class RobotP2P {
                     @Override
                     public void onNext(CommunicationServiceOuterClass.Authorization value) {
 
+                        //quando ricevo la risposta
+                        System.out.println("ho ricevuto il si da: " + element.getPortN());
+                        authorizations.add(element.getPortN());
+
                     }
 
                     @Override
@@ -178,6 +184,11 @@ public class RobotP2P {
             }
 
         }
+
+        System.out.println("ho ricevuto ok da: " + authorizations);
+
+        if(authorizations.size() == (listCopy.size() - 1))
+            System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
 
     }
 

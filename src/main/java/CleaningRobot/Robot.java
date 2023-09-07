@@ -4,6 +4,7 @@ import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import CleaningRobot.MQTT.MqttPub;
 import CleaningRobot.MQTT.Reader;
+import CleaningRobot.breakHandler.Mechanic;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.gRPC.CommunicationService;
 import CleaningRobot.simulators.PM10Simulator;
@@ -18,6 +19,7 @@ import io.grpc.ServerBuilder;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Robot {
 
@@ -81,6 +83,12 @@ public class Robot {
 
     public static void main(String argv[]) throws Exception {
 
+        Scanner sc= new Scanner(System.in);    //System.in is a standard input stream
+        System.out.print("Enter id: ");
+        botId = sc.nextInt();
+        System.out.print("Enter port: ");
+        botPort = sc.nextInt();
+
 		/* client socket initialization
 			localhost: server address
 			6789: server service port number */
@@ -92,10 +100,10 @@ public class Robot {
         Mechanic crashTest = new Mechanic(botSimulator, readSensor, botId, botPort);
         //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
 
-        botDistrict = 0;
+        botDistrict = 0; //non dovrebbe servire
         //cambiare botId in String? e mettere "ROBOT-n" ?
-        botId = rnd.nextInt(100) + 10;
-        botPort = 1234; //input??
+        //botId = rnd.nextInt(100) + 10;
+        //botPort = 1234; //input??
 
         //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
         Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, crashTest/*, gRPCclient*/);

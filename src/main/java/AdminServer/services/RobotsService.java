@@ -46,6 +46,17 @@ public class RobotsService {
         else return Response.status(Response.Status.BAD_REQUEST).entity("ID already in use").build();
     }
 
+    @Path("remove")
+    @DELETE
+    @Consumes({"application/json", "application/xml"}) //use of json?
+    public Response removeRobot(int ID){
+
+        if(RobotList.getInstance().remove(ID))
+            return Response.ok(RobotList.getInstance()).build();
+
+        else return Response.status(Response.Status.BAD_REQUEST).entity("problems eliminating robot").build();
+    }
+
     //permette di prelevare un utente con un determinato nome
     /*@Path("get/{name}")
     @GET

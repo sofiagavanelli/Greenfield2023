@@ -7,6 +7,9 @@ import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommunicationService extends CommunicationServiceGrpc.CommunicationServiceImplBase {
 
 
@@ -50,7 +53,9 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         System.out.println("sono dentro request mechanic");
         System.out.println(request);
 
-        //if?
+        //if
+
+        //ma come trovo la port di quello che riceve??
 
         //costruisco la richiesta di tipo HelloResponse (sempre definito in .proto)
         CommunicationServiceOuterClass.Authorization response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();

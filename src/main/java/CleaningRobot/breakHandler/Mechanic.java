@@ -1,4 +1,4 @@
-package CleaningRobot;
+package CleaningRobot.breakHandler;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
@@ -67,7 +67,8 @@ public class Mechanic extends Thread {
     public void goToMechanic() {
 
         listCopy = RobotList.getInstance().getRobotslist();
-        System.out.println(listCopy);
+        //System.out.println(listCopy);
+        //li stampa come: [AdminServer.beans.RobotInfo@2f567cae, AdminServer.beans.RobotInfo@7847872c, AdminServer.beans.RobotInfo@76807654]
 
         if(!stopCondition) //in case this function has been called by the admin client from cmd line
             stopCondition = true;
