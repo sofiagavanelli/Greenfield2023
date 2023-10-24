@@ -127,7 +127,7 @@ public class RobotP2P {
 
     }
 
-    public static void requestMechanic(/*int[] RobotPortInfo, */List<RobotInfo> listCopy, int botPort, int botID) throws InterruptedException {
+    public static List<Integer> requestMechanic(/*int[] RobotPortInfo, */List<RobotInfo> listCopy, int botPort, int botID) throws InterruptedException {
 
         /*List<RobotInfo> copy = RobotList.getInstance().getRobotslist();
         System.out.println(copy); */
@@ -164,7 +164,8 @@ public class RobotP2P {
 
                         //quando ricevo la risposta
                         System.out.println("ho ricevuto il si da: " + element.getPortN());
-                        authorizations.add(element.getPortN());
+                        if(value.getOk() == "OK")
+                            authorizations.add(element.getPortN());
 
                     }
 
@@ -195,11 +196,13 @@ public class RobotP2P {
             System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
         }*/
 
-        while(authorizations.size() < (listCopy.size() - 1)) {
-            System.out.println("waiting for all authorizations");
-        }
-        System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
+        //if(authorizations.size() < (listCopy.size() - 1)) {
+            //System.out.println("waiting for all authorizations");
+        //}
+        //System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
         //sarebbe else wait ?
+
+        return authorizations;
 
     }
 

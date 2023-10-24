@@ -15,8 +15,8 @@ CleaningRobot/simulators/Buffer.java
  CleaningRobot.simulators.Buffer
 CleaningRobot/simulators/PM10Simulator.java
  CleaningRobot.simulators.PM10Simulator
-CleaningRobot/gRPC/CommunicationService.java
- CleaningRobot.gRPC.CommunicationService
+CleaningRobot/breakHandler/crashSimulator.java
+ CleaningRobot.breakHandler.crashSimulator
 Utils/RestFunc.java
  Utils.RestFunc
 com/example/chat/CommunicationServiceOuterClass.java
@@ -70,8 +70,8 @@ CleaningRobot/breakHandler/robotState.java
  CleaningRobot.breakHandler.robotState
 AdminServer/beans/PollutionStats.java
  AdminServer.beans.PollutionStats
-CleaningRobot/breakHandler/crashSimulator.java
- CleaningRobot.breakHandler.crashSimulator
+CleaningRobot/gRPC/CommunicationService.java
+ CleaningRobot.gRPC.CommunicationService
 CleaningRobot/Robot.java
  CleaningRobot.Robot
 CleaningRobot/breakHandler/Mechanic.java
@@ -80,3 +80,5 @@ CleaningRobot/gRPC/RobotP2P.java
  CleaningRobot.gRPC.RobotP2P
  CleaningRobot.gRPC.RobotP2P$1
  CleaningRobot.gRPC.RobotP2P$2
+CleaningRobot/gRPC/MechanicRequests.java
+ CleaningRobot.gRPC.MechanicRequests

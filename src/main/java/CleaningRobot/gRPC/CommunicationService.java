@@ -54,17 +54,31 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         System.out.println("sono dentro request mechanic");
         System.out.println(request);
 
+        CommunicationServiceOuterClass.Authorization response;
+
         if(MechanicRequests.getInstance().getPersonal() != null) {
             //bisognerebbe controllare i timestamp, qui sto dando per scontato che quella nuova sia successiva
-            MechanicRequests.getInstance().addRequest(request);
-            //wait?
+
+            CommunicationServiceOuterClass.Request mine = MechanicRequests.getInstance().getPersonal();
+
+            if(mine.getTime() < request.getTime()) {
+                //metto la tua richiesta nella mia coda
+                MechanicRequests.getInstance().addRequest(request);
+                //ho già io una richiesta ed è inferiore quindi dico di no
+                response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("NO").build();
+                // wait?
+            }
+            else //la mia richiesta è successiva quindi hai tu accesso
+                response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();
+
         }
         else { //non c'è una mia richiesta
             //costruisco la richiesta di tipo HelloResponse (sempre definito in .proto)
-            CommunicationServiceOuterClass.Authorization response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();
+            response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();
             //passo la risposta nello stream
-            responseObserver.onNext(response);
         }
+
+        responseObserver.onNext(response);
 
     }
 

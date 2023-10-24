@@ -78,6 +78,7 @@ public class Mechanic extends Thread {
 
         listCopy = RobotList.getInstance().getRobotslist();
         System.out.println(listCopy.toString());
+        //GESTIRE LOGGER
         //li stampa come: [AdminServer.beans.RobotInfo@2f567cae, AdminServer.beans.RobotInfo@7847872c, AdminServer.beans.RobotInfo@76807654]
 
         if(! (robotState.getInstance().getState() == STATE.NEEDING)) //in case this function has been called by the admin client from cmd line
