@@ -12,9 +12,11 @@ import java.util.List;
 public class PollutionStats {
 
     //@XmlElement(name="my_averages")
+    //HashMap<ROBOTID, HashMap<Timestamp, Averages>>
     HashMap<Integer, HashMap<Long, List<Double>>> RobotAverages; //List<Double> !!
+    //HashMap<ROBOTID, Lista<struct>>
     HashMap<Integer, List<MqttMsg>> AveragesTime;
-
+    //HashMap<ROBOTID, Lista che aumenta>
     HashMap<Integer, List<Double>> AveragesNoTime;
 
     private static PollutionStats instance;
@@ -35,6 +37,7 @@ public class PollutionStats {
         return new HashMap<Integer, HashMap<Long, List<Double>>>(RobotAverages);
     }
 
+    //aggiunge ad entrambe le hashmap, sia a quella con timestamp che a quella senza
     public void addAverages(Integer ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
 
         //HashMap<Long, List<Double>> previous = new HashMap<>();
@@ -93,6 +96,8 @@ public class PollutionStats {
 
     }
 
+    //problema: le hashmap NON si possono scorrere, sono unordered!!!
+    //
     /*public Double getBetween(long t1, long t2) {
 
         double averageOne;

@@ -50,18 +50,21 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     @Override
     public void requestMechanic(CommunicationServiceOuterClass.Request request, StreamObserver<CommunicationServiceOuterClass.Authorization> responseObserver) {
 
+        //qui sono dentro chi riceve
         System.out.println("sono dentro request mechanic");
         System.out.println(request);
 
-        //if
-
-        //ma come trovo la port di quello che riceve??
-
-        //costruisco la richiesta di tipo HelloResponse (sempre definito in .proto)
-        CommunicationServiceOuterClass.Authorization response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();
-
-        //passo la risposta nello stream
-        responseObserver.onNext(response);
+        if(MechanicRequests.getInstance().getPersonal() != null) {
+            //bisognerebbe controllare i timestamp, qui sto dando per scontato che quella nuova sia successiva
+            MechanicRequests.getInstance().addRequest(request);
+            //wait?
+        }
+        else { //non c'è una mia richiesta
+            //costruisco la richiesta di tipo HelloResponse (sempre definito in .proto)
+            CommunicationServiceOuterClass.Authorization response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();
+            //passo la risposta nello stream
+            responseObserver.onNext(response);
+        }
 
     }
 

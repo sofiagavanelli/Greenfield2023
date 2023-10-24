@@ -1,5 +1,10 @@
 package CleaningRobot.breakHandler;
 
+import AdminServer.beans.RobotInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+
 enum STATE {
     WORKING,
     NEEDING,
@@ -17,6 +22,14 @@ public class robotState {
         if(instance==null)
             instance = new robotState();
         return instance;
+    }
+
+    public synchronized STATE getState() {
+        return current;
+    }
+
+    public synchronized void setState(STATE newS) {
+        current = newS;
     }
 
 }

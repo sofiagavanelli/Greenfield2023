@@ -2,12 +2,14 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
+import CleaningRobot.breakHandler.robotState;
 import com.example.chat.CommunicationServiceGrpc;
 import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import sun.misc.Queue;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -138,7 +140,7 @@ public class RobotP2P {
             if(element.getPortN() != botPort) { //in questo caso non mando il messaggio a me stesso
 
                 String target = "localhost:" + element.getPortN();
-                System.out.println("sto per creare un channel come target: " + target);
+                //System.out.println("sto per creare un channel come target: " + target);
 
                 //plaintext channel on the address (ip/port) which offers the GreetingService service
                 final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
@@ -151,6 +153,8 @@ public class RobotP2P {
                         .setFrom(botPort)
                         .setTime(System.currentTimeMillis())
                         .build();
+
+                MechanicRequests.getInstance().addPersonal(ask);
 
                 //calling the RPC method. since it is asynchronous, we need to define handlers
                 stub.requestMechanic(ask, new StreamObserver<CommunicationServiceOuterClass.Authorization>() {
@@ -187,8 +191,29 @@ public class RobotP2P {
 
         System.out.println("ho ricevuto ok da: " + authorizations);
 
-        if(authorizations.size() == (listCopy.size() - 1))
+        /*if(authorizations.size() == (listCopy.size() - 1)) {
             System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
+        }*/
+
+        while(authorizations.size() < (listCopy.size() - 1)) {
+            System.out.println("waiting for all authorizations");
+        }
+        System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
+        //sarebbe else wait ?
+
+    }
+
+    public static void answerPending() throws InterruptedException {
+
+        Queue pending = MechanicRequests.getInstance().getRequests();
+
+        if(pending != null) {
+            while(!pending.isEmpty()){
+                CommunicationServiceOuterClass.Request last = (CommunicationServiceOuterClass.Request) pending.dequeue();
+
+
+            }
+        }
 
     }
 

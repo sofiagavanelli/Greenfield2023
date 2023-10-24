@@ -15,11 +15,10 @@ CleaningRobot/simulators/Buffer.java
  CleaningRobot.simulators.Buffer
 CleaningRobot/simulators/PM10Simulator.java
  CleaningRobot.simulators.PM10Simulator
-AdminServer/beans/PollutionStats.java
- AdminServer.beans.PollutionStats
-AdminServer/MQTT/MqttSub.java
- AdminServer.MQTT.MqttSub
- AdminServer.MQTT.MqttSub$1
+CleaningRobot/gRPC/CommunicationService.java
+ CleaningRobot.gRPC.CommunicationService
+Utils/RestFunc.java
+ Utils.RestFunc
 com/example/chat/CommunicationServiceOuterClass.java
  com.example.chat.CommunicationServiceOuterClass
  com.example.chat.CommunicationServiceOuterClass$1
@@ -51,8 +50,9 @@ CleaningRobot/MQTT/Reader.java
  CleaningRobot.MQTT.Reader
 CleaningRobot/simulators/Simulator.java
  CleaningRobot.simulators.Simulator
-AdminServer/services/StatsService.java
- AdminServer.services.StatsService
+AdminServer/MQTT/MqttSub.java
+ AdminServer.MQTT.MqttSub
+ AdminServer.MQTT.MqttSub$1
 AdminServer/beans/RobotInfo.java
  AdminServer.beans.RobotInfo
 AdminServer/beans/RobotList.java
@@ -61,17 +61,22 @@ AdminServer/AdminServer.java
  AdminServer.AdminServer
 AdminClient/REST/Client.java
  AdminClient.REST.Client
-Utils/RestFunc.java
- Utils.RestFunc
+AdminServer/services/StatsService.java
+ AdminServer.services.StatsService
 AdminServer/services/RobotsService.java
  AdminServer.services.RobotsService
-CleaningRobot/gRPC/CommunicationService.java
- CleaningRobot.gRPC.CommunicationService
+CleaningRobot/breakHandler/robotState.java
+ CleaningRobot.breakHandler.STATE
+ CleaningRobot.breakHandler.robotState
+AdminServer/beans/PollutionStats.java
+ AdminServer.beans.PollutionStats
+CleaningRobot/breakHandler/crashSimulator.java
+ CleaningRobot.breakHandler.crashSimulator
 CleaningRobot/Robot.java
  CleaningRobot.Robot
+CleaningRobot/breakHandler/Mechanic.java
+ CleaningRobot.breakHandler.Mechanic
 CleaningRobot/gRPC/RobotP2P.java
  CleaningRobot.gRPC.RobotP2P
  CleaningRobot.gRPC.RobotP2P$1
  CleaningRobot.gRPC.RobotP2P$2
-CleaningRobot/Mechanic.java
- CleaningRobot.Mechanic

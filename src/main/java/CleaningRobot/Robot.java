@@ -5,6 +5,7 @@ import AdminServer.beans.RobotList;
 import CleaningRobot.MQTT.MqttPub;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.breakHandler.Mechanic;
+import CleaningRobot.breakHandler.crashSimulator;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.gRPC.CommunicationService;
 import CleaningRobot.simulators.PM10Simulator;
@@ -40,11 +41,12 @@ public class Robot {
     Reader readSensor; // = new Reader(newB);
     //static
     PM10Simulator botSimulator; // = new PM10Simulator(newB);
-    Mechanic crashTest;
+    Mechanic mechanicHandler;
+    crashSimulator crashTest;
     RobotP2P gRPCclient;
     Server gRPCserver;
 
-    public Robot(int botId, int botPort, PM10Simulator botSimulator, Reader readSensor, WindowBuffer newB, Mechanic crashTest/*, RobotP2P gRPCclient*/) {
+    public Robot(int botId, int botPort, PM10Simulator botSimulator, Reader readSensor, WindowBuffer newB, Mechanic mechanicHandler, crashSimulator crashTest/*, RobotP2P gRPCclient*/) {
         this.botId = botId;
         this.botPort = botPort;
 
@@ -52,6 +54,7 @@ public class Robot {
         this.readSensor = readSensor;
         this.newB = newB;
 
+        this.mechanicHandler = mechanicHandler;
         this.crashTest = crashTest;
         //this.gRPCclient = gRPCclient;
     }
@@ -74,8 +77,11 @@ public class Robot {
         this.botSimulator.start();
         this.readSensor.start();
 
-        this.crashTest.setConnections(RobotPortInfo);
+        this.mechanicHandler.setConnections(RobotPortInfo);
+
         this.crashTest.start();
+
+        this.mechanicHandler.start();
 
         //System.out.println("sono a riga 73 di initialize");
 
@@ -97,7 +103,8 @@ public class Robot {
         WindowBuffer newB = new WindowBuffer(8);
         PM10Simulator botSimulator = new PM10Simulator(newB);
         Reader readSensor = new Reader(newB);
-        Mechanic crashTest = new Mechanic(botSimulator, readSensor, botId, botPort);
+        Mechanic mechanicHandler = new Mechanic(botSimulator, readSensor, botId, botPort);
+        crashSimulator crashTest = new crashSimulator();
         //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
 
         botDistrict = 0; //non dovrebbe servire
@@ -106,7 +113,7 @@ public class Robot {
         //botPort = 1234; //input??
 
         //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
-        Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, crashTest/*, gRPCclient*/);
+        Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, mechanicHandler, crashTest/*, gRPCclient*/);
 
         //Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, crashTest, gRPCclient);
 
