@@ -120,6 +120,37 @@ public final class CommunicationServiceGrpc {
     return getRequestMechanicMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.Authorization,
+      com.google.protobuf.Empty> getAnswerPendingMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "answerPending",
+      requestType = com.example.chat.CommunicationServiceOuterClass.Authorization.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.Authorization,
+      com.google.protobuf.Empty> getAnswerPendingMethod() {
+    io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.Authorization, com.google.protobuf.Empty> getAnswerPendingMethod;
+    if ((getAnswerPendingMethod = CommunicationServiceGrpc.getAnswerPendingMethod) == null) {
+      synchronized (CommunicationServiceGrpc.class) {
+        if ((getAnswerPendingMethod = CommunicationServiceGrpc.getAnswerPendingMethod) == null) {
+          CommunicationServiceGrpc.getAnswerPendingMethod = getAnswerPendingMethod =
+              io.grpc.MethodDescriptor.<com.example.chat.CommunicationServiceOuterClass.Authorization, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "answerPending"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.chat.CommunicationServiceOuterClass.Authorization.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new CommunicationServiceMethodDescriptorSupplier("answerPending"))
+              .build();
+        }
+      }
+    }
+    return getAnswerPendingMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -168,6 +199,13 @@ public final class CommunicationServiceGrpc {
       asyncUnimplementedUnaryCall(getRequestMechanicMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void answerPending(com.example.chat.CommunicationServiceOuterClass.Authorization request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      asyncUnimplementedUnaryCall(getAnswerPendingMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -191,6 +229,13 @@ public final class CommunicationServiceGrpc {
                 com.example.chat.CommunicationServiceOuterClass.Request,
                 com.example.chat.CommunicationServiceOuterClass.Authorization>(
                   this, METHODID_REQUEST_MECHANIC)))
+          .addMethod(
+            getAnswerPendingMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.chat.CommunicationServiceOuterClass.Authorization,
+                com.google.protobuf.Empty>(
+                  this, METHODID_ANSWER_PENDING)))
           .build();
     }
   }
@@ -236,6 +281,14 @@ public final class CommunicationServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getRequestMechanicMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void answerPending(com.example.chat.CommunicationServiceOuterClass.Authorization request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAnswerPendingMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -275,6 +328,13 @@ public final class CommunicationServiceGrpc {
     public com.example.chat.CommunicationServiceOuterClass.Authorization requestMechanic(com.example.chat.CommunicationServiceOuterClass.Request request) {
       return blockingUnaryCall(
           getChannel(), getRequestMechanicMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty answerPending(com.example.chat.CommunicationServiceOuterClass.Authorization request) {
+      return blockingUnaryCall(
+          getChannel(), getAnswerPendingMethod(), getCallOptions(), request);
     }
   }
 
@@ -319,11 +379,20 @@ public final class CommunicationServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getRequestMechanicMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> answerPending(
+        com.example.chat.CommunicationServiceOuterClass.Authorization request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAnswerPendingMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_REMOVAL_MSG = 0;
   private static final int METHODID_PRESENTATION_MSG = 1;
   private static final int METHODID_REQUEST_MECHANIC = 2;
+  private static final int METHODID_ANSWER_PENDING = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -353,6 +422,10 @@ public final class CommunicationServiceGrpc {
         case METHODID_REQUEST_MECHANIC:
           serviceImpl.requestMechanic((com.example.chat.CommunicationServiceOuterClass.Request) request,
               (io.grpc.stub.StreamObserver<com.example.chat.CommunicationServiceOuterClass.Authorization>) responseObserver);
+          break;
+        case METHODID_ANSWER_PENDING:
+          serviceImpl.answerPending((com.example.chat.CommunicationServiceOuterClass.Authorization) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -418,6 +491,7 @@ public final class CommunicationServiceGrpc {
               .addMethod(getRemovalMsgMethod())
               .addMethod(getPresentationMsgMethod())
               .addMethod(getRequestMechanicMethod())
+              .addMethod(getAnswerPendingMethod())
               .build();
         }
       }

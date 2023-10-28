@@ -1824,16 +1824,10 @@ public final class CommunicationServiceOuterClass {
     int getFrom();
 
     /**
-     * <code>string ok = 2;</code>
+     * <code>bool ok = 2;</code>
      * @return The ok.
      */
-    java.lang.String getOk();
-    /**
-     * <code>string ok = 2;</code>
-     * @return The bytes for ok.
-     */
-    com.google.protobuf.ByteString
-        getOkBytes();
+    boolean getOk();
   }
   /**
    * Protobuf type {@code com.example.chat.Authorization}
@@ -1848,7 +1842,6 @@ public final class CommunicationServiceOuterClass {
       super(builder);
     }
     private Authorization() {
-      ok_ = "";
     }
 
     @java.lang.Override
@@ -1886,10 +1879,9 @@ public final class CommunicationServiceOuterClass {
               from_ = input.readInt32();
               break;
             }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 16: {
 
-              ok_ = s;
+              ok_ = input.readBool();
               break;
             }
             default: {
@@ -1935,39 +1927,13 @@ public final class CommunicationServiceOuterClass {
     }
 
     public static final int OK_FIELD_NUMBER = 2;
-    private volatile java.lang.Object ok_;
+    private boolean ok_;
     /**
-     * <code>string ok = 2;</code>
+     * <code>bool ok = 2;</code>
      * @return The ok.
      */
-    public java.lang.String getOk() {
-      java.lang.Object ref = ok_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ok_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ok = 2;</code>
-     * @return The bytes for ok.
-     */
-    public com.google.protobuf.ByteString
-        getOkBytes() {
-      java.lang.Object ref = ok_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ok_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public boolean getOk() {
+      return ok_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1987,8 +1953,8 @@ public final class CommunicationServiceOuterClass {
       if (from_ != 0) {
         output.writeInt32(1, from_);
       }
-      if (!getOkBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ok_);
+      if (ok_ != false) {
+        output.writeBool(2, ok_);
       }
       unknownFields.writeTo(output);
     }
@@ -2003,8 +1969,9 @@ public final class CommunicationServiceOuterClass {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, from_);
       }
-      if (!getOkBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ok_);
+      if (ok_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, ok_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2023,8 +1990,8 @@ public final class CommunicationServiceOuterClass {
 
       if (getFrom()
           != other.getFrom()) return false;
-      if (!getOk()
-          .equals(other.getOk())) return false;
+      if (getOk()
+          != other.getOk()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2039,7 +2006,8 @@ public final class CommunicationServiceOuterClass {
       hash = (37 * hash) + FROM_FIELD_NUMBER;
       hash = (53 * hash) + getFrom();
       hash = (37 * hash) + OK_FIELD_NUMBER;
-      hash = (53 * hash) + getOk().hashCode();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getOk());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2175,7 +2143,7 @@ public final class CommunicationServiceOuterClass {
         super.clear();
         from_ = 0;
 
-        ok_ = "";
+        ok_ = false;
 
         return this;
       }
@@ -2256,9 +2224,8 @@ public final class CommunicationServiceOuterClass {
         if (other.getFrom() != 0) {
           setFrom(other.getFrom());
         }
-        if (!other.getOk().isEmpty()) {
-          ok_ = other.ok_;
-          onChanged();
+        if (other.getOk() != false) {
+          setOk(other.getOk());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2319,78 +2286,32 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private java.lang.Object ok_ = "";
+      private boolean ok_ ;
       /**
-       * <code>string ok = 2;</code>
+       * <code>bool ok = 2;</code>
        * @return The ok.
        */
-      public java.lang.String getOk() {
-        java.lang.Object ref = ok_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ok_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public boolean getOk() {
+        return ok_;
       }
       /**
-       * <code>string ok = 2;</code>
-       * @return The bytes for ok.
-       */
-      public com.google.protobuf.ByteString
-          getOkBytes() {
-        java.lang.Object ref = ok_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ok_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ok = 2;</code>
+       * <code>bool ok = 2;</code>
        * @param value The ok to set.
        * @return This builder for chaining.
        */
-      public Builder setOk(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      public Builder setOk(boolean value) {
+        
         ok_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string ok = 2;</code>
+       * <code>bool ok = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearOk() {
         
-        ok_ = getDefaultInstance().getOk();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ok = 2;</code>
-       * @param value The bytes for ok to set.
-       * @return This builder for chaining.
-       */
-      public Builder setOkBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        ok_ = value;
+        ok_ = false;
         onChanged();
         return this;
       }
@@ -2482,13 +2403,15 @@ public final class CommunicationServiceOuterClass {
       "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"\025\n" +
       "\007Goodbye\022\n\n\002id\030\001 \001(\005\"%\n\007Request\022\014\n\004from\030" +
       "\001 \001(\005\022\014\n\004time\030\002 \001(\003\")\n\rAuthorization\022\014\n\004" +
-      "from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\t2\361\001\n\024Communication" +
+      "from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\0102\273\002\n\024Communication" +
       "Service\022?\n\nremovalMsg\022\031.com.example.chat" +
       ".Goodbye\032\026.google.protobuf.Empty\022I\n\017pres" +
       "entationMsg\022\036.com.example.chat.Presentat" +
       "ion\032\026.google.protobuf.Empty\022M\n\017requestMe" +
       "chanic\022\031.com.example.chat.Request\032\037.com." +
-      "example.chat.Authorizationb\006proto3"
+      "example.chat.Authorization\022H\n\ranswerPend" +
+      "ing\022\037.com.example.chat.Authorization\032\026.g" +
+      "oogle.protobuf.Emptyb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -2,6 +2,9 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
+import CleaningRobot.breakHandler.STATE;
+import CleaningRobot.breakHandler.robotState;
+import CleaningRobot.personalInfo;
 import com.example.chat.CommunicationServiceGrpc;
 import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
@@ -51,13 +54,15 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     public void requestMechanic(CommunicationServiceOuterClass.Request request, StreamObserver<CommunicationServiceOuterClass.Authorization> responseObserver) {
 
         //qui sono dentro chi riceve
-        System.out.println("sono dentro request mechanic");
-        System.out.println(request);
+        System.out.println("somebody needs the mechanic");
 
         CommunicationServiceOuterClass.Authorization response;
 
-        if(MechanicRequests.getInstance().getPersonal() != null) {
-            //bisognerebbe controllare i timestamp, qui sto dando per scontato che quella nuova sia successiva
+        //devo dire da chi è!! mi serve il mio botID
+        int myPort = personalInfo.getInstance().getBotID();
+
+        //i need the mechanic so i have a request out
+        if(robotState.getInstance().getState() == STATE.NEEDING) {
 
             CommunicationServiceOuterClass.Request mine = MechanicRequests.getInstance().getPersonal();
 
@@ -65,22 +70,51 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
                 //metto la tua richiesta nella mia coda
                 MechanicRequests.getInstance().addRequest(request);
                 //ho già io una richiesta ed è inferiore quindi dico di no
-                response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("NO").build();
+                response = CommunicationServiceOuterClass.Authorization.newBuilder()
+                        .setOk(false)
+                        .setFrom(myPort)
+                        .build();
                 // wait?
             }
             else //la mia richiesta è successiva quindi hai tu accesso
-                response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();
+                response = CommunicationServiceOuterClass.Authorization.newBuilder()
+                        .setOk(true)
+                        .setFrom(myPort)
+                        .build();
 
-        }
-        else { //non c'è una mia richiesta
-            //costruisco la richiesta di tipo HelloResponse (sempre definito in .proto)
-            response = CommunicationServiceOuterClass.Authorization.newBuilder().setOk("OK").build();
+        } else if (robotState.getInstance().getState() == STATE.MECHANIC) {
+            MechanicRequests.getInstance().addRequest(request);
+            //sono dal meccanico quindi rispondo di no
+            response = CommunicationServiceOuterClass.Authorization.newBuilder()
+                    .setOk(false)
+                    .setFrom(myPort)
+                    .build();
+        } else { //non c'è una mia richiesta
+            response = CommunicationServiceOuterClass.Authorization.newBuilder()
+                    .setOk(true)
+                    .setFrom(myPort)
+                    .build();
             //passo la risposta nello stream
         }
 
         responseObserver.onNext(response);
 
+        responseObserver.onCompleted();
+
     }
 
+    @Override
+    public void answerPending(CommunicationServiceOuterClass.Authorization authorization, StreamObserver<Empty> responseObserver) {
 
+        System.out.println("somebody released the mechanic");
+        //chi è in attesa riceve una risposta ?
+        Authorizations.getInstance().addAuthorization(authorization);
+
+        Authorizations.getInstance().getAuthorizations().notifyAll();
+
+        responseObserver.onNext(null);
+
+        //completo e finisco la comunicazione
+        responseObserver.onCompleted();
+    }
 }

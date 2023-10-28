@@ -64,8 +64,6 @@ public class Robot {
         //this.gRPCclient.start();
         this.startGRPCServer();
 
-        /*gRPCclient.setBots(robotInfoList);*/
-
         try {
             List<RobotInfo> list = RobotList.getInstance().getRobotslist();
             //int[] RobotPortInfo, int botPort, int botDistrict, int botID
@@ -128,14 +126,17 @@ public class Robot {
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
         System.out.println(clientResponse.toString());
 
+        //qui cosa sto facendo: chiedo al server la lista dei robot
         RobotList robs = clientResponse.getEntity(RobotList.class);
+        //la copio ?
         List<RobotInfo> copyRobs = robs.getRobotslist();
         RobotList.getInstance().setRobotslist(copyRobs);
         //gRPCclient.setBots(copyRobs);
 
-        //bot.setConnections(copyRobs);
-
         //then you should receive back the position and the district !!!!
+        //inserire una funzione!!!
+
+        //si potrebbero togliere gli assegnamenti ?
         for (RobotInfo r : robs.getRobotslist()){
             if(r.getId() == botId) {
                 botDistrict = r.getDistrict();
@@ -143,6 +144,8 @@ public class Robot {
                 y = r.getY();
             }
         }
+
+        personalInfo robot = new personalInfo(botId, botDistrict, x, y, botPort);
 
         System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
 
@@ -176,40 +179,6 @@ public class Robot {
 
         }
     }
-
-    private void setConnections(List<RobotInfo> bots) {
-
-        //ci dovrebbe SEMPRE essere almeno bot=me stesso
-        //this.bots = bots;
-        System.out.println(bots.size());
-        int size = bots.size();
-        RobotPortInfo = new int[size];
-
-        System.out.println("line 45 p2p");
-        System.out.println(bots.get(0).getPortN());
-
-        int i = 0;
-        //boolean stopCondition = false;
-
-        while (size > i) { //(!stopCondition) {
-
-            this.RobotPortInfo[i] = bots.get(i).getPortN();
-            System.out.println(bots.get(i).getPortN());
-            i++;
-            //} else System.out.println("sono nell'else");
-            //stopCondition = true; //finished elements
-        }
-
-        //}*/
-
-    }
-
-    /*void sendPort(RobotInfo r) {
-
-        this.robotInfoList.add(r);
-
-        //this.gRPCclient.setBot(r);
-    }*/
 
 
 }

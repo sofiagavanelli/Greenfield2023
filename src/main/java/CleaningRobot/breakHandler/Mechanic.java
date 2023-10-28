@@ -3,11 +3,14 @@ package CleaningRobot.breakHandler;
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import CleaningRobot.MQTT.Reader;
+import CleaningRobot.gRPC.Authorizations;
+import CleaningRobot.gRPC.MechanicRequests;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class Mechanic extends Thread {
 
@@ -35,27 +38,58 @@ public class Mechanic extends Thread {
     public void run() {
 
         //while(!stopCondition) {
-        while(robotState.getInstance().getState() == STATE.WORKING) {
+        while(!stopCondition) {
 
-            try {
-                //wait for requests
-                System.out.println("line 42: ciao");
-                //deal with those
+            //try {
+            //wait for requests
+            if(robotState.getInstance().getState() == STATE.NEEDING) {
 
-                //mechanic:
-                sleep(10000);
+                try {
+                    RobotP2P.requestMechanic(/*listCopy, */botPort, botId);
+                    System.out.println("out of requestMechanic");
+                    System.out.println(Authorizations.getInstance().getAuthorizations());
+                    while(Authorizations.getInstance().getAuthorizations().size() <
+                            (RobotList.getInstance().getRobotslist().size() - 1)) {
+                        System.out.println("sono nel while");
+                        Authorizations.getInstance().getAuthorizations().wait();
+                    }
+
+                    //ha ottenuto le autorizzazioni per andare dal meccanico
+                    robotState.getInstance().setState(STATE.MECHANIC);
+                    System.out.println("uso il meccanico");
+                    sleep(10000); //10s di meccanico
+                    System.out.println("rilascio il meccanico");
+                    //ha finito di usare il meccanico e torna a lavorare
+                    robotState.getInstance().setState(STATE.WORKING);
+                    //rimuovo la mia richiesta
+                    MechanicRequests.getInstance().removePersonal();
+                    Authorizations.getInstance().removeAll();
+                    //comunico a chi era in attesa che io sono uscita
+                    RobotP2P.answerPending(botPort);
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
 
-                //isWorking();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
+                //goToMechanic();
+            //deal with those
+
+            //ma lo faccio dormire?
+            //sleep(10000);
+
+
+            //isWorking();
+            /*} catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }*/
 
             //System.out.println("prova");
             //isWorking();
         }
 
-        goToMechanic();
+        //goToMechanic();
 
     }
 
@@ -76,10 +110,9 @@ public class Mechanic extends Thread {
         //ripetizione: se entra qui vuol dire che è già stato settato a needing
         //robotState.getInstance().setState(STATE.NEEDING);
 
-        listCopy = RobotList.getInstance().getRobotslist();
-        System.out.println(listCopy.toString());
+        //listCopy = RobotList.getInstance().getRobotslist();
+
         //GESTIRE LOGGER
-        //li stampa come: [AdminServer.beans.RobotInfo@2f567cae, AdminServer.beans.RobotInfo@7847872c, AdminServer.beans.RobotInfo@76807654]
 
         if(! (robotState.getInstance().getState() == STATE.NEEDING)) //in case this function has been called by the admin client from cmd line
             robotState.getInstance().setState(STATE.NEEDING);
@@ -91,10 +124,20 @@ public class Mechanic extends Thread {
         //slide synchro slide 18
 
         try {
-            RobotP2P.requestMechanic(listCopy, botPort, botId);
+            RobotP2P.requestMechanic(/*listCopy, */botPort, botId);
+            System.out.println("out of requestMechanic");
+            /*while(Authorizations.getInstance().getAuthorizations().size() < (listCopy.size()-1)) {
+                //non ho ancora tutte le authorizations
+                System.out.println("sono nel while");
+                Authorizations.getInstance().getAuthorizations().wait();
+            } *///non posso mettere qua notify!!
+            //this.notify();
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("ho concluso le richieste");
 
         //ha ottenuto le autorizzazioni per andare dal meccanico
         robotState.getInstance().setState(STATE.MECHANIC);
@@ -103,14 +146,26 @@ public class Mechanic extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        //ha finito di usare il meccanico e torna a lavorare
         robotState.getInstance().setState(STATE.WORKING);
+        MechanicRequests.getInstance().removePersonal();
+        try {
+            RobotP2P.answerPending(botPort);
+            //notifyAll();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        run();
+        //start();
 
     }
 
     public void setConnections(int[] ports) {
         this.RobotPortInfo = ports;
+    }
+
+    public void forceMechanic() {
+        robotState.getInstance().setState(STATE.NEEDING);
     }
 
 }

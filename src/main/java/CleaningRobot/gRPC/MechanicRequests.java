@@ -1,17 +1,22 @@
 package CleaningRobot.gRPC;
 
 import CleaningRobot.breakHandler.robotState;
-import com.example.chat.CommunicationServiceOuterClass;
-import sun.misc.Queue;
+import com.example.chat.CommunicationServiceOuterClass.*;
+//import sun.misc.Queue;
 
-import java.util.List;
+import java.util.*;
 
 public class MechanicRequests {
 
-    Queue<CommunicationServiceOuterClass.Request> requests;
-    CommunicationServiceOuterClass.Request personal;
+    List<Request> requests;
+    Request personal;
 
     private static MechanicRequests instance;
+
+    private MechanicRequests() {
+        requests = new ArrayList<Request>(); //ne crea una nuova//
+        //robotsList.add(new RobotInfo(12, 7));
+    }
 
     //singleton
     public static synchronized MechanicRequests getInstance(){
@@ -20,19 +25,22 @@ public class MechanicRequests {
         return instance;
     }
 
-    public void addRequest(CommunicationServiceOuterClass.Request newR) {
-        requests.enqueue(newR);
+    public void addRequest(Request newR) {
+        requests.add(newR);
     }
 
-    public void addPersonal(CommunicationServiceOuterClass.Request mine){
-        personal = mine;
+    public void addPersonal(Request mine){
+        if(personal == null)
+            personal = mine;
     }
 
-    public CommunicationServiceOuterClass.Request getPersonal() {
+    public Request getPersonal() {
         return personal;
     }
 
-    public Queue<CommunicationServiceOuterClass.Request> getRequests() {
+    public void removePersonal() { personal = null; }
+
+    public List<Request> getRequests() {
         return requests;
     }
 

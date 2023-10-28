@@ -1,13 +1,21 @@
 package CleaningRobot.gRPC;
 
-import com.example.chat.CommunicationServiceOuterClass;
-import sun.misc.Queue;
+import AdminServer.beans.RobotInfo;
+import com.example.chat.CommunicationServiceOuterClass.*;
+//import sun.misc.Queue;
+
+import java.util.*;
 
 public class Authorizations {
 
-    Queue<CommunicationServiceOuterClass.Authorization> authorizations;
+    List<Authorization> authorizations;
 
     private static Authorizations instance;
+
+    private Authorizations() {
+        authorizations = new ArrayList<Authorization>(); //ne crea una nuova//
+        //robotsList.add(new RobotInfo(12, 7));
+    }
 
     //singleton
     public static synchronized Authorizations getInstance(){
@@ -16,11 +24,16 @@ public class Authorizations {
         return instance;
     }
 
-    public void addAuthorization(CommunicationServiceOuterClass.Authorization newA) {
-        authorizations.enqueue(newA);
+    public void addAuthorization(Authorization newA) {
+        authorizations.add(newA);
     }
 
-    public Queue<CommunicationServiceOuterClass.Authorization> getAuthorizations() {
+    public void removeAll() {
+        //authorizations = null;
+        authorizations = new ArrayList<>();
+    }
+
+    public List<Authorization> getAuthorizations() {
         return authorizations;
     }
 

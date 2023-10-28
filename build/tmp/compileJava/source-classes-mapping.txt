@@ -1,24 +1,11 @@
-com/example/chat/CommunicationServiceGrpc.java
- com.example.chat.CommunicationServiceGrpc
- com.example.chat.CommunicationServiceGrpc$1
- com.example.chat.CommunicationServiceGrpc$CommunicationServiceBaseDescriptorSupplier
- com.example.chat.CommunicationServiceGrpc$CommunicationServiceBlockingStub
- com.example.chat.CommunicationServiceGrpc$CommunicationServiceFileDescriptorSupplier
- com.example.chat.CommunicationServiceGrpc$CommunicationServiceFutureStub
- com.example.chat.CommunicationServiceGrpc$CommunicationServiceImplBase
- com.example.chat.CommunicationServiceGrpc$CommunicationServiceMethodDescriptorSupplier
- com.example.chat.CommunicationServiceGrpc$CommunicationServiceStub
- com.example.chat.CommunicationServiceGrpc$MethodHandlers
-AdminServer/beans/RobotPositions.java
- AdminServer.beans.RobotPositions
-CleaningRobot/simulators/Buffer.java
- CleaningRobot.simulators.Buffer
+AdminServer/beans/RobotList.java
+ AdminServer.beans.RobotList
+AdminServer/AdminServer.java
+ AdminServer.AdminServer
 CleaningRobot/simulators/PM10Simulator.java
  CleaningRobot.simulators.PM10Simulator
-CleaningRobot/breakHandler/crashSimulator.java
- CleaningRobot.breakHandler.crashSimulator
-Utils/RestFunc.java
- Utils.RestFunc
+AdminServer/beans/PollutionStats.java
+ AdminServer.beans.PollutionStats
 com/example/chat/CommunicationServiceOuterClass.java
  com.example.chat.CommunicationServiceOuterClass
  com.example.chat.CommunicationServiceOuterClass$1
@@ -38,40 +25,60 @@ com/example/chat/CommunicationServiceOuterClass.java
  com.example.chat.CommunicationServiceOuterClass$Request$1
  com.example.chat.CommunicationServiceOuterClass$Request$Builder
  com.example.chat.CommunicationServiceOuterClass$RequestOrBuilder
-CleaningRobot/simulators/Measurement.java
- CleaningRobot.simulators.Measurement
+AdminClient/REST/Client.java
+ AdminClient.REST.Client
+CleaningRobot/breakHandler/STATE.java
+ CleaningRobot.breakHandler.STATE
 CleaningRobot/simulators/WindowBuffer.java
  CleaningRobot.simulators.WindowBuffer
-CleaningRobot/MQTT/MqttPub.java
- CleaningRobot.MQTT.MqttPub
-Utils/MqttMsg.java
- Utils.MqttMsg
-CleaningRobot/MQTT/Reader.java
- CleaningRobot.MQTT.Reader
+CleaningRobot/breakHandler/robotState.java
+ CleaningRobot.breakHandler.robotState
+AdminServer/services/RobotsService.java
+ AdminServer.services.RobotsService
+Utils/RestFunc.java
+ Utils.RestFunc
+AdminServer/beans/RobotInfo.java
+ AdminServer.beans.RobotInfo
 CleaningRobot/simulators/Simulator.java
  CleaningRobot.simulators.Simulator
+AdminServer/services/StatsService.java
+ AdminServer.services.StatsService
+CleaningRobot/MQTT/MqttPub.java
+ CleaningRobot.MQTT.MqttPub
+CleaningRobot/MQTT/Reader.java
+ CleaningRobot.MQTT.Reader
+CleaningRobot/personalInfo.java
+ CleaningRobot.personalInfo
+Utils/MqttMsg.java
+ Utils.MqttMsg
+com/example/chat/CommunicationServiceGrpc.java
+ com.example.chat.CommunicationServiceGrpc
+ com.example.chat.CommunicationServiceGrpc$1
+ com.example.chat.CommunicationServiceGrpc$CommunicationServiceBaseDescriptorSupplier
+ com.example.chat.CommunicationServiceGrpc$CommunicationServiceBlockingStub
+ com.example.chat.CommunicationServiceGrpc$CommunicationServiceFileDescriptorSupplier
+ com.example.chat.CommunicationServiceGrpc$CommunicationServiceFutureStub
+ com.example.chat.CommunicationServiceGrpc$CommunicationServiceImplBase
+ com.example.chat.CommunicationServiceGrpc$CommunicationServiceMethodDescriptorSupplier
+ com.example.chat.CommunicationServiceGrpc$CommunicationServiceStub
+ com.example.chat.CommunicationServiceGrpc$MethodHandlers
+AdminServer/beans/RobotPositions.java
+ AdminServer.beans.RobotPositions
+CleaningRobot/simulators/Buffer.java
+ CleaningRobot.simulators.Buffer
 AdminServer/MQTT/MqttSub.java
  AdminServer.MQTT.MqttSub
  AdminServer.MQTT.MqttSub$1
-AdminServer/beans/RobotInfo.java
- AdminServer.beans.RobotInfo
-AdminServer/beans/RobotList.java
- AdminServer.beans.RobotList
-AdminServer/AdminServer.java
- AdminServer.AdminServer
-AdminClient/REST/Client.java
- AdminClient.REST.Client
-AdminServer/services/StatsService.java
- AdminServer.services.StatsService
-AdminServer/services/RobotsService.java
- AdminServer.services.RobotsService
-CleaningRobot/breakHandler/robotState.java
- CleaningRobot.breakHandler.STATE
- CleaningRobot.breakHandler.robotState
-AdminServer/beans/PollutionStats.java
- AdminServer.beans.PollutionStats
+CleaningRobot/breakHandler/crashSimulator.java
+ CleaningRobot.breakHandler.crashSimulator
+CleaningRobot/simulators/Measurement.java
+ CleaningRobot.simulators.Measurement
+CleaningRobot/gRPC/MechanicRequests.java
+ CleaningRobot.gRPC.MechanicRequests
 CleaningRobot/gRPC/CommunicationService.java
  CleaningRobot.gRPC.CommunicationService
+CleaningRobot/gRPC/Authorizations.java
+ CleaningRobot.gRPC.Authorizations
 CleaningRobot/Robot.java
  CleaningRobot.Robot
 CleaningRobot/breakHandler/Mechanic.java
@@ -80,5 +87,4 @@ CleaningRobot/gRPC/RobotP2P.java
  CleaningRobot.gRPC.RobotP2P
  CleaningRobot.gRPC.RobotP2P$1
  CleaningRobot.gRPC.RobotP2P$2
-CleaningRobot/gRPC/MechanicRequests.java
- CleaningRobot.gRPC.MechanicRequests
+ CleaningRobot.gRPC.RobotP2P$3

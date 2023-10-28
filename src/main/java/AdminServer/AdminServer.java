@@ -25,7 +25,7 @@ public class AdminServer {
     public static void main(String[] args) throws IOException, MqttException {
         MqttClient client;
         String broker = "tcp://localhost:1883";
-        String clientId = "AdminServer-DPS2023"; //MqttClient.generateClientId();
+        String clientId = /*"AdminServer-DPS2023"; //*/MqttClient.generateClientId();
         String topic = "greenfield/pollution/#";
 
         int qos = 2;
@@ -64,10 +64,10 @@ public class AdminServer {
 
 
 
-            System.out.println("\n ***  Press a random key to exit *** \n");
-            Scanner command = new Scanner(System.in);
-            command.nextLine();
-            client.disconnect();
+            //System.out.println("\n ***  Press a random key to exit *** \n");
+            //Scanner command = new Scanner(System.in);
+            //command.nextLine();
+            //client.disconnect();
 
         } catch (MqttException me ) {
             System.out.println("reason " + me.getReasonCode());

@@ -17,16 +17,6 @@ public class MqttMsg {
         this.robotID = robotID;
     }
 
-    /*public String getStringMessage() {
-        String msg = Integer.toString(robotID);
-        msg = msg.concat(":");
-        msg = msg.concat(String.valueOf(averages));
-        msg = msg.concat(":");
-        msg = msg.concat(String.valueOf(timestamp));
-
-        return msg;
-    }*/
-
     public long getTimestamp() {
         return timestamp;
     }

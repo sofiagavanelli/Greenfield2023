@@ -33,7 +33,7 @@ message Request {
 
 message Authorization {
     int32 from = 1;
-    string ok = 2;
+    bool ok = 2;
 }
 
 service CommunicationService {
@@ -41,5 +41,6 @@ service CommunicationService {
     rpc removalMsg(Goodbye) returns (google.protobuf.Empty);
     rpc presentationMsg(Presentation) returns (google.protobuf.Empty);
     rpc requestMechanic(Request) returns (Authorization);
+    rpc answerPending(Authorization) returns (google.protobuf.Empty);
 
 }
