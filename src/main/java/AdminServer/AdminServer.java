@@ -25,7 +25,7 @@ public class AdminServer {
     public static void main(String[] args) throws IOException, MqttException {
         MqttClient client;
         String broker = "tcp://localhost:1883";
-        String clientId = /*"AdminServer-DPS2023"; //*/MqttClient.generateClientId();
+        String clientId = MqttClient.generateClientId();
         String topic = "greenfield/pollution/#";
 
         int qos = 2;
@@ -47,6 +47,7 @@ public class AdminServer {
             client.subscribe(topic,qos);
             System.out.println(clientId + " Subscribed to topics : " + topic);
 
+            //http server
             System.out.println("I'm here'!");
             HttpServer server = HttpServerFactory.create("http://"+HOST+":"+PORT+"/");
             server.start();

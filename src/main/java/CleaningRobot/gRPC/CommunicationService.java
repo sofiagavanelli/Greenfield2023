@@ -110,7 +110,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         //chi è in attesa riceve una risposta ?
         Authorizations.getInstance().addAuthorization(authorization);
 
-        Authorizations.getInstance().getAuthorizations().notifyAll();
+        //non posso metterla qui perché il wait viene fatto dentro il mechanic ?
+        Authorizations.getInstance().getAuthorizations().notify();
 
         responseObserver.onNext(null);
 

@@ -51,7 +51,7 @@ public class Mechanic extends Thread {
                     while(Authorizations.getInstance().getAuthorizations().size() <
                             (RobotList.getInstance().getRobotslist().size() - 1)) {
                         System.out.println("sono nel while");
-                        Authorizations.getInstance().getAuthorizations().wait();
+                        Authorizations.getInstance().getAuthorizations().wait(); //c'è un problema di sovrapposizione
                     }
 
                     //ha ottenuto le autorizzazioni per andare dal meccanico

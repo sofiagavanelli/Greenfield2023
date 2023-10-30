@@ -47,6 +47,9 @@ public class Robot {
     Server gRPCserver;
 
     public Robot(int botId, int botPort, PM10Simulator botSimulator, Reader readSensor, WindowBuffer newB, Mechanic mechanicHandler, crashSimulator crashTest/*, RobotP2P gRPCclient*/) {
+
+        //e queste?
+
         this.botId = botId;
         this.botPort = botPort;
 
@@ -65,6 +68,7 @@ public class Robot {
         this.startGRPCServer();
 
         try {
+            //anche questo passaggio delle liste !!!! no.
             List<RobotInfo> list = RobotList.getInstance().getRobotslist();
             //int[] RobotPortInfo, int botPort, int botDistrict, int botID
             RobotP2P.firstMSG(list, botPort, botDistrict, botId, x, y);
@@ -75,6 +79,7 @@ public class Robot {
         this.botSimulator.start();
         this.readSensor.start();
 
+        //set connections probabilmente non serve più!!
         this.mechanicHandler.setConnections(RobotPortInfo);
 
         this.crashTest.start();
@@ -87,7 +92,7 @@ public class Robot {
 
     public static void main(String argv[]) throws Exception {
 
-        Scanner sc= new Scanner(System.in);    //System.in is a standard input stream
+        Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
         System.out.print("Enter id: ");
         botId = sc.nextInt();
         System.out.print("Enter port: ");
