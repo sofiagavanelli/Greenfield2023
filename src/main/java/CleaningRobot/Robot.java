@@ -150,7 +150,7 @@ public class Robot {
             }
         }
 
-        personalInfo robot = new personalInfo(botId, botDistrict, x, y, botPort);
+        personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
 
         System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
 

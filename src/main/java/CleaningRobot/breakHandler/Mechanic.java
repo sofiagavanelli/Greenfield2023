@@ -37,7 +37,6 @@ public class Mechanic extends Thread {
     @Override
     public void run() {
 
-        //while(!stopCondition) {
         while(!stopCondition) {
 
             //try {
@@ -45,14 +44,11 @@ public class Mechanic extends Thread {
             if(robotState.getInstance().getState() == STATE.NEEDING) {
 
                 try {
-                    RobotP2P.requestMechanic(/*listCopy, */botPort, botId);
+                    RobotP2P.requestMechanic(/*listCopy, botPort, botId*/);
                     System.out.println("out of requestMechanic");
                     System.out.println(Authorizations.getInstance().getAuthorizations());
-                    while(Authorizations.getInstance().getAuthorizations().size() <
-                            (RobotList.getInstance().getRobotslist().size() - 1)) {
-                        System.out.println("sono nel while");
-                        Authorizations.getInstance().getAuthorizations().wait(); //c'è un problema di sovrapposizione
-                    }
+
+                    Authorizations.getInstance().controlAuthorizations();
 
                     //ha ottenuto le autorizzazioni per andare dal meccanico
                     robotState.getInstance().setState(STATE.MECHANIC);
@@ -65,7 +61,9 @@ public class Mechanic extends Thread {
                     MechanicRequests.getInstance().removePersonal();
                     Authorizations.getInstance().removeAll();
                     //comunico a chi era in attesa che io sono uscita
-                    RobotP2P.answerPending(botPort);
+                    if(MechanicRequests.getInstance().getRequests().size() > 0) {
+                        RobotP2P.answerPending();
+                    }
 
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -73,38 +71,15 @@ public class Mechanic extends Thread {
 
 
             }
-                //goToMechanic();
-            //deal with those
 
-            //ma lo faccio dormire?
-            //sleep(10000);
-
-
-            //isWorking();
-            /*} catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }*/
-
-            //System.out.println("prova");
-            //isWorking();
-        }
-
-        //goToMechanic();
-
-    }
-
-    public void isWorking() {
-
-        int i = rnd.nextInt(100);
-        //int i = 8;
-
-        if(i < 10 && i >= 0) {
-            stopCondition = true;
-            System.out.println("This robot has crashed");
         }
 
     }
 
+
+
+
+    ///////////////////////////////////////////**
     public void goToMechanic() {
 
         //ripetizione: se entra qui vuol dire che è già stato settato a needing
@@ -112,7 +87,7 @@ public class Mechanic extends Thread {
 
         //listCopy = RobotList.getInstance().getRobotslist();
 
-        //GESTIRE LOGGER
+        /*GESTIRE LOGGER
 
         if(! (robotState.getInstance().getState() == STATE.NEEDING)) //in case this function has been called by the admin client from cmd line
             robotState.getInstance().setState(STATE.NEEDING);
@@ -124,13 +99,13 @@ public class Mechanic extends Thread {
         //slide synchro slide 18
 
         try {
-            RobotP2P.requestMechanic(/*listCopy, */botPort, botId);
+            RobotP2P.requestMechanic();
             System.out.println("out of requestMechanic");
-            /*while(Authorizations.getInstance().getAuthorizations().size() < (listCopy.size()-1)) {
+            while(Authorizations.getInstance().getAuthorizations().size() < (listCopy.size()-1)) {
                 //non ho ancora tutte le authorizations
                 System.out.println("sono nel while");
                 Authorizations.getInstance().getAuthorizations().wait();
-            } *///non posso mettere qua notify!!
+            } //non posso mettere qua notify!!
             //this.notify();
 
         } catch (InterruptedException e) {
@@ -150,13 +125,13 @@ public class Mechanic extends Thread {
         robotState.getInstance().setState(STATE.WORKING);
         MechanicRequests.getInstance().removePersonal();
         try {
-            RobotP2P.answerPending(botPort);
+            RobotP2P.answerPending();
             //notifyAll();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        //start();
+        //start();*/
 
     }
 

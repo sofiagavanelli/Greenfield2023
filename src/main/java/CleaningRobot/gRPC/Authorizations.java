@@ -1,6 +1,9 @@
 package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
+import AdminServer.beans.RobotList;
+import CleaningRobot.breakHandler.STATE;
+import CleaningRobot.breakHandler.robotState;
 import com.example.chat.CommunicationServiceOuterClass.*;
 //import sun.misc.Queue;
 
@@ -14,7 +17,6 @@ public class Authorizations {
 
     private Authorizations() {
         authorizations = new ArrayList<Authorization>(); //ne crea una nuova//
-        //robotsList.add(new RobotInfo(12, 7));
     }
 
     //singleton
@@ -37,4 +39,21 @@ public class Authorizations {
         return authorizations;
     }
 
+    public synchronized void controlAuthorizations() {
+
+        if(robotState.getInstance().getState() == STATE.NEEDING) { //funzione chiamata dopo una richiesta del meccanico
+            while (authorizations.size() <
+                    (RobotList.getInstance().getRobotslist().size() - 1)) {
+                System.out.println("i'm waiting for some authorizations");
+                try {
+                    authorizations.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        else //questa funzione è stata chiamata per risvegliare dei thread in attesa dopo il rilascio del meccanico
+            authorizations.notify();
+
+    }
 }

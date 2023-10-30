@@ -3,6 +3,7 @@ package CleaningRobot.gRPC;
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import CleaningRobot.breakHandler.robotState;
+import CleaningRobot.personalInfo;
 import com.example.chat.CommunicationServiceGrpc;
 import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
@@ -98,26 +99,28 @@ public class RobotP2P {
 
     }
 
-    public static void requestMechanic(/*int[] RobotPortInfo, *//*List<RobotInfo> listCopy,*/ int botPort, int botID) throws InterruptedException {
+    public static void requestMechanic(/*int[] RobotPortInfo, *//*List<RobotInfo> listCopy, int botPort, int botID*/) throws InterruptedException {
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
-        //System.out.println(copy); */
-        //inutile: int[] RobotPortInfo = setBots(listCopy);
-        //List<Integer> authorizations = new ArrayList<>();
+        int botPort = personalInfo.getInstance().getPort();
 
-        //creating the HelloResponse object which will be provided as input to the RPC method
+        //ma a cosa mi serve l'ID ?
+        int botId = personalInfo.getInstance().getBotID();
+
         CommunicationServiceOuterClass.Request ask = CommunicationServiceOuterClass.Request.newBuilder()
                 .setFrom(botPort)
                 .setTime(System.currentTimeMillis())
                 .build();
 
-        //sarebbe da fare una sola volta -- tengo conto della mia richiesta
+        //fare una sola volta -- tengo conto della mia richiesta
         MechanicRequests.getInstance().addPersonal(ask);
 
         //for (int element : RobotPortInfo) {
         for (RobotInfo element : listCopy) {
 
             if(element.getPortN() != botPort) { //in questo caso non mando il messaggio a me stesso
+
+                System.out.println("sto per mandare la richiesta a: " + element.getPortN());
 
                 String target = "localhost:" + element.getPortN();
                 //System.out.println("sto per creare un channel come target: " + target);
@@ -177,10 +180,13 @@ public class RobotP2P {
 
     }
 
-    public static void answerPending(int botPort) throws InterruptedException {
+    public static void answerPending(/*int botPort*/) throws InterruptedException {
 
         List pending = MechanicRequests.getInstance().getRequests();
         int size = MechanicRequests.getInstance().getRequests().size();
+
+        int botPort = personalInfo.getInstance().getPort();
+
         System.out.println("size pending requests: ");
         System.out.println(size);
 

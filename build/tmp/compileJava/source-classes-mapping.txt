@@ -1,10 +1,7 @@
 AdminServer/beans/RobotList.java
  AdminServer.beans.RobotList
-CleaningRobot/gRPC/RobotP2P.java
- CleaningRobot.gRPC.RobotP2P
- CleaningRobot.gRPC.RobotP2P$1
- CleaningRobot.gRPC.RobotP2P$2
- CleaningRobot.gRPC.RobotP2P$3
+AdminServer/services/StatsService.java
+ AdminServer.services.StatsService
 CleaningRobot/simulators/PM10Simulator.java
  CleaningRobot.simulators.PM10Simulator
 AdminServer/beans/PollutionStats.java
@@ -28,8 +25,8 @@ com/example/chat/CommunicationServiceOuterClass.java
  com.example.chat.CommunicationServiceOuterClass$Request$1
  com.example.chat.CommunicationServiceOuterClass$Request$Builder
  com.example.chat.CommunicationServiceOuterClass$RequestOrBuilder
-CleaningRobot/gRPC/Authorizations.java
- CleaningRobot.gRPC.Authorizations
+AdminClient/REST/AdminClient.java
+ AdminClient.REST.AdminClient
 CleaningRobot/breakHandler/STATE.java
  CleaningRobot.breakHandler.STATE
 CleaningRobot/simulators/WindowBuffer.java
@@ -50,8 +47,8 @@ CleaningRobot/MQTT/MqttPub.java
  CleaningRobot.MQTT.MqttPub
 CleaningRobot/MQTT/Reader.java
  CleaningRobot.MQTT.Reader
-CleaningRobot/personalInfo.java
- CleaningRobot.personalInfo
+CleaningRobot/gRPC/MechanicRequests.java
+ CleaningRobot.gRPC.MechanicRequests
 Utils/MqttMsg.java
  Utils.MqttMsg
 com/example/chat/CommunicationServiceGrpc.java
@@ -76,15 +73,18 @@ CleaningRobot/breakHandler/crashSimulator.java
  CleaningRobot.breakHandler.crashSimulator
 CleaningRobot/simulators/Measurement.java
  CleaningRobot.simulators.Measurement
-CleaningRobot/gRPC/MechanicRequests.java
- CleaningRobot.gRPC.MechanicRequests
-CleaningRobot/gRPC/CommunicationService.java
- CleaningRobot.gRPC.CommunicationService
+CleaningRobot/personalInfo.java
+ CleaningRobot.personalInfo
 CleaningRobot/Robot.java
  CleaningRobot.Robot
+CleaningRobot/gRPC/CommunicationService.java
+ CleaningRobot.gRPC.CommunicationService
 CleaningRobot/breakHandler/Mechanic.java
  CleaningRobot.breakHandler.Mechanic
-AdminServer/services/StatsService.java
- AdminServer.services.StatsService
-AdminClient/REST/AdminClient.java
- AdminClient.REST.AdminClient
+CleaningRobot/gRPC/RobotP2P.java
+ CleaningRobot.gRPC.RobotP2P
+ CleaningRobot.gRPC.RobotP2P$1
+ CleaningRobot.gRPC.RobotP2P$2
+ CleaningRobot.gRPC.RobotP2P$3
+CleaningRobot/gRPC/Authorizations.java
+ CleaningRobot.gRPC.Authorizations

@@ -58,8 +58,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         CommunicationServiceOuterClass.Authorization response;
 
-        //devo dire da chi è!! mi serve il mio botID
-        int myPort = personalInfo.getInstance().getBotID();
+        //devo dire da chi è!! mi serve il mio botPort (ma voglio aggiungere l'id?)
+        int myPort = personalInfo.getInstance().getPort();
 
         //i need the mechanic so i have a request out
         if(robotState.getInstance().getState() == STATE.NEEDING) {
@@ -109,9 +109,9 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         System.out.println("somebody released the mechanic");
         //chi è in attesa riceve una risposta ?
         Authorizations.getInstance().addAuthorization(authorization);
-
         //non posso metterla qui perché il wait viene fatto dentro il mechanic ?
-        Authorizations.getInstance().getAuthorizations().notify();
+        //Authorizations.getInstance().unblockAuthorizations();
+        Authorizations.getInstance().controlAuthorizations();
 
         responseObserver.onNext(null);
 
