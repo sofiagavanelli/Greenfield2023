@@ -23,6 +23,7 @@ public class PollutionStats {
 
     private PollutionStats() {
         RobotAverages = new HashMap<>();
+        AveragesTime = new HashMap<>();
         AveragesNoTime = new HashMap<>();
     }
 
@@ -37,18 +38,16 @@ public class PollutionStats {
         return new HashMap<Integer, HashMap<Long, List<Double>>>(RobotAverages);
     }
 
-    //aggiunge ad entrambe le hashmap, sia a quella con timestamp che a quella senza
-    public void addAverages(Integer ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
+    //aggiunge ad entrambe le hashmap, sia a quella con timestamp che a quella senza --syncro?
+    public synchronized void addAverages(Integer ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
 
         //HashMap<Long, List<Double>> previous = new HashMap<>();
         List<MqttMsg> previous = new ArrayList<>();
-
         List<Double> copyNoTime = new ArrayList<>();
 
         if(RobotAverages.get(ID) != null) {
             //previous = RobotAverages.get(ID);
             previous = AveragesTime.get(ID);
-
             copyNoTime = AveragesNoTime.get(ID);
         }
 

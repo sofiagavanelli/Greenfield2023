@@ -47,7 +47,6 @@ public class Mechanic extends Thread {
                     RobotP2P.requestMechanic(/*listCopy, botPort, botId*/);
                     System.out.println("out of requestMechanic");
                     System.out.println(Authorizations.getInstance().getAuthorizations());
-
                     Authorizations.getInstance().controlAuthorizations();
 
                     //ha ottenuto le autorizzazioni per andare dal meccanico

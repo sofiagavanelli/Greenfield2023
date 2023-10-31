@@ -19,7 +19,7 @@ public class MqttPub extends Thread {
 
     MqttClient client;
     String broker = "tcp://localhost:1883";
-    String clientId = MqttClient.generateClientId();
+    String clientId = "ROBOT-"; //MqttClient.generateClientId();
     String topic = "greenfield/pollution/district";
     int qos = 2;
     
@@ -36,6 +36,8 @@ public class MqttPub extends Thread {
         topic = topic+d;
         this.sensor = sensor;
         this.robotID = robotID;
+
+        this.clientId = this.clientId + robotID;
     }
 
     public void run() {
@@ -78,9 +80,11 @@ public class MqttPub extends Thread {
 
         try {
 
-            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            client = new MqttClient(broker, clientId, null);
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
+            connOpts.setAutomaticReconnect(true);
+            connOpts.setMaxReconnectDelay(3000);
             //connOpts.setUserName(username); // optional
             //connOpts.setPassword(password.toCharArray()); // optional
             //connOpts.setWill("this/is/a/topic","will message".getBytes(),1,false);  // optional

@@ -1,10 +1,15 @@
 package AdminServer;
 
+import AdminServer.beans.PollutionStats;
+import Utils.MqttMsg;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
 import org.eclipse.paho.client.mqttv3.*;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,15 +30,17 @@ public class AdminServer {
     public static void main(String[] args) throws IOException, MqttException {
         MqttClient client;
         String broker = "tcp://localhost:1883";
-        String clientId = MqttClient.generateClientId();
+        String clientId = "ADMIN-SERVER"; //MqttClient.generateClientId();
         String topic = "greenfield/pollution/#";
 
         int qos = 2;
 
         try {
-            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            client = new MqttClient(broker, clientId, null);
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
+            connOpts.setAutomaticReconnect(true);
+            connOpts.setMaxReconnectDelay(3000);
 
             // Connect the client
             System.out.println(clientId + " Connecting Broker " + broker);
@@ -59,16 +66,16 @@ public class AdminServer {
 
             System.out.println("Hit return to stop...");
             System.in.read();
-            System.out.println("Stopping server");
-            server.stop(0);
-            System.out.println("Server stopped");
+            //System.out.println("Stopping server");
+            //server.stop(0);
+            //System.out.println("Server stopped");
 
 
 
             //System.out.println("\n ***  Press a random key to exit *** \n");
-            //Scanner command = new Scanner(System.in);
-            //command.nextLine();
-            //client.disconnect();
+            /*Scanner command = new Scanner(System.in);
+            command.nextLine();
+            client.disconnect();*/
 
         } catch (MqttException me ) {
             System.out.println("reason " + me.getReasonCode());

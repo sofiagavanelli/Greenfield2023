@@ -40,6 +40,19 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         RobotInfo newBot = new RobotInfo(request.getId(), request.getPort(), request.getX(), request.getY(), request.getDistrict());
         RobotList.getInstance().add(newBot);
 
+        //se io sono in attesa e un robot è appena entrato allora devo aggiungere
+        // la sua autorizzazione alla mia richiesta in corso
+        if(robotState.getInstance().getState() == STATE.NEEDING) {
+            CommunicationServiceOuterClass.Authorization answer = CommunicationServiceOuterClass.Authorization.newBuilder()
+                    .setFrom(request.getPort())
+                    .setOk(true)
+                    .build();
+
+            Authorizations.getInstance().addAuthorization(answer);
+            Authorizations.getInstance().controlAuthorizations();
+
+        }
+
         //passo la risposta nello stream
         //Empty response = null;
         //onNext is the callback

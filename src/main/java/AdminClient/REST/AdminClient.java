@@ -26,25 +26,33 @@ public class AdminClient {
         serverAddress = "http://localhost:1337";
         clientResponse = null;
 
+        boolean stopCondition = false;
+
         // POST EXAMPLE
 
         int cmd;
 
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
-        System.out.print("Enter your request: ");
-        cmd = sc.nextInt();
 
-        if(cmd == 0) {
+        while(!stopCondition) {
+            System.out.print("Enter your request: ");
+            cmd = sc.nextInt();
 
-            System.out.print("Enter robot id: ");
-            int id = sc.nextInt();
-            System.out.print("Enter number of measurements: ");
-            int n = sc.nextInt();
+            if (cmd == 0) {
 
-            requestAllAverages(id, n);
+                System.out.print("Enter robot id: ");
+                int id = sc.nextInt();
+                System.out.print("Enter number of measurements: ");
+                int n = sc.nextInt();
+
+                requestLastAverages(id, n);
+            } else if (cmd == 1) {
+
+                System.out.println("Other request");
+
+            }
+
         }
-
-
         //stay alive
 
     }
@@ -55,10 +63,11 @@ public class AdminClient {
      }
      */
 
-    public static void requestAllAverages(int id, int n) {
+    public static void requestLastAverages(int id, int n) {
 
         // GET EXAMPLE
         String postPath = "/averages/get-last/" + id + ":" + n;
+        System.out.println("calling: " + postPath);
 
         clientResponse = RestFunc.getRequest(client,serverAddress+postPath);
         //System.out.println(clientResponse.toString());

@@ -25,17 +25,18 @@ public class MqttSub implements MqttCallback {
 
     public MqttSub(String clientId) {
         this.clientId = clientId;
-
-        this.dummy = PollutionStats.getInstance();
     }
 
     @Override
     public void connectionLost(Throwable cause) {
-        System.out.println(clientId + " Connectionlost! cause:" + cause.getMessage()+ "-  Thread PID: " + Thread.currentThread().getId());
+        System.out.println(clientId + " Connectionlost! cause:" + cause.getMessage() + ""
+                + "-  Thread PID: " + Thread.currentThread().getId());
     }
 
     @Override
-    public void messageArrived(String topic, MqttMessage message) throws Exception {
+    public void messageArrived(String topic, MqttMessage message) {
+
+        System.out.println("inside messageArrived callback");
 
         // Called when a message arrives from the server that matches any subscription made by the client
         TypeToken<MqttMsg> token = new TypeToken<MqttMsg>(){};
@@ -43,20 +44,7 @@ public class MqttSub implements MqttCallback {
 
         MqttMsg msg = new Gson().fromJson(receivedMessage, token.getType());
 
-        //System.out.println(msg.getTimestamp());
-        //System.out.println(msg.getRobotID());
-        //System.out.println(msg.getAverages());
-
-        dummy.addAverages(msg.getRobotID(), msg);
-
-        /*System.out.println(clientId +" Received a Message! - Callback - Thread PID: " + Thread.currentThread().getId() +
-                "\n\tTopic: " + topic +
-                "\n\tRobot: " + prova[0] +
-                "\n\tAverages: " + prova[1] +
-                "\n\tTime of Computation: " + prova[2] +
-                "\n\tQoS: " + message.getQos() + "\n");
-
-        System.out.println("\n ***  Press a random key to exit *** \n");*/
+        PollutionStats.getInstance().addAverages(msg.getRobotID(), msg);
     }
 
     @Override
