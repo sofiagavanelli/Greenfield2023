@@ -44,8 +44,8 @@ AdminServer/beans/RobotInfo.java
  AdminServer.beans.RobotInfo
 CleaningRobot/simulators/Simulator.java
  CleaningRobot.simulators.Simulator
-AdminClient/REST/AdminClient.java
- AdminClient.REST.AdminClient
+AdminServer/AdminServer.java
+ AdminServer.AdminServer
 CleaningRobot/gRPC/Authorizations.java
  CleaningRobot.gRPC.Authorizations
 CleaningRobot/MQTT/Reader.java
@@ -79,8 +79,8 @@ CleaningRobot/personalInfo.java
  CleaningRobot.personalInfo
 CleaningRobot/MQTT/MqttPub.java
  CleaningRobot.MQTT.MqttPub
-AdminServer/AdminServer.java
- AdminServer.AdminServer
+AdminClient/REST/AdminClient.java
+ AdminClient.REST.AdminClient
 AdminServer/services/StatsService.java
  AdminServer.services.StatsService
 AdminServer/beans/PollutionStats.java

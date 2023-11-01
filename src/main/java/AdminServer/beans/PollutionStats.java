@@ -1,5 +1,6 @@
 package AdminServer.beans;
 
+import CleaningRobot.simulators.Measurement;
 import Utils.MqttMsg;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -7,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.OptionalDouble;
 
 @XmlRootElement
 public class PollutionStats {
@@ -97,26 +99,57 @@ public class PollutionStats {
 
     //problema: le hashmap NON si possono scorrere, sono unordered!!!
     //
-    /*public Double getBetween(long t1, long t2) {
+    public Double getBetween(long t1, long t2) {
 
         double averageOne;
-        double sum;
-        double averageAll;
+        double sum = 0;
+        double averageAll = 0;
 
         boolean higher = true;
 
         List<RobotInfo> IDs = RobotList.getInstance().getRobotslist();
         int numBots = IDs.size(); //for the last average
 
-        for (RobotInfo element : IDs) {
+        int n = 0;
 
-            while (higher) {
+        //i take one robot in the grid at a time
+        for (RobotInfo r : IDs) {
+
+            //i obtain ALL its averages
+            List<MqttMsg> personalAverages = AveragesTime.get(r.getId());
+
+            int size = personalAverages.size();
+
+            //i look at one list of averages at a time
+            while(size > 0) {
+
+                //i take one of those list and control if they are between the times i want
+                //if size=1 then the index is 0=size-1 !!!
+                if((personalAverages.get(size - 1).getTimestamp() > t1) ||
+                        (personalAverages.get(size - 1).getTimestamp() < t2)) {
+
+                    List<Double> averagesList = personalAverages.get(size - 1).getAverages();
+
+                    int listSize = averagesList.size();
+
+                    for(int i=0; i<(listSize - 1); i++) {
+                        sum = sum + averagesList.get(i);
+
+                        n = n + 1;
+                    }
+
+                }
+
+                size = size - 1;
 
             }
 
         }
 
+        averageAll = sum/n;
 
-    }*/
+        return averageAll;
+
+    }
 
 }

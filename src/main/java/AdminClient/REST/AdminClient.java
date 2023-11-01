@@ -1,6 +1,7 @@
 package AdminClient.REST;
 
 import AdminServer.beans.RobotInfo;
+import AdminServer.beans.RobotList;
 import Utils.RestFunc;
 import com.sun.jersey.api.client.ClientResponse;
 
@@ -48,9 +49,23 @@ public class AdminClient {
                 requestLastAverages(id, n);
             } else if (cmd == 1) {
 
-                System.out.println("Other request");
+                System.out.println("The current timestamp is: " + System.currentTimeMillis());
 
+                System.out.print("Enter t1: ");
+                long t1 = sc.nextLong();
+                System.out.print("Enter t2: ");
+                long t2 = sc.nextLong();
+
+                requestAveragesBetweenTime(t1, t2);
             }
+            else if (cmd == 2) {
+
+                getAllRobots();
+            }
+            else
+                System.out.println("There aren't requests with this number");
+
+            //also list of all the cleaning robot currently there
 
         }
         //stay alive
@@ -66,15 +81,50 @@ public class AdminClient {
     public static void requestLastAverages(int id, int n) {
 
         // GET EXAMPLE
-        String postPath = "/averages/get-last/" + id + ":" + n;
-        System.out.println("calling: " + postPath);
+        String getPath = "/averages/get-last/" + id + ":" + n;
+        //System.out.println("calling: " + getPath);
 
-        clientResponse = RestFunc.getRequest(client,serverAddress+postPath);
+        clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
         //System.out.println(clientResponse.toString());
 
         //il risultato della richiesta? come ho l'accesso?
         System.out.println("The average of the last " + n + " measurements for robot " + id + " is: ");
         System.out.println(clientResponse.getEntity(String.class));
+
+    }
+
+    public static void requestAveragesBetweenTime(long t1, long t2) {
+
+        // GET EXAMPLE
+        String getPath = "/averages/get-between/" + t1 + ":" + t2;
+        //System.out.println("calling: " + getPath);
+
+        clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
+        //System.out.println(clientResponse.toString());
+
+        //il risultato della richiesta? come ho l'accesso?
+        System.out.println("The average of the measurements between " + t1 + " and " + t2 + " is: ");
+        System.out.println(clientResponse.getEntity(String.class));
+    }
+
+    public static void getAllRobots() {
+
+        System.out.println("The robots currently in Greenfield are: ");
+
+        // GET EXAMPLE
+        String getPath = "/robots";
+        System.out.println("calling: " + getPath);
+
+        clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
+        //System.out.println(clientResponse.toString());
+
+        //il risultato della richiesta? come ho l'accesso?
+        //RobotList.class lo stampa male!!
+        RobotList list = clientResponse.getEntity(RobotList.class);
+        for (RobotInfo r : list.getRobotslist())  {
+            System.out.println("ROBOT-" + r.getId());
+            System.out.println("in district: " + r.getDistrict());
+        }
 
     }
 

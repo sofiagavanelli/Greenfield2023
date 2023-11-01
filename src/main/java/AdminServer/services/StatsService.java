@@ -36,16 +36,17 @@ public class StatsService {
     @Path("get-between/{t1}:{t2}")
     @GET
     @Produces({"application/json", "application/xml"})
-    public Response getAllBetween(@PathParam("t1") int firstT, @PathParam("t2") int secondT) {
+    public Response getAllBetween(@PathParam("t1") long firstT, @PathParam("t2") long secondT) {
 
-        /*HashMap<Long, List<Double>> averages = PollutionStats.getInstance().getById(ID);
+        /*HashMap<Long, List<Double>> averages = PollutionStats.getInstance().getById(ID);*/
 
-        if(averages != null)
-            return Response.ok(averages).build();
+        Double average = PollutionStats.getInstance().getBetween(firstT, secondT);
+
+        if(average != null)
+            return Response.ok(average.toString()).build();
         else
-            return Response.status(Response.Status.NOT_FOUND).build();*/
+            return Response.status(Response.Status.NOT_FOUND).build();
 
-        return null;
     }
 
 

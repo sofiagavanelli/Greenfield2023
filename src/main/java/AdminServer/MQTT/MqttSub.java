@@ -36,7 +36,7 @@ public class MqttSub implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage message) {
 
-        System.out.println("inside messageArrived callback");
+        //System.out.println("inside messageArrived callback");
 
         // Called when a message arrives from the server that matches any subscription made by the client
         TypeToken<MqttMsg> token = new TypeToken<MqttMsg>(){};
