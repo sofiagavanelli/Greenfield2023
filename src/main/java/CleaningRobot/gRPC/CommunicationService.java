@@ -23,6 +23,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         RobotList.getInstance().remove(request.getId());
 
+        //questi due non sono in contraddizione ?
+
         responseObserver.onNext(null);
 
         //completo e finisco la comunicazione
@@ -124,7 +126,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         Authorizations.getInstance().addAuthorization(authorization);
         //non posso metterla qui perché il wait viene fatto dentro il mechanic ?
         //Authorizations.getInstance().unblockAuthorizations();
-        Authorizations.getInstance().controlAuthorizations();
+        Authorizations.getInstance().unblockMechanic();
 
         responseObserver.onNext(null);
 

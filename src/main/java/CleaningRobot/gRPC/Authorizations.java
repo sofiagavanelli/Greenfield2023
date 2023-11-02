@@ -13,6 +13,8 @@ public class Authorizations {
 
     List<Authorization> authorizations;
 
+    Object lock = new Object();
+
     private static Authorizations instance;
 
     private Authorizations() {
@@ -26,34 +28,46 @@ public class Authorizations {
         return instance;
     }
 
-    public void addAuthorization(Authorization newA) {
+    public synchronized void addAuthorization(Authorization newA) {
         authorizations.add(newA);
     }
 
-    public void removeAll() {
+    public synchronized void removeAll() {
         //authorizations = null;
         authorizations = new ArrayList<>();
     }
 
-    public List<Authorization> getAuthorizations() {
+    public synchronized List<Authorization> getAuthorizations() {
         return authorizations;
     }
 
-    public synchronized void controlAuthorizations() {
+    public void controlAuthorizations() {
 
-        if(robotState.getInstance().getState() == STATE.NEEDING) { //funzione chiamata dopo una richiesta del meccanico
-            while (authorizations.size() <
-                    (RobotList.getInstance().getRobotslist().size() - 1)) {
+        //togliere
+        synchronized(lock) {
+            //if(robotState.getInstance().getState() == STATE.NEEDING) {
+            //funzione chiamata dopo una richiesta del meccanico
+            while (authorizations.size() < (RobotList.getInstance().getRobotslist().size() - 1)) {
                 System.out.println("i'm waiting for some authorizations");
                 try {
-                    authorizations.wait();
+                    lock.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
         }
-        else //questa funzione è stata chiamata per risvegliare dei thread in attesa dopo il rilascio del meccanico
-            authorizations.notify();
+         //questa funzione è stata chiamata per risvegliare dei thread in attesa dopo il rilascio del meccanico
 
     }
+
+    public void unblockMechanic() {
+
+        synchronized(lock) {
+            if (Authorizations.getInstance().getAuthorizations().size()
+                    == (RobotList.getInstance().getRobotslist().size() - 1))
+                lock.notifyAll();
+        }
+    }
+
+
 }

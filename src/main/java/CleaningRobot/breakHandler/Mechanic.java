@@ -39,14 +39,17 @@ public class Mechanic extends Thread {
 
         while(!stopCondition) {
 
-            //try {
+            //qui c'è busy waiting --> da modificare
+            crashSimulator.waitingForCrash();
             //wait for requests
             if(robotState.getInstance().getState() == STATE.NEEDING) {
 
                 try {
-                    RobotP2P.requestMechanic(/*listCopy, botPort, botId*/);
+                    RobotP2P.requestMechanic();
+
                     System.out.println("out of requestMechanic");
                     System.out.println(Authorizations.getInstance().getAuthorizations());
+
                     Authorizations.getInstance().controlAuthorizations();
 
                     //ha ottenuto le autorizzazioni per andare dal meccanico
@@ -134,9 +137,9 @@ public class Mechanic extends Thread {
 
     }
 
-    public void setConnections(int[] ports) {
+    /*public void setConnections(int[] ports) {
         this.RobotPortInfo = ports;
-    }
+    }*/
 
     public void forceMechanic() {
         robotState.getInstance().setState(STATE.NEEDING);

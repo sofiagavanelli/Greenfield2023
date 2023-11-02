@@ -77,6 +77,7 @@ public class RobotsService {
 
         int d = 0;
 
+        //sarebbe da mettere in modalità random!!
         for(int i=0; i<4; i++) {
             if(i==0 && botDistricts.get(i) == 0) {
                 d = i + 1;
@@ -96,21 +97,18 @@ public class RobotsService {
         //botDistricts.add(district - 1, 1); //inutile?
         RobotPositions.getInstance().addDistricts(d - 1);
 
-        if(this.district == 1) {
-            this.x = pos.nextInt(5);
-            this.y = pos.nextInt(5);
-        }
-        else if(this.district == 2) {
-            this.x = pos.nextInt(5) + 5;
-            this.y = pos.nextInt(5);
+        this.x = pos.nextInt(5);
+        this.y = pos.nextInt(5);
+
+        if(this.district == 2) {
+            this.x = this.x + 5;
         }
         else if(this.district == 3) {
-            this.x = pos.nextInt(5) + 5;
-            this.y = pos.nextInt(5) + 5;
+            this.x = this.x + 5;
+            this.y = this.y + 5;
         }
         else if(this.district == 4) {
-            this.x = pos.nextInt(5);
-            this.y = pos.nextInt(5) + 5;
+            this.y = this.y + 5;
         }
 
         System.out.println("x: " + x);

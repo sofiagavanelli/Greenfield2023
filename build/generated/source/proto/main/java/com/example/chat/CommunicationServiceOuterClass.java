@@ -777,7 +777,13 @@ public final class CommunicationServiceOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 id = 1;</code>
+     * <code>int32 from = 1;</code>
+     * @return The from.
+     */
+    int getFrom();
+
+    /**
+     * <code>int32 id = 2;</code>
      * @return The id.
      */
     int getId();
@@ -829,6 +835,11 @@ public final class CommunicationServiceOuterClass {
               break;
             case 8: {
 
+              from_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
               id_ = input.readInt32();
               break;
             }
@@ -864,10 +875,20 @@ public final class CommunicationServiceOuterClass {
               com.example.chat.CommunicationServiceOuterClass.Goodbye.class, com.example.chat.CommunicationServiceOuterClass.Goodbye.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
+    public static final int FROM_FIELD_NUMBER = 1;
+    private int from_;
+    /**
+     * <code>int32 from = 1;</code>
+     * @return The from.
+     */
+    public int getFrom() {
+      return from_;
+    }
+
+    public static final int ID_FIELD_NUMBER = 2;
     private int id_;
     /**
-     * <code>int32 id = 1;</code>
+     * <code>int32 id = 2;</code>
      * @return The id.
      */
     public int getId() {
@@ -888,8 +909,11 @@ public final class CommunicationServiceOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (from_ != 0) {
+        output.writeInt32(1, from_);
+      }
       if (id_ != 0) {
-        output.writeInt32(1, id_);
+        output.writeInt32(2, id_);
       }
       unknownFields.writeTo(output);
     }
@@ -900,9 +924,13 @@ public final class CommunicationServiceOuterClass {
       if (size != -1) return size;
 
       size = 0;
+      if (from_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, from_);
+      }
       if (id_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
+          .computeInt32Size(2, id_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -919,6 +947,8 @@ public final class CommunicationServiceOuterClass {
       }
       com.example.chat.CommunicationServiceOuterClass.Goodbye other = (com.example.chat.CommunicationServiceOuterClass.Goodbye) obj;
 
+      if (getFrom()
+          != other.getFrom()) return false;
       if (getId()
           != other.getId()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -932,6 +962,8 @@ public final class CommunicationServiceOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FROM_FIELD_NUMBER;
+      hash = (53 * hash) + getFrom();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -1067,6 +1099,8 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        from_ = 0;
+
         id_ = 0;
 
         return this;
@@ -1095,6 +1129,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public com.example.chat.CommunicationServiceOuterClass.Goodbye buildPartial() {
         com.example.chat.CommunicationServiceOuterClass.Goodbye result = new com.example.chat.CommunicationServiceOuterClass.Goodbye(this);
+        result.from_ = from_;
         result.id_ = id_;
         onBuilt();
         return result;
@@ -1144,6 +1179,9 @@ public final class CommunicationServiceOuterClass {
 
       public Builder mergeFrom(com.example.chat.CommunicationServiceOuterClass.Goodbye other) {
         if (other == com.example.chat.CommunicationServiceOuterClass.Goodbye.getDefaultInstance()) return this;
+        if (other.getFrom() != 0) {
+          setFrom(other.getFrom());
+        }
         if (other.getId() != 0) {
           setId(other.getId());
         }
@@ -1176,16 +1214,46 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
+      private int from_ ;
+      /**
+       * <code>int32 from = 1;</code>
+       * @return The from.
+       */
+      public int getFrom() {
+        return from_;
+      }
+      /**
+       * <code>int32 from = 1;</code>
+       * @param value The from to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFrom(int value) {
+        
+        from_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 from = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFrom() {
+        
+        from_ = 0;
+        onChanged();
+        return this;
+      }
+
       private int id_ ;
       /**
-       * <code>int32 id = 1;</code>
+       * <code>int32 id = 2;</code>
        * @return The id.
        */
       public int getId() {
         return id_;
       }
       /**
-       * <code>int32 id = 1;</code>
+       * <code>int32 id = 2;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
@@ -1196,7 +1264,7 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
       /**
-       * <code>int32 id = 1;</code>
+       * <code>int32 id = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
@@ -2400,18 +2468,19 @@ public final class CommunicationServiceOuterClass {
       "\n\032CommunicationService.proto\022\020com.exampl" +
       "e.chat\032\033google/protobuf/empty.proto\"P\n\014P" +
       "resentation\022\014\n\004port\030\001 \001(\005\022\020\n\010district\030\002 " +
-      "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"\025\n" +
-      "\007Goodbye\022\n\n\002id\030\001 \001(\005\"%\n\007Request\022\014\n\004from\030" +
-      "\001 \001(\005\022\014\n\004time\030\002 \001(\003\")\n\rAuthorization\022\014\n\004" +
-      "from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\0102\273\002\n\024Communication" +
-      "Service\022?\n\nremovalMsg\022\031.com.example.chat" +
-      ".Goodbye\032\026.google.protobuf.Empty\022I\n\017pres" +
-      "entationMsg\022\036.com.example.chat.Presentat" +
-      "ion\032\026.google.protobuf.Empty\022M\n\017requestMe" +
-      "chanic\022\031.com.example.chat.Request\032\037.com." +
-      "example.chat.Authorization\022H\n\ranswerPend" +
-      "ing\022\037.com.example.chat.Authorization\032\026.g" +
-      "oogle.protobuf.Emptyb\006proto3"
+      "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"#\n" +
+      "\007Goodbye\022\014\n\004from\030\001 \001(\005\022\n\n\002id\030\002 \001(\005\"%\n\007Re" +
+      "quest\022\014\n\004from\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\")\n\rAut" +
+      "horization\022\014\n\004from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\0102\273\002\n" +
+      "\024CommunicationService\022?\n\nremovalMsg\022\031.co" +
+      "m.example.chat.Goodbye\032\026.google.protobuf" +
+      ".Empty\022I\n\017presentationMsg\022\036.com.example." +
+      "chat.Presentation\032\026.google.protobuf.Empt" +
+      "y\022M\n\017requestMechanic\022\031.com.example.chat." +
+      "Request\032\037.com.example.chat.Authorization" +
+      "\022H\n\ranswerPending\022\037.com.example.chat.Aut" +
+      "horization\032\026.google.protobuf.Emptyb\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2429,7 +2498,7 @@ public final class CommunicationServiceOuterClass {
     internal_static_com_example_chat_Goodbye_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Goodbye_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "From", "Id", });
     internal_static_com_example_chat_Request_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_example_chat_Request_fieldAccessorTable = new

@@ -37,4 +37,21 @@ public class RestFunc {
         }
     }
 
+    public static ClientResponse deleteRequest(Client client, String url, int id) {
+        //WebResource webResource = client.resource(url);
+        //String input = new Gson().toJson(r);
+        //return webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class);
+
+        WebResource webResource = client.resource(url);
+        String input = new Gson().toJson(id);
+        System.out.println(input);
+
+        try {
+            return webResource.type("application/json").delete(ClientResponse.class, input);
+        } catch (ClientHandlerException e) {
+            System.out.println("Server non disponibile");
+            return null;
+        }
+    }
+
 }

@@ -10,6 +10,14 @@ public class personalInfo {
     private int botID;
     private int district;
 
+    //logical clock?
+    private int clock=0;
+    /* when to increment:
+        - state change
+        - before sending msg?
+        - when receiving msg?
+     */
+
     private int x;
     private int y;
 
@@ -34,6 +42,18 @@ public class personalInfo {
         this.x = x;
         this.y = y;
         this.port = port;
+    }
+
+    public void setClock(int value) {
+        this.clock = value;
+    }
+
+    public int getClock() {
+        return clock;
+    }
+
+    public void incrementClock() {
+        this.clock = this.clock + 1;
     }
 
     public int getBotID() {

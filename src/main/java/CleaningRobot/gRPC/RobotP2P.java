@@ -43,9 +43,20 @@ public class RobotP2P {
         //setBots();
     }
 
-    public static void firstMSG(/*int[] RobotPortInfo*/List<RobotInfo> listCopy, int botPort, int botDistrict, int botID, int x, int y) throws InterruptedException {
+    public static void firstMSG(/*int[] RobotPortInfoList<RobotInfo> listCopy,*/ int botPort, int botDistrict, int botID, int x, int y) throws InterruptedException {
 
         //rimuovere listCopy e fare una chiamata! no?
+        //rimuovere le info
+        List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
+
+        //creating the HelloResponse object which will be provided as input to the RPC method
+        CommunicationServiceOuterClass.Presentation broadcast =  CommunicationServiceOuterClass.Presentation.newBuilder()
+                .setPort(botPort)
+                .setDistrict(botDistrict)
+                .setId(botID)
+                .setX(x)
+                .setY(y)
+                .build();
 
         for (RobotInfo element : listCopy) {
 
@@ -58,23 +69,11 @@ public class RobotP2P {
             //creating an asynchronous stub on the channel
             CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
-            //creating the HelloResponse object which will be provided as input to the RPC method
-            CommunicationServiceOuterClass.Presentation broadcast =  CommunicationServiceOuterClass.Presentation.newBuilder()
-                    .setPort(botPort)
-                    .setDistrict(botDistrict)
-                    .setId(botID)
-                    .setX(x)
-                    .setY(y)
-                    .build();
-
             //calling the RPC method. since it is asynchronous, we need to define handlers
             stub.presentationMsg(broadcast, new StreamObserver<Empty>() {
 
                 @Override
                 public void onNext(Empty value) {
-
-                    //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
-                    //System.out.println(list.toString());
 
                 }
 
@@ -95,6 +94,66 @@ public class RobotP2P {
             //you need this. otherwise the method will terminate before that answers from the server are received
             channel.awaitTermination(10, TimeUnit.SECONDS);
 
+        }
+
+    }
+
+    public static void lastMSG() throws InterruptedException {
+
+        //rimuovere listCopy e fare una chiamata! no?
+        List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
+
+        int myID = personalInfo.getInstance().getBotID();
+        int myPort = personalInfo.getInstance().getPort();
+
+        //creating the HelloResponse object which will be provided as input to the RPC method
+        CommunicationServiceOuterClass.Goodbye bye =  CommunicationServiceOuterClass.Goodbye.newBuilder()
+                .setFrom(myPort)
+                .setId(myID)
+                .build();
+
+        //telling other robots !!
+        for (RobotInfo element : listCopy) {
+
+            if (element.getId() != myID) {
+                String target = "localhost:" + element.getPortN();
+                //System.out.println("sto per creare un channel come target: " + target);
+
+                //plaintext channel on the address (ip/port) which offers the GreetingService service
+                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
+
+                //creating an asynchronous stub on the channel
+                CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
+
+                //calling the RPC method. since it is asynchronous, we need to define handlers
+                stub.removalMsg(bye, new StreamObserver<Empty>() {
+
+                    @Override
+                    public void onNext(Empty value) {
+
+                        //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
+                        //System.out.println(list.toString());
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+
+                        channel.shutdownNow();
+
+                    }
+
+                });
+
+                //you need this. otherwise the method will terminate before that answers from the server are received
+                channel.awaitTermination(10, TimeUnit.SECONDS);
+
+            }
         }
 
     }
@@ -166,18 +225,6 @@ public class RobotP2P {
 
         }
 
-        //System.out.println("ho ricevuto ok da: " + authorizations);
-
-        /*if(authorizations.size() == (listCopy.size() - 1)) {
-            System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
-        }*/
-
-        //if(authorizations.size() < (listCopy.size() - 1)) {
-            //System.out.println("waiting for all authorizations");
-        //}
-        //System.out.println("ho ricevuto l'ok da tutti, posso andare dal meccanico");
-        //sarebbe else wait ?
-
     }
 
     public static void answerPending(/*int botPort*/) throws InterruptedException {
@@ -189,6 +236,12 @@ public class RobotP2P {
 
         System.out.println("size pending requests: ");
         System.out.println(size);
+
+        //creating the HelloResponse object which will be provided as input to the RPC method
+        CommunicationServiceOuterClass.Authorization answer = CommunicationServiceOuterClass.Authorization.newBuilder()
+                .setFrom(botPort)
+                .setOk(true)
+                .build();
 
         while(size > 0) {
             //se size=1, index=0 !!
@@ -202,12 +255,6 @@ public class RobotP2P {
 
             //creating an asynchronous stub on the channel
             CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
-
-            //creating the HelloResponse object which will be provided as input to the RPC method
-            CommunicationServiceOuterClass.Authorization answer = CommunicationServiceOuterClass.Authorization.newBuilder()
-                    .setFrom(botPort)
-                    .setOk(true)
-                    .build();
 
             //calling the RPC method. since it is asynchronous, we need to define handlers
             stub.answerPending(answer, new StreamObserver<Empty>() {
