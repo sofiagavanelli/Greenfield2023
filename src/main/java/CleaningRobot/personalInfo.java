@@ -11,7 +11,8 @@ public class personalInfo {
     private int district;
 
     //logical clock?
-    private int clock=0;
+    private int logicalClock=0;
+    Object lock = new Object();
     /* when to increment:
         - state change
         - before sending msg?
@@ -45,15 +46,17 @@ public class personalInfo {
     }
 
     public void setClock(int value) {
-        this.clock = value;
+        this.logicalClock = value;
     }
 
     public int getClock() {
-        return clock;
+        return logicalClock;
     }
 
     public void incrementClock() {
-        this.clock = this.clock + 1;
+        synchronized (lock) {
+            this.logicalClock = this.logicalClock + 1;
+        }
     }
 
     public int getBotID() {

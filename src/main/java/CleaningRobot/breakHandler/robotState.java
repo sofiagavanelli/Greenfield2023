@@ -1,6 +1,7 @@
 package CleaningRobot.breakHandler;
 
 import AdminServer.beans.RobotInfo;
+import CleaningRobot.personalInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class robotState {
 
     public synchronized void setState(STATE newS) {
         current = newS;
+        personalInfo.getInstance().incrementClock();
     }
 
 }

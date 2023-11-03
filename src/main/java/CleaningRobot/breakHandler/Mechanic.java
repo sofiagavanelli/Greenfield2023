@@ -6,6 +6,7 @@ import CleaningRobot.MQTT.Reader;
 import CleaningRobot.gRPC.Authorizations;
 import CleaningRobot.gRPC.MechanicRequests;
 import CleaningRobot.gRPC.RobotP2P;
+import CleaningRobot.personalInfo;
 import CleaningRobot.simulators.PM10Simulator;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class Mechanic extends Thread {
             //wait for requests
             if(robotState.getInstance().getState() == STATE.NEEDING) {
 
+
                 try {
                     RobotP2P.requestMechanic();
 
@@ -78,8 +80,13 @@ public class Mechanic extends Thread {
 
     }
 
+    public void stopMechanic() {
+        stopCondition = true;
+    }
 
-
+    public void forceMechanic() {
+        robotState.getInstance().setState(STATE.NEEDING);
+    }
 
     ///////////////////////////////////////////**
     public void goToMechanic() {
@@ -141,8 +148,6 @@ public class Mechanic extends Thread {
         this.RobotPortInfo = ports;
     }*/
 
-    public void forceMechanic() {
-        robotState.getInstance().setState(STATE.NEEDING);
-    }
+
 
 }

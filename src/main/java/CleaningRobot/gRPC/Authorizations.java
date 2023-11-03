@@ -41,6 +41,7 @@ public class Authorizations {
         return authorizations;
     }
 
+    /*
     public void controlAuthorizations() {
 
         //togliere
@@ -67,6 +68,36 @@ public class Authorizations {
                     == (RobotList.getInstance().getRobotslist().size() - 1))
                 lock.notifyAll();
         }
+    }*/
+
+
+    public void controlAuthorizations() {
+
+        //togliere
+        synchronized(authorizations) {
+            //if(robotState.getInstance().getState() == STATE.NEEDING) {
+            //funzione chiamata dopo una richiesta del meccanico
+            while (authorizations.size() < (RobotList.getInstance().getRobotslist().size() - 1)) {
+                System.out.println("i'm waiting for some authorizations");
+                try {
+                    authorizations.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        //questa funzione è stata chiamata per risvegliare dei thread in attesa dopo il rilascio del meccanico
+
+    }
+
+    public void unblockMechanic() {
+
+        synchronized(authorizations) {
+            if (Authorizations.getInstance().getAuthorizations().size()
+                    == (RobotList.getInstance().getRobotslist().size() - 1))
+                authorizations.notifyAll();
+        }
+
     }
 
 

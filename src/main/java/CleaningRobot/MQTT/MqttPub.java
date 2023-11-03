@@ -76,6 +76,10 @@ public class MqttPub extends Thread {
 
     }
 
+    public void stopPublishing() {
+        stopCondition = true;
+    }
+
     public void connect() {
 
         try {

@@ -47,6 +47,7 @@ public class Robot {
     crashSimulator crashTest;
     RobotP2P gRPCclient;
     Server gRPCserver;
+    MqttPub pub;
 
     ClientConfig config = new DefaultClientConfig();
     Client client = Client.create(config);
@@ -85,12 +86,8 @@ public class Robot {
         this.mechanicHandler = mechanicHandler;
         crashSimulator crashTest = new crashSimulator();
         this.crashTest = crashTest;
-        //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
-
-        //Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, mechanicHandler, crashTest/*, gRPCclient*/);
 
         //Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, crashTest, gRPCclient);
-
 
         // POST EXAMPLE
         String postPath = "/robots/add";
@@ -103,7 +100,6 @@ public class Robot {
         //la copio ?
         List<RobotInfo> copyRobs = robs.getRobotslist();
         RobotList.getInstance().setRobotslist(copyRobs);
-        //gRPCclient.setBots(copyRobs);
 
         //then you should receive back the position and the district !!!!
         //inserire una funzione!!!
@@ -123,9 +119,8 @@ public class Robot {
 
         //MqttPub : ogni robot ha il suo publisher
         MqttPub pub = new MqttPub(Integer.toString(botDistrict), readSensor, botId);
-        pub.start(); //start or run?
-
-
+        this.pub = pub;
+        this.pub.start(); //start or run?
 
         //this.gRPCclient.start();
         this.startGRPCServer();
@@ -142,14 +137,12 @@ public class Robot {
 
         this.botSimulator.start();
         this.readSensor.start();
-
         //set connections probabilmente non serve più!!
         //this.mechanicHandler.setConnections(RobotPortInfo);
 
         this.crashTest.start();
 
         this.mechanicHandler.start();
-
 
     }
 
@@ -174,37 +167,40 @@ public class Robot {
 
             if(cmd.equalsIgnoreCase("fix"))
                 crashSimulator.signalCrash();
-            else if (cmd.equalsIgnoreCase("quit")) {
-                try {
-                    //i need to also tell the server!!!!
-                    RobotP2P.lastMSG();
-
-                    //System.out.println(clientResponse.toString());
-
-                    bot.stop();
-                    //chiudere tutto il resto?
-
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            else
-                System.out.println("There aren't cmd like this.");
+            else if (cmd.equalsIgnoreCase("quit"))
+                bot.stop();
 
         }
-
-
 
         //clientSocket.close();
     }
 
     public void stop() {
 
+        try {
+            RobotP2P.lastMSG();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         //delete request
         String deletePath = "/robots/remove";
         //non ho accesso a client e tutto, lo ricreo?????
         clientResponse = RestFunc.deleteRequest(client,serverAddress+deletePath, botId);
         System.out.println(clientResponse.toString());
+
+        //not failing anymore
+        crashTest.stopCrash();
+
+        botSimulator.stopMeGently();
+        readSensor.stopReading();
+
+        gRPCserver.shutdown();
+        pub.stopPublishing();
+
+        mechanicHandler.stopMechanic();
+
+        //do i need this?
+        System.exit(0);
 
     }
 

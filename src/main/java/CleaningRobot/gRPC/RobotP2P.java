@@ -74,7 +74,7 @@ public class RobotP2P {
 
                 @Override
                 public void onNext(Empty value) {
-
+                    personalInfo.getInstance().incrementClock();
                 }
 
                 @Override
@@ -130,7 +130,7 @@ public class RobotP2P {
 
                     @Override
                     public void onNext(Empty value) {
-
+                        personalInfo.getInstance().incrementClock();
                         //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
                         //System.out.println(list.toString());
 
@@ -169,6 +169,7 @@ public class RobotP2P {
         CommunicationServiceOuterClass.Request ask = CommunicationServiceOuterClass.Request.newBuilder()
                 .setFrom(botPort)
                 .setTime(System.currentTimeMillis())
+                .setClock(personalInfo.getInstance().getClock())
                 .build();
 
         //fare una sola volta -- tengo conto della mia richiesta
@@ -195,7 +196,7 @@ public class RobotP2P {
 
                     @Override
                     public void onNext(CommunicationServiceOuterClass.Authorization value) {
-
+                        personalInfo.getInstance().incrementClock();
                         //quando ricevo la risposta
                         if(value.getOk()) {
                             System.out.println("ho ricevuto il si da: " + element.getPortN());
@@ -261,7 +262,7 @@ public class RobotP2P {
 
                 @Override
                 public void onNext(Empty empty) {
-
+                    personalInfo.getInstance().incrementClock();
                 }
 
                 @Override

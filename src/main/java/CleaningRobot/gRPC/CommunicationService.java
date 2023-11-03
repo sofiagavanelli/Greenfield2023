@@ -21,6 +21,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         System.out.println(request);
 
+        personalInfo.getInstance().incrementClock();
+
         RobotList.getInstance().remove(request.getId());
 
         //questi due non sono in contraddizione ?
@@ -36,6 +38,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     public void presentationMsg(CommunicationServiceOuterClass.Presentation request, StreamObserver<Empty> responseObserver) {
 
         System.out.println(request);
+
+        personalInfo.getInstance().incrementClock();
 
         //creo un robot e lo aggiungo
         //int id, int portN, int x, int y, int district
@@ -67,6 +71,14 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
     @Override
     public void requestMechanic(CommunicationServiceOuterClass.Request request, StreamObserver<CommunicationServiceOuterClass.Authorization> responseObserver) {
+
+        //LAMPORT ?
+        System.out.println("my clock: " + personalInfo.getInstance().getClock());
+        System.out.println("the sender's clock: " + request.getClock());
+        int senderClock = request.getClock();
+        int newClock = (Math.max(senderClock, personalInfo.getInstance().getClock()) + 1);
+        personalInfo.getInstance().setClock(newClock);
+        System.out.println("my new clock: " + personalInfo.getInstance().getClock());
 
         //qui sono dentro chi riceve
         System.out.println("somebody needs the mechanic");
@@ -123,6 +135,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         System.out.println("somebody released the mechanic");
         //chi è in attesa riceve una risposta ?
+        personalInfo.getInstance().incrementClock();
+
         Authorizations.getInstance().addAuthorization(authorization);
         //non posso metterla qui perché il wait viene fatto dentro il mechanic ?
         //Authorizations.getInstance().unblockAuthorizations();

@@ -1341,6 +1341,12 @@ public final class CommunicationServiceOuterClass {
      * @return The time.
      */
     long getTime();
+
+    /**
+     * <code>int32 clock = 3;</code>
+     * @return The clock.
+     */
+    int getClock();
   }
   /**
    * Protobuf type {@code com.example.chat.Request}
@@ -1397,6 +1403,11 @@ public final class CommunicationServiceOuterClass {
               time_ = input.readInt64();
               break;
             }
+            case 24: {
+
+              clock_ = input.readInt32();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -1449,6 +1460,16 @@ public final class CommunicationServiceOuterClass {
       return time_;
     }
 
+    public static final int CLOCK_FIELD_NUMBER = 3;
+    private int clock_;
+    /**
+     * <code>int32 clock = 3;</code>
+     * @return The clock.
+     */
+    public int getClock() {
+      return clock_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1469,6 +1490,9 @@ public final class CommunicationServiceOuterClass {
       if (time_ != 0L) {
         output.writeInt64(2, time_);
       }
+      if (clock_ != 0) {
+        output.writeInt32(3, clock_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -1485,6 +1509,10 @@ public final class CommunicationServiceOuterClass {
       if (time_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt64Size(2, time_);
+      }
+      if (clock_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, clock_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1505,6 +1533,8 @@ public final class CommunicationServiceOuterClass {
           != other.getFrom()) return false;
       if (getTime()
           != other.getTime()) return false;
+      if (getClock()
+          != other.getClock()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -1521,6 +1551,8 @@ public final class CommunicationServiceOuterClass {
       hash = (37 * hash) + TIME_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTime());
+      hash = (37 * hash) + CLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getClock();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1658,6 +1690,8 @@ public final class CommunicationServiceOuterClass {
 
         time_ = 0L;
 
+        clock_ = 0;
+
         return this;
       }
 
@@ -1686,6 +1720,7 @@ public final class CommunicationServiceOuterClass {
         com.example.chat.CommunicationServiceOuterClass.Request result = new com.example.chat.CommunicationServiceOuterClass.Request(this);
         result.from_ = from_;
         result.time_ = time_;
+        result.clock_ = clock_;
         onBuilt();
         return result;
       }
@@ -1739,6 +1774,9 @@ public final class CommunicationServiceOuterClass {
         }
         if (other.getTime() != 0L) {
           setTime(other.getTime());
+        }
+        if (other.getClock() != 0) {
+          setClock(other.getClock());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1828,6 +1866,36 @@ public final class CommunicationServiceOuterClass {
         onChanged();
         return this;
       }
+
+      private int clock_ ;
+      /**
+       * <code>int32 clock = 3;</code>
+       * @return The clock.
+       */
+      public int getClock() {
+        return clock_;
+      }
+      /**
+       * <code>int32 clock = 3;</code>
+       * @param value The clock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClock(int value) {
+        
+        clock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 clock = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearClock() {
+        
+        clock_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1896,6 +1964,12 @@ public final class CommunicationServiceOuterClass {
      * @return The ok.
      */
     boolean getOk();
+
+    /**
+     * <code>int32 clock = 3;</code>
+     * @return The clock.
+     */
+    int getClock();
   }
   /**
    * Protobuf type {@code com.example.chat.Authorization}
@@ -1952,6 +2026,11 @@ public final class CommunicationServiceOuterClass {
               ok_ = input.readBool();
               break;
             }
+            case 24: {
+
+              clock_ = input.readInt32();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -2004,6 +2083,16 @@ public final class CommunicationServiceOuterClass {
       return ok_;
     }
 
+    public static final int CLOCK_FIELD_NUMBER = 3;
+    private int clock_;
+    /**
+     * <code>int32 clock = 3;</code>
+     * @return The clock.
+     */
+    public int getClock() {
+      return clock_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2024,6 +2113,9 @@ public final class CommunicationServiceOuterClass {
       if (ok_ != false) {
         output.writeBool(2, ok_);
       }
+      if (clock_ != 0) {
+        output.writeInt32(3, clock_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2040,6 +2132,10 @@ public final class CommunicationServiceOuterClass {
       if (ok_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, ok_);
+      }
+      if (clock_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, clock_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2060,6 +2156,8 @@ public final class CommunicationServiceOuterClass {
           != other.getFrom()) return false;
       if (getOk()
           != other.getOk()) return false;
+      if (getClock()
+          != other.getClock()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2076,6 +2174,8 @@ public final class CommunicationServiceOuterClass {
       hash = (37 * hash) + OK_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getOk());
+      hash = (37 * hash) + CLOCK_FIELD_NUMBER;
+      hash = (53 * hash) + getClock();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2213,6 +2313,8 @@ public final class CommunicationServiceOuterClass {
 
         ok_ = false;
 
+        clock_ = 0;
+
         return this;
       }
 
@@ -2241,6 +2343,7 @@ public final class CommunicationServiceOuterClass {
         com.example.chat.CommunicationServiceOuterClass.Authorization result = new com.example.chat.CommunicationServiceOuterClass.Authorization(this);
         result.from_ = from_;
         result.ok_ = ok_;
+        result.clock_ = clock_;
         onBuilt();
         return result;
       }
@@ -2294,6 +2397,9 @@ public final class CommunicationServiceOuterClass {
         }
         if (other.getOk() != false) {
           setOk(other.getOk());
+        }
+        if (other.getClock() != 0) {
+          setClock(other.getClock());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2383,6 +2489,36 @@ public final class CommunicationServiceOuterClass {
         onChanged();
         return this;
       }
+
+      private int clock_ ;
+      /**
+       * <code>int32 clock = 3;</code>
+       * @return The clock.
+       */
+      public int getClock() {
+        return clock_;
+      }
+      /**
+       * <code>int32 clock = 3;</code>
+       * @param value The clock to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClock(int value) {
+        
+        clock_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 clock = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearClock() {
+        
+        clock_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2469,18 +2605,18 @@ public final class CommunicationServiceOuterClass {
       "e.chat\032\033google/protobuf/empty.proto\"P\n\014P" +
       "resentation\022\014\n\004port\030\001 \001(\005\022\020\n\010district\030\002 " +
       "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"#\n" +
-      "\007Goodbye\022\014\n\004from\030\001 \001(\005\022\n\n\002id\030\002 \001(\005\"%\n\007Re" +
-      "quest\022\014\n\004from\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\")\n\rAut" +
-      "horization\022\014\n\004from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\0102\273\002\n" +
-      "\024CommunicationService\022?\n\nremovalMsg\022\031.co" +
-      "m.example.chat.Goodbye\032\026.google.protobuf" +
-      ".Empty\022I\n\017presentationMsg\022\036.com.example." +
-      "chat.Presentation\032\026.google.protobuf.Empt" +
-      "y\022M\n\017requestMechanic\022\031.com.example.chat." +
-      "Request\032\037.com.example.chat.Authorization" +
-      "\022H\n\ranswerPending\022\037.com.example.chat.Aut" +
-      "horization\032\026.google.protobuf.Emptyb\006prot" +
-      "o3"
+      "\007Goodbye\022\014\n\004from\030\001 \001(\005\022\n\n\002id\030\002 \001(\005\"4\n\007Re" +
+      "quest\022\014\n\004from\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022\r\n\005clo" +
+      "ck\030\003 \001(\005\"8\n\rAuthorization\022\014\n\004from\030\001 \001(\005\022" +
+      "\n\n\002ok\030\002 \001(\010\022\r\n\005clock\030\003 \001(\0052\273\002\n\024Communica" +
+      "tionService\022?\n\nremovalMsg\022\031.com.example." +
+      "chat.Goodbye\032\026.google.protobuf.Empty\022I\n\017" +
+      "presentationMsg\022\036.com.example.chat.Prese" +
+      "ntation\032\026.google.protobuf.Empty\022M\n\017reque" +
+      "stMechanic\022\031.com.example.chat.Request\032\037." +
+      "com.example.chat.Authorization\022H\n\ranswer" +
+      "Pending\022\037.com.example.chat.Authorization" +
+      "\032\026.google.protobuf.Emptyb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2504,13 +2640,13 @@ public final class CommunicationServiceOuterClass {
     internal_static_com_example_chat_Request_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Request_descriptor,
-        new java.lang.String[] { "From", "Time", });
+        new java.lang.String[] { "From", "Time", "Clock", });
     internal_static_com_example_chat_Authorization_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_example_chat_Authorization_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Authorization_descriptor,
-        new java.lang.String[] { "From", "Ok", });
+        new java.lang.String[] { "From", "Ok", "Clock", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 
