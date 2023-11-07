@@ -5,7 +5,7 @@ public class PM10Simulator extends Simulator {
 
     private final double A = 15;
     private final double W = 0.05;
-    private static int ID = 1;
+    private static Integer ID = 1;
 
     public PM10Simulator(String id, Buffer buffer){
         super(id, "PM10", buffer);
@@ -19,7 +19,7 @@ public class PM10Simulator extends Simulator {
     @Override
     public void run() {
 
-        double i = rnd.nextInt();
+        double i = rnd.nextInteger();
         long waitingTime;
 
         while(!stopCondition){
@@ -27,7 +27,7 @@ public class PM10Simulator extends Simulator {
             double pm10 = getPM10Value(i);
             addMeasurement(pm10);
 
-            waitingTime = 200 + (int)(Math.random()*200);
+            waitingTime = 200 + (Integer)(Math.random()*200);
             sensorSleep(waitingTime);
 
             i+=0.2;

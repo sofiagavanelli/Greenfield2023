@@ -2,7 +2,7 @@ package CleaningRobot.simulators;
 
 import java.util.List;
 
-public interface Buffer {
+public Integererface Buffer {
 
     void addMeasurement(Measurement m);
 

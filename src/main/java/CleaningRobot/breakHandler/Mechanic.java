@@ -1,38 +1,31 @@
 package CleaningRobot.breakHandler;
 
 import AdminServer.beans.RobotInfo;
-import AdminServer.beans.RobotList;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.gRPC.Authorizations;
 import CleaningRobot.gRPC.MechanicRequests;
 import CleaningRobot.gRPC.RobotP2P;
-import CleaningRobot.personalInfo;
 import CleaningRobot.simulators.PM10Simulator;
 
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class Mechanic extends Thread {
 
     boolean stopCondition = false;
-    int botId;
-    int botPort;
+    Integer botId;
+    Integer botPort;
 
     List<RobotInfo> listCopy;
-    int[] RobotPortInfo;
+    Integer[] RobotPortInfo;
 
     Random rnd = new Random();
 
     PM10Simulator botSimulator;
     Reader readSensor;
 
-    public Mechanic(PM10Simulator botSimulator, Reader readSensor, int botId, int botPort) {
-        this.botSimulator = botSimulator;
-        this.readSensor = readSensor;
+    public Mechanic() {
 
-        this.botId = botId;
-        this.botPort = botPort;
     }
 
     @Override
@@ -40,25 +33,24 @@ public class Mechanic extends Thread {
 
         while(!stopCondition) {
 
-            //qui c'è busy waiting --> da modificare
+            //wait for crash
             crashSimulator.waitingForCrash();
-            //wait for requests
-            if(robotState.getInstance().getState() == STATE.NEEDING) {
 
+            if(robotState.getInstance().getState() == STATE.NEEDING) {
 
                 try {
                     RobotP2P.requestMechanic();
 
-                    System.out.println("out of requestMechanic");
-                    System.out.println(Authorizations.getInstance().getAuthorizations());
+                    System.out.prIntegerln("out of requestMechanic");
+                    System.out.prIntegerln(Authorizations.getInstance().getAuthorizations());
 
                     Authorizations.getInstance().controlAuthorizations();
 
                     //ha ottenuto le autorizzazioni per andare dal meccanico
                     robotState.getInstance().setState(STATE.MECHANIC);
-                    System.out.println("uso il meccanico");
+                    System.out.prIntegerln("uso il meccanico");
                     sleep(10000); //10s di meccanico
-                    System.out.println("rilascio il meccanico");
+                    System.out.prIntegerln("rilascio il meccanico");
                     //ha finito di usare il meccanico e torna a lavorare
                     robotState.getInstance().setState(STATE.WORKING);
                     //rimuovo la mia richiesta
@@ -69,7 +61,7 @@ public class Mechanic extends Thread {
                         RobotP2P.answerPending();
                     }
 
-                } catch (InterruptedException e) {
+                } catch (IntegererruptedException e) {
                     throw new RuntimeException(e);
                 }
 
@@ -109,25 +101,25 @@ public class Mechanic extends Thread {
 
         try {
             RobotP2P.requestMechanic();
-            System.out.println("out of requestMechanic");
+            System.out.prIntegerln("out of requestMechanic");
             while(Authorizations.getInstance().getAuthorizations().size() < (listCopy.size()-1)) {
                 //non ho ancora tutte le authorizations
-                System.out.println("sono nel while");
+                System.out.prIntegerln("sono nel while");
                 Authorizations.getInstance().getAuthorizations().wait();
             } //non posso mettere qua notify!!
             //this.notify();
 
-        } catch (InterruptedException e) {
+        } catch (IntegererruptedException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println("ho concluso le richieste");
+        System.out.prIntegerln("ho concluso le richieste");
 
         //ha ottenuto le autorizzazioni per andare dal meccanico
         robotState.getInstance().setState(STATE.MECHANIC);
         try {
             sleep(10000); //10s di meccanico
-        } catch (InterruptedException e) {
+        } catch (IntegererruptedException e) {
             throw new RuntimeException(e);
         }
         //ha finito di usare il meccanico e torna a lavorare
@@ -136,7 +128,7 @@ public class Mechanic extends Thread {
         try {
             RobotP2P.answerPending();
             //notifyAll();
-        } catch (InterruptedException e) {
+        } catch (IntegererruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -144,7 +136,7 @@ public class Mechanic extends Thread {
 
     }
 
-    /*public void setConnections(int[] ports) {
+    /*public void setConnections(Integer[] ports) {
         this.RobotPortInfo = ports;
     }*/
 

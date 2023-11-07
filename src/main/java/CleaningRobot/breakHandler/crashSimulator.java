@@ -4,6 +4,7 @@ import AdminServer.beans.RobotList;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
+import Utils.RestFunc;
 
 import java.util.List;
 import java.util.Random;
@@ -23,12 +24,12 @@ public class crashSimulator extends Thread {
 
             try {
                 sleep(10000);
-            } catch (InterruptedException e) {
+            } catch (IntegererruptedException e) {
                 throw new RuntimeException(e);
             }
 
-            int i = rnd.nextInt(100);
-            //int i = 8;
+            Integer i = rnd.nextInteger(100);
+            //Integer i = 8;
 
             if (i < 10 && i >= 0) {
                 //stopCondition = true;
@@ -52,7 +53,7 @@ public class crashSimulator extends Thread {
             while(robotState.getInstance().getState() == STATE.WORKING) {
                 try {
                     crash.wait();
-                } catch (InterruptedException e) {
+                } catch (IntegererruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -63,8 +64,24 @@ public class crashSimulator extends Thread {
         synchronized (crash) {
             robotState.getInstance().setState(STATE.NEEDING);
             crash.notify();
-            System.out.println("This robot has crashed");
+            System.out.prIntegerln("This robot has crashed");
         }
+    }
+
+
+    public static void dealUncontrolledCrash(Integer id) {
+
+        //new client ?????
+        //e quello già aperto su robot ??
+        RestFunc.deleteRobot(id);
+        RestFunc.requestDistricts();
+
+        try {
+            RobotP2P.organize(id);
+        } catch (IntegererruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

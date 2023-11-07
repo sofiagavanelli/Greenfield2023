@@ -26,16 +26,16 @@ import java.util.Scanner;
 
 public class Robot {
 
-    private static int botId;
-    private static int botPort;
-    private int botDistrict;
-    private int x;
-    private int y;
+    private static Integereger botId;
+    private static Integereger botPort;
+    private Integereger botDistrict;
+    private Integer x;
+    private Integer y;
 
     static Random rnd = new Random();
 
     List<RobotInfo> robotInfoList;
-    int[] RobotPortInfo;
+    Integer[] RobotPortInfo;
 
     //static
     WindowBuffer newB; // = new WindowBuffer(8);
@@ -58,22 +58,6 @@ public class Robot {
 
     }
 
-    public Robot(int botId, int botPort, PM10Simulator botSimulator, Reader readSensor, WindowBuffer newB, Mechanic mechanicHandler, crashSimulator crashTest/*, RobotP2P gRPCclient*/) {
-
-        //e queste?
-
-        this.botId = botId;
-        this.botPort = botPort;
-
-        this.botSimulator = botSimulator;
-        this.readSensor = readSensor;
-        this.newB = newB;
-
-        this.mechanicHandler = mechanicHandler;
-        this.crashTest = crashTest;
-        //this.gRPCclient = gRPCclient;
-    }
-
     void initialize() {
 
         WindowBuffer newB = new WindowBuffer(8);
@@ -82,30 +66,32 @@ public class Robot {
         this.botSimulator = botSimulator;
         Reader readSensor = new Reader(newB);
         this.readSensor = readSensor;
-        Mechanic mechanicHandler = new Mechanic(botSimulator, readSensor, botId, botPort);
+        Mechanic mechanicHandler = new Mechanic();
         this.mechanicHandler = mechanicHandler;
         crashSimulator crashTest = new crashSimulator();
         this.crashTest = crashTest;
 
         //Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, crashTest, gRPCclient);
 
+        RestFunc.addNewRobot(botId, botPort);
+
         // POST EXAMPLE
-        String postPath = "/robots/add";
+        /*String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.println(clientResponse.toString());
+        System.out.prIntegerln(clientResponse.toString());
 
         //qui cosa sto facendo: chiedo al server la lista dei robot
         RobotList robs = clientResponse.getEntity(RobotList.class);
         //la copio ?
         List<RobotInfo> copyRobs = robs.getRobotslist();
-        RobotList.getInstance().setRobotslist(copyRobs);
+        RobotList.getInstance().setRobotslist(copyRobs);*/
 
         //then you should receive back the position and the district !!!!
         //inserire una funzione!!!
 
         //si potrebbero togliere gli assegnamenti ?
-        for (RobotInfo r : robs.getRobotslist()){
+        /*for (RobotInfo r : robs.getRobotslist()){
             if(r.getId() == botId) {
                 botDistrict = r.getDistrict();
                 x = r.getX();
@@ -113,12 +99,12 @@ public class Robot {
             }
         }
 
-        personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
+        personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);*/
 
-        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
+        System.out.prIntegerln("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
 
         //MqttPub : ogni robot ha il suo publisher
-        MqttPub pub = new MqttPub(Integer.toString(botDistrict), readSensor, botId);
+        MqttPub pub = new MqttPub(Integereger.toString(RobotInfo.getInstance().getDistrict()), readSensor, botId);
         this.pub = pub;
         this.pub.start(); //start or run?
 
@@ -127,11 +113,11 @@ public class Robot {
 
         try {
             //anche questo passaggio delle liste !!!! no.
-            List<RobotInfo> list = RobotList.getInstance().getRobotslist();
-            //int[] RobotPortInfo, int botPort, int botDistrict, int botID
+            //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
+            //Integer[] RobotPortInfo, Integer botPort, Integer botDistrict, Integer botID
             //si può togliere tutto dagli input
-            RobotP2P.firstMSG(botPort, botDistrict, botId, x, y);
-        }  catch (InterruptedException e) {
+            RobotP2P.firstMSG();
+        }  catch (IntegererruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -146,47 +132,15 @@ public class Robot {
 
     }
 
-    public static void main(String argv[]) throws Exception {
-
-        Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
-        System.out.print("Enter id: ");
-        botId = sc.nextInt();
-        System.out.print("Enter port: ");
-        botPort = sc.nextInt();
-
-        //qui?
-        boolean stopCondition = false;
-
-        Robot bot = new Robot();
-
-        bot.initialize();
-
-        while(!stopCondition) {
-
-            String cmd = sc.nextLine();
-
-            if(cmd.equalsIgnoreCase("fix"))
-                crashSimulator.signalCrash();
-            else if (cmd.equalsIgnoreCase("quit"))
-                bot.stop();
-
-        }
-
-        //clientSocket.close();
-    }
-
     public void stop() {
 
         try {
             RobotP2P.lastMSG();
-        } catch (InterruptedException e) {
+        } catch (IntegererruptedException e) {
             throw new RuntimeException(e);
         }
-        //delete request
-        String deletePath = "/robots/remove";
-        //non ho accesso a client e tutto, lo ricreo?????
-        clientResponse = RestFunc.deleteRequest(client,serverAddress+deletePath, botId);
-        System.out.println(clientResponse.toString());
+
+        RestFunc.deleteRobot(RobotInfo.getInstance().getId());
 
         //not failing anymore
         crashTest.stopCrash();
@@ -218,13 +172,40 @@ public class Robot {
         }
     }
 
+    public static void main(String argv[]) throws Exception {
+
+        Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
+        System.out.prInteger("Enter id: ");
+        botId = sc.nextInteger();
+        System.out.prInteger("Enter port: ");
+        botPort = sc.nextInteger();
+
+        //qui?
+        boolean stopCondition = false;
+
+        Robot bot = new Robot();
+        bot.initialize();
+
+        while(!stopCondition) {
+
+            String cmd = sc.nextLine();
+
+            if(cmd.equalsIgnoreCase("fix"))
+                crashSimulator.signalCrash();
+            else if (cmd.equalsIgnoreCase("quit"))
+                bot.stop();
+
+        }
+
+    }
+
     /*public static void main(String argv[]) throws Exception {
 
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
-        System.out.print("Enter id: ");
-        botId = sc.nextInt();
-        System.out.print("Enter port: ");
-        botPort = sc.nextInt();
+        System.out.prInteger("Enter id: ");
+        botId = sc.nextInteger();
+        System.out.prInteger("Enter port: ");
+        botPort = sc.nextInteger();
 
 
         WindowBuffer newB = new WindowBuffer(8);
@@ -236,7 +217,7 @@ public class Robot {
 
         botDistrict = 0; //non dovrebbe servire
         //cambiare botId in String? e mettere "ROBOT-n" ?
-        //botId = rnd.nextInt(100) + 10;
+        //botId = rnd.nextInteger(100) + 10;
         //botPort = 1234; //input??
 
         //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
@@ -253,7 +234,7 @@ public class Robot {
         String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.println(clientResponse.toString());
+        System.out.prIntegerln(clientResponse.toString());
 
         //qui cosa sto facendo: chiedo al server la lista dei robot
         RobotList robs = clientResponse.getEntity(RobotList.class);
@@ -276,10 +257,10 @@ public class Robot {
 
         personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
 
-        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
+        System.out.prIntegerln("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
 
         //MqttPub : ogni robot ha il suo publisher
-        MqttPub pub = new MqttPub(Integer.toString(botDistrict), readSensor, botId);
+        MqttPub pub = new MqttPub(Integereger.toString(botDistrict), readSensor, botId);
         pub.start(); //start or run?
 
         //Server GRPCserver = ServerBuilder.forPort(botPort).addService(new SERVICE()).build();

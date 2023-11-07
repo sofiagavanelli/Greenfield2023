@@ -29,14 +29,14 @@ public class MqttSub implements MqttCallback {
 
     @Override
     public void connectionLost(Throwable cause) {
-        System.out.println(clientId + " Connectionlost! cause:" + cause.getMessage() + ""
+        System.out.prIntegerln(clientId + " Connectionlost! cause:" + cause.getMessage() + ""
                 + "-  Thread PID: " + Thread.currentThread().getId());
     }
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
 
-        //System.out.println("inside messageArrived callback");
+        //System.out.prIntegerln("inside messageArrived callback");
 
         // Called when a message arrives from the server that matches any subscription made by the client
         TypeToken<MqttMsg> token = new TypeToken<MqttMsg>(){};

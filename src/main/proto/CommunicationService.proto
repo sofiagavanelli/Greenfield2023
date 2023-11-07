@@ -12,31 +12,34 @@ cleaning robot presents itself to the other ones by sending them
 
 message Presentation {
 
-    int32 port = 1;
-    int32 district = 2;
-    int32 id = 3;
-    int32 x = 4;
-    int32 y = 5;
+    Integer32 port = 1;
+    Integer32 district = 2;
+    Integer32 id = 3;
+    Integer32 x = 4;
+    Integer32 y = 5;
 
 }
 
 message Goodbye {
 
-    int32 from = 1;
-    int32 id = 2;
+    Integer32 from = 1;
+    Integer32 id = 2;
 }
 
 message Request {
 
-    int32 from = 1;
-    int64 time = 2;
-    int32 clock = 3;
+    Integer32 from = 1;
+    Integer32 clock = 3;
 }
 
 message Authorization {
-    int32 from = 1;
+    Integer32 from = 1;
     bool ok = 2;
-    int32 clock = 3;
+    Integer32 clock = 3;
+}
+
+message UncontrolledCrash {
+   Integer32 id = 1;
 }
 
 service CommunicationService {
@@ -45,5 +48,5 @@ service CommunicationService {
     rpc presentationMsg(Presentation) returns (google.protobuf.Empty);
     rpc requestMechanic(Request) returns (Authorization);
     rpc answerPending(Authorization) returns (google.protobuf.Empty);
-
+    rpc organize(UncontrolledCrash) returns (google.protobuf.Empty);
 }

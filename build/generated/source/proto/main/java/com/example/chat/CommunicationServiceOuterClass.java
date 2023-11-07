@@ -14,46 +14,46 @@ public final class CommunicationServiceOuterClass {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface PresentationOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.example.chat.Presentation)
+  public Integererface PresentationOrBuilder extends
+      // @@protoc_insertion_poInteger(Integererface_extends:com.example.chat.Presentation)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 port = 1;</code>
+     * <code>Integer32 port = 1;</code>
      * @return The port.
      */
-    int getPort();
+    Integer getPort();
 
     /**
-     * <code>int32 district = 2;</code>
+     * <code>Integer32 district = 2;</code>
      * @return The district.
      */
-    int getDistrict();
+    Integer getDistrict();
 
     /**
-     * <code>int32 id = 3;</code>
+     * <code>Integer32 id = 3;</code>
      * @return The id.
      */
-    int getId();
+    Integer getId();
 
     /**
-     * <code>int32 x = 4;</code>
+     * <code>Integer32 x = 4;</code>
      * @return The x.
      */
-    int getX();
+    Integer getX();
 
     /**
-     * <code>int32 y = 5;</code>
+     * <code>Integer32 y = 5;</code>
      * @return The y.
      */
-    int getY();
+    Integer getY();
   }
   /**
    * Protobuf type {@code com.example.chat.Presentation}
    */
   public  static final class Presentation extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.example.chat.Presentation)
+      // @@protoc_insertion_poInteger(message_implements:com.example.chat.Presentation)
       PresentationOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Presentation.newBuilder() to construct.
@@ -81,41 +81,41 @@ public final class CommunicationServiceOuterClass {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new java.lang.NullPoIntegererException();
       }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
-          int tag = input.readTag();
+          Integer tag = input.readTag();
           switch (tag) {
             case 0:
               done = true;
               break;
             case 8: {
 
-              port_ = input.readInt32();
+              port_ = input.readInteger32();
               break;
             }
             case 16: {
 
-              district_ = input.readInt32();
+              district_ = input.readInteger32();
               break;
             }
             case 24: {
 
-              id_ = input.readInt32();
+              id_ = input.readInteger32();
               break;
             }
             case 32: {
 
-              x_ = input.readInt32();
+              x_ = input.readInteger32();
               break;
             }
             case 40: {
 
-              y_ = input.readInt32();
+              y_ = input.readInteger32();
               break;
             }
             default: {
@@ -139,64 +139,64 @@ public final class CommunicationServiceOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Presentation_descriptor;
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Presentation_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Presentation_fieldAccessorTable
+        IntegerernalGetFieldAccessorTable() {
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Presentation_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.example.chat.CommunicationServiceOuterClass.Presentation.class, com.example.chat.CommunicationServiceOuterClass.Presentation.Builder.class);
     }
 
-    public static final int PORT_FIELD_NUMBER = 1;
-    private int port_;
+    public static final Integer PORT_FIELD_NUMBER = 1;
+    private Integer port_;
     /**
-     * <code>int32 port = 1;</code>
+     * <code>Integer32 port = 1;</code>
      * @return The port.
      */
-    public int getPort() {
+    public Integer getPort() {
       return port_;
     }
 
-    public static final int DISTRICT_FIELD_NUMBER = 2;
-    private int district_;
+    public static final Integer DISTRICT_FIELD_NUMBER = 2;
+    private Integer district_;
     /**
-     * <code>int32 district = 2;</code>
+     * <code>Integer32 district = 2;</code>
      * @return The district.
      */
-    public int getDistrict() {
+    public Integer getDistrict() {
       return district_;
     }
 
-    public static final int ID_FIELD_NUMBER = 3;
-    private int id_;
+    public static final Integer ID_FIELD_NUMBER = 3;
+    private Integer id_;
     /**
-     * <code>int32 id = 3;</code>
+     * <code>Integer32 id = 3;</code>
      * @return The id.
      */
-    public int getId() {
+    public Integer getId() {
       return id_;
     }
 
-    public static final int X_FIELD_NUMBER = 4;
-    private int x_;
+    public static final Integer X_FIELD_NUMBER = 4;
+    private Integer x_;
     /**
-     * <code>int32 x = 4;</code>
+     * <code>Integer32 x = 4;</code>
      * @return The x.
      */
-    public int getX() {
+    public Integer getX() {
       return x_;
     }
 
-    public static final int Y_FIELD_NUMBER = 5;
-    private int y_;
+    public static final Integer Y_FIELD_NUMBER = 5;
+    private Integer y_;
     /**
-     * <code>int32 y = 5;</code>
+     * <code>Integer32 y = 5;</code>
      * @return The y.
      */
-    public int getY() {
+    public Integer getY() {
       return y_;
     }
 
@@ -215,48 +215,48 @@ public final class CommunicationServiceOuterClass {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (port_ != 0) {
-        output.writeInt32(1, port_);
+        output.writeInteger32(1, port_);
       }
       if (district_ != 0) {
-        output.writeInt32(2, district_);
+        output.writeInteger32(2, district_);
       }
       if (id_ != 0) {
-        output.writeInt32(3, id_);
+        output.writeInteger32(3, id_);
       }
       if (x_ != 0) {
-        output.writeInt32(4, x_);
+        output.writeInteger32(4, x_);
       }
       if (y_ != 0) {
-        output.writeInt32(5, y_);
+        output.writeInteger32(5, y_);
       }
       unknownFields.writeTo(output);
     }
 
     @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
+    public Integer getSerializedSize() {
+      Integer size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       if (port_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, port_);
+          .computeInteger32Size(1, port_);
       }
       if (district_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, district_);
+          .computeInteger32Size(2, district_);
       }
       if (id_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, id_);
+          .computeInteger32Size(3, id_);
       }
       if (x_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, x_);
+          .computeInteger32Size(4, x_);
       }
       if (y_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, y_);
+          .computeInteger32Size(5, y_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -288,11 +288,11 @@ public final class CommunicationServiceOuterClass {
     }
 
     @java.lang.Override
-    public int hashCode() {
+    public Integer hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
-      int hash = 41;
+      Integer hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + PORT_FIELD_NUMBER;
       hash = (53 * hash) + getPort();
@@ -404,17 +404,17 @@ public final class CommunicationServiceOuterClass {
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.example.chat.Presentation)
+        // @@protoc_insertion_poInteger(builder_implements:com.example.chat.Presentation)
         com.example.chat.CommunicationServiceOuterClass.PresentationOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Presentation_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Presentation_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Presentation_fieldAccessorTable
+          IntegerernalGetFieldAccessorTable() {
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Presentation_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.example.chat.CommunicationServiceOuterClass.Presentation.class, com.example.chat.CommunicationServiceOuterClass.Presentation.Builder.class);
       }
@@ -453,7 +453,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Presentation_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Presentation_descriptor;
       }
 
       @java.lang.Override
@@ -505,7 +505,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          Integer index, java.lang.Object value) {
         return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
@@ -570,27 +570,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int port_ ;
+      private Integer port_ ;
       /**
-       * <code>int32 port = 1;</code>
+       * <code>Integer32 port = 1;</code>
        * @return The port.
        */
-      public int getPort() {
+      public Integer getPort() {
         return port_;
       }
       /**
-       * <code>int32 port = 1;</code>
+       * <code>Integer32 port = 1;</code>
        * @param value The port to set.
        * @return This builder for chaining.
        */
-      public Builder setPort(int value) {
+      public Builder setPort(Integer value) {
         
         port_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 port = 1;</code>
+       * <code>Integer32 port = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearPort() {
@@ -600,27 +600,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int district_ ;
+      private Integer district_ ;
       /**
-       * <code>int32 district = 2;</code>
+       * <code>Integer32 district = 2;</code>
        * @return The district.
        */
-      public int getDistrict() {
+      public Integer getDistrict() {
         return district_;
       }
       /**
-       * <code>int32 district = 2;</code>
+       * <code>Integer32 district = 2;</code>
        * @param value The district to set.
        * @return This builder for chaining.
        */
-      public Builder setDistrict(int value) {
+      public Builder setDistrict(Integer value) {
         
         district_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 district = 2;</code>
+       * <code>Integer32 district = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearDistrict() {
@@ -630,27 +630,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int id_ ;
+      private Integer id_ ;
       /**
-       * <code>int32 id = 3;</code>
+       * <code>Integer32 id = 3;</code>
        * @return The id.
        */
-      public int getId() {
+      public Integer getId() {
         return id_;
       }
       /**
-       * <code>int32 id = 3;</code>
+       * <code>Integer32 id = 3;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
-      public Builder setId(int value) {
+      public Builder setId(Integer value) {
         
         id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 id = 3;</code>
+       * <code>Integer32 id = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
@@ -660,27 +660,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int x_ ;
+      private Integer x_ ;
       /**
-       * <code>int32 x = 4;</code>
+       * <code>Integer32 x = 4;</code>
        * @return The x.
        */
-      public int getX() {
+      public Integer getX() {
         return x_;
       }
       /**
-       * <code>int32 x = 4;</code>
+       * <code>Integer32 x = 4;</code>
        * @param value The x to set.
        * @return This builder for chaining.
        */
-      public Builder setX(int value) {
+      public Builder setX(Integer value) {
         
         x_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 x = 4;</code>
+       * <code>Integer32 x = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearX() {
@@ -690,27 +690,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int y_ ;
+      private Integer y_ ;
       /**
-       * <code>int32 y = 5;</code>
+       * <code>Integer32 y = 5;</code>
        * @return The y.
        */
-      public int getY() {
+      public Integer getY() {
         return y_;
       }
       /**
-       * <code>int32 y = 5;</code>
+       * <code>Integer32 y = 5;</code>
        * @param value The y to set.
        * @return This builder for chaining.
        */
-      public Builder setY(int value) {
+      public Builder setY(Integer value) {
         
         y_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 y = 5;</code>
+       * <code>Integer32 y = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearY() {
@@ -732,10 +732,10 @@ public final class CommunicationServiceOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.example.chat.Presentation)
+      // @@protoc_insertion_poInteger(builder_scope:com.example.chat.Presentation)
     }
 
-    // @@protoc_insertion_point(class_scope:com.example.chat.Presentation)
+    // @@protoc_insertion_poInteger(class_scope:com.example.chat.Presentation)
     private static final com.example.chat.CommunicationServiceOuterClass.Presentation DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new com.example.chat.CommunicationServiceOuterClass.Presentation();
@@ -772,28 +772,28 @@ public final class CommunicationServiceOuterClass {
 
   }
 
-  public interface GoodbyeOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.example.chat.Goodbye)
+  public Integererface GoodbyeOrBuilder extends
+      // @@protoc_insertion_poInteger(Integererface_extends:com.example.chat.Goodbye)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 from = 1;</code>
+     * <code>Integer32 from = 1;</code>
      * @return The from.
      */
-    int getFrom();
+    Integer getFrom();
 
     /**
-     * <code>int32 id = 2;</code>
+     * <code>Integer32 id = 2;</code>
      * @return The id.
      */
-    int getId();
+    Integer getId();
   }
   /**
    * Protobuf type {@code com.example.chat.Goodbye}
    */
   public  static final class Goodbye extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.example.chat.Goodbye)
+      // @@protoc_insertion_poInteger(message_implements:com.example.chat.Goodbye)
       GoodbyeOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Goodbye.newBuilder() to construct.
@@ -821,26 +821,26 @@ public final class CommunicationServiceOuterClass {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new java.lang.NullPoIntegererException();
       }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
-          int tag = input.readTag();
+          Integer tag = input.readTag();
           switch (tag) {
             case 0:
               done = true;
               break;
             case 8: {
 
-              from_ = input.readInt32();
+              from_ = input.readInteger32();
               break;
             }
             case 16: {
 
-              id_ = input.readInt32();
+              id_ = input.readInteger32();
               break;
             }
             default: {
@@ -864,34 +864,34 @@ public final class CommunicationServiceOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_descriptor;
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Goodbye_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_fieldAccessorTable
+        IntegerernalGetFieldAccessorTable() {
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Goodbye_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.example.chat.CommunicationServiceOuterClass.Goodbye.class, com.example.chat.CommunicationServiceOuterClass.Goodbye.Builder.class);
     }
 
-    public static final int FROM_FIELD_NUMBER = 1;
-    private int from_;
+    public static final Integer FROM_FIELD_NUMBER = 1;
+    private Integer from_;
     /**
-     * <code>int32 from = 1;</code>
+     * <code>Integer32 from = 1;</code>
      * @return The from.
      */
-    public int getFrom() {
+    public Integer getFrom() {
       return from_;
     }
 
-    public static final int ID_FIELD_NUMBER = 2;
-    private int id_;
+    public static final Integer ID_FIELD_NUMBER = 2;
+    private Integer id_;
     /**
-     * <code>int32 id = 2;</code>
+     * <code>Integer32 id = 2;</code>
      * @return The id.
      */
-    public int getId() {
+    public Integer getId() {
       return id_;
     }
 
@@ -910,27 +910,27 @@ public final class CommunicationServiceOuterClass {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (from_ != 0) {
-        output.writeInt32(1, from_);
+        output.writeInteger32(1, from_);
       }
       if (id_ != 0) {
-        output.writeInt32(2, id_);
+        output.writeInteger32(2, id_);
       }
       unknownFields.writeTo(output);
     }
 
     @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
+    public Integer getSerializedSize() {
+      Integer size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       if (from_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, from_);
+          .computeInteger32Size(1, from_);
       }
       if (id_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, id_);
+          .computeInteger32Size(2, id_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -956,11 +956,11 @@ public final class CommunicationServiceOuterClass {
     }
 
     @java.lang.Override
-    public int hashCode() {
+    public Integer hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
-      int hash = 41;
+      Integer hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + FROM_FIELD_NUMBER;
       hash = (53 * hash) + getFrom();
@@ -1066,17 +1066,17 @@ public final class CommunicationServiceOuterClass {
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.example.chat.Goodbye)
+        // @@protoc_insertion_poInteger(builder_implements:com.example.chat.Goodbye)
         com.example.chat.CommunicationServiceOuterClass.GoodbyeOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Goodbye_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_fieldAccessorTable
+          IntegerernalGetFieldAccessorTable() {
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Goodbye_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.example.chat.CommunicationServiceOuterClass.Goodbye.class, com.example.chat.CommunicationServiceOuterClass.Goodbye.Builder.class);
       }
@@ -1109,7 +1109,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Goodbye_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Goodbye_descriptor;
       }
 
       @java.lang.Override
@@ -1158,7 +1158,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          Integer index, java.lang.Object value) {
         return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
@@ -1214,27 +1214,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int from_ ;
+      private Integer from_ ;
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @return The from.
        */
-      public int getFrom() {
+      public Integer getFrom() {
         return from_;
       }
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @param value The from to set.
        * @return This builder for chaining.
        */
-      public Builder setFrom(int value) {
+      public Builder setFrom(Integer value) {
         
         from_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearFrom() {
@@ -1244,27 +1244,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int id_ ;
+      private Integer id_ ;
       /**
-       * <code>int32 id = 2;</code>
+       * <code>Integer32 id = 2;</code>
        * @return The id.
        */
-      public int getId() {
+      public Integer getId() {
         return id_;
       }
       /**
-       * <code>int32 id = 2;</code>
+       * <code>Integer32 id = 2;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
-      public Builder setId(int value) {
+      public Builder setId(Integer value) {
         
         id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 id = 2;</code>
+       * <code>Integer32 id = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
@@ -1286,10 +1286,10 @@ public final class CommunicationServiceOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.example.chat.Goodbye)
+      // @@protoc_insertion_poInteger(builder_scope:com.example.chat.Goodbye)
     }
 
-    // @@protoc_insertion_point(class_scope:com.example.chat.Goodbye)
+    // @@protoc_insertion_poInteger(class_scope:com.example.chat.Goodbye)
     private static final com.example.chat.CommunicationServiceOuterClass.Goodbye DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new com.example.chat.CommunicationServiceOuterClass.Goodbye();
@@ -1326,34 +1326,28 @@ public final class CommunicationServiceOuterClass {
 
   }
 
-  public interface RequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.example.chat.Request)
+  public Integererface RequestOrBuilder extends
+      // @@protoc_insertion_poInteger(Integererface_extends:com.example.chat.Request)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 from = 1;</code>
+     * <code>Integer32 from = 1;</code>
      * @return The from.
      */
-    int getFrom();
+    Integer getFrom();
 
     /**
-     * <code>int64 time = 2;</code>
-     * @return The time.
-     */
-    long getTime();
-
-    /**
-     * <code>int32 clock = 3;</code>
+     * <code>Integer32 clock = 3;</code>
      * @return The clock.
      */
-    int getClock();
+    Integer getClock();
   }
   /**
    * Protobuf type {@code com.example.chat.Request}
    */
   public  static final class Request extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.example.chat.Request)
+      // @@protoc_insertion_poInteger(message_implements:com.example.chat.Request)
       RequestOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Request.newBuilder() to construct.
@@ -1381,31 +1375,26 @@ public final class CommunicationServiceOuterClass {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new java.lang.NullPoIntegererException();
       }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
-          int tag = input.readTag();
+          Integer tag = input.readTag();
           switch (tag) {
             case 0:
               done = true;
               break;
             case 8: {
 
-              from_ = input.readInt32();
-              break;
-            }
-            case 16: {
-
-              time_ = input.readInt64();
+              from_ = input.readInteger32();
               break;
             }
             case 24: {
 
-              clock_ = input.readInt32();
+              clock_ = input.readInteger32();
               break;
             }
             default: {
@@ -1429,44 +1418,34 @@ public final class CommunicationServiceOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Request_descriptor;
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Request_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Request_fieldAccessorTable
+        IntegerernalGetFieldAccessorTable() {
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Request_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.example.chat.CommunicationServiceOuterClass.Request.class, com.example.chat.CommunicationServiceOuterClass.Request.Builder.class);
     }
 
-    public static final int FROM_FIELD_NUMBER = 1;
-    private int from_;
+    public static final Integer FROM_FIELD_NUMBER = 1;
+    private Integer from_;
     /**
-     * <code>int32 from = 1;</code>
+     * <code>Integer32 from = 1;</code>
      * @return The from.
      */
-    public int getFrom() {
+    public Integer getFrom() {
       return from_;
     }
 
-    public static final int TIME_FIELD_NUMBER = 2;
-    private long time_;
+    public static final Integer CLOCK_FIELD_NUMBER = 3;
+    private Integer clock_;
     /**
-     * <code>int64 time = 2;</code>
-     * @return The time.
-     */
-    public long getTime() {
-      return time_;
-    }
-
-    public static final int CLOCK_FIELD_NUMBER = 3;
-    private int clock_;
-    /**
-     * <code>int32 clock = 3;</code>
+     * <code>Integer32 clock = 3;</code>
      * @return The clock.
      */
-    public int getClock() {
+    public Integer getClock() {
       return clock_;
     }
 
@@ -1485,34 +1464,27 @@ public final class CommunicationServiceOuterClass {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (from_ != 0) {
-        output.writeInt32(1, from_);
-      }
-      if (time_ != 0L) {
-        output.writeInt64(2, time_);
+        output.writeInteger32(1, from_);
       }
       if (clock_ != 0) {
-        output.writeInt32(3, clock_);
+        output.writeInteger32(3, clock_);
       }
       unknownFields.writeTo(output);
     }
 
     @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
+    public Integer getSerializedSize() {
+      Integer size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       if (from_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, from_);
-      }
-      if (time_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, time_);
+          .computeInteger32Size(1, from_);
       }
       if (clock_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, clock_);
+          .computeInteger32Size(3, clock_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1531,8 +1503,6 @@ public final class CommunicationServiceOuterClass {
 
       if (getFrom()
           != other.getFrom()) return false;
-      if (getTime()
-          != other.getTime()) return false;
       if (getClock()
           != other.getClock()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -1540,17 +1510,14 @@ public final class CommunicationServiceOuterClass {
     }
 
     @java.lang.Override
-    public int hashCode() {
+    public Integer hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
-      int hash = 41;
+      Integer hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + FROM_FIELD_NUMBER;
       hash = (53 * hash) + getFrom();
-      hash = (37 * hash) + TIME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTime());
       hash = (37 * hash) + CLOCK_FIELD_NUMBER;
       hash = (53 * hash) + getClock();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -1653,17 +1620,17 @@ public final class CommunicationServiceOuterClass {
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.example.chat.Request)
+        // @@protoc_insertion_poInteger(builder_implements:com.example.chat.Request)
         com.example.chat.CommunicationServiceOuterClass.RequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Request_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Request_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Request_fieldAccessorTable
+          IntegerernalGetFieldAccessorTable() {
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Request_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.example.chat.CommunicationServiceOuterClass.Request.class, com.example.chat.CommunicationServiceOuterClass.Request.Builder.class);
       }
@@ -1688,8 +1655,6 @@ public final class CommunicationServiceOuterClass {
         super.clear();
         from_ = 0;
 
-        time_ = 0L;
-
         clock_ = 0;
 
         return this;
@@ -1698,7 +1663,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Request_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Request_descriptor;
       }
 
       @java.lang.Override
@@ -1719,7 +1684,6 @@ public final class CommunicationServiceOuterClass {
       public com.example.chat.CommunicationServiceOuterClass.Request buildPartial() {
         com.example.chat.CommunicationServiceOuterClass.Request result = new com.example.chat.CommunicationServiceOuterClass.Request(this);
         result.from_ = from_;
-        result.time_ = time_;
         result.clock_ = clock_;
         onBuilt();
         return result;
@@ -1748,7 +1712,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          Integer index, java.lang.Object value) {
         return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
@@ -1771,9 +1735,6 @@ public final class CommunicationServiceOuterClass {
         if (other == com.example.chat.CommunicationServiceOuterClass.Request.getDefaultInstance()) return this;
         if (other.getFrom() != 0) {
           setFrom(other.getFrom());
-        }
-        if (other.getTime() != 0L) {
-          setTime(other.getTime());
         }
         if (other.getClock() != 0) {
           setClock(other.getClock());
@@ -1807,27 +1768,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int from_ ;
+      private Integer from_ ;
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @return The from.
        */
-      public int getFrom() {
+      public Integer getFrom() {
         return from_;
       }
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @param value The from to set.
        * @return This builder for chaining.
        */
-      public Builder setFrom(int value) {
+      public Builder setFrom(Integer value) {
         
         from_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearFrom() {
@@ -1837,57 +1798,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private long time_ ;
+      private Integer clock_ ;
       /**
-       * <code>int64 time = 2;</code>
-       * @return The time.
-       */
-      public long getTime() {
-        return time_;
-      }
-      /**
-       * <code>int64 time = 2;</code>
-       * @param value The time to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTime(long value) {
-        
-        time_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int64 time = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTime() {
-        
-        time_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private int clock_ ;
-      /**
-       * <code>int32 clock = 3;</code>
+       * <code>Integer32 clock = 3;</code>
        * @return The clock.
        */
-      public int getClock() {
+      public Integer getClock() {
         return clock_;
       }
       /**
-       * <code>int32 clock = 3;</code>
+       * <code>Integer32 clock = 3;</code>
        * @param value The clock to set.
        * @return This builder for chaining.
        */
-      public Builder setClock(int value) {
+      public Builder setClock(Integer value) {
         
         clock_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 clock = 3;</code>
+       * <code>Integer32 clock = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearClock() {
@@ -1909,10 +1840,10 @@ public final class CommunicationServiceOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.example.chat.Request)
+      // @@protoc_insertion_poInteger(builder_scope:com.example.chat.Request)
     }
 
-    // @@protoc_insertion_point(class_scope:com.example.chat.Request)
+    // @@protoc_insertion_poInteger(class_scope:com.example.chat.Request)
     private static final com.example.chat.CommunicationServiceOuterClass.Request DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new com.example.chat.CommunicationServiceOuterClass.Request();
@@ -1949,15 +1880,15 @@ public final class CommunicationServiceOuterClass {
 
   }
 
-  public interface AuthorizationOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.example.chat.Authorization)
+  public Integererface AuthorizationOrBuilder extends
+      // @@protoc_insertion_poInteger(Integererface_extends:com.example.chat.Authorization)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 from = 1;</code>
+     * <code>Integer32 from = 1;</code>
      * @return The from.
      */
-    int getFrom();
+    Integer getFrom();
 
     /**
      * <code>bool ok = 2;</code>
@@ -1966,17 +1897,17 @@ public final class CommunicationServiceOuterClass {
     boolean getOk();
 
     /**
-     * <code>int32 clock = 3;</code>
+     * <code>Integer32 clock = 3;</code>
      * @return The clock.
      */
-    int getClock();
+    Integer getClock();
   }
   /**
    * Protobuf type {@code com.example.chat.Authorization}
    */
   public  static final class Authorization extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.example.chat.Authorization)
+      // @@protoc_insertion_poInteger(message_implements:com.example.chat.Authorization)
       AuthorizationOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Authorization.newBuilder() to construct.
@@ -2004,21 +1935,21 @@ public final class CommunicationServiceOuterClass {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new java.lang.NullPoIntegererException();
       }
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
-          int tag = input.readTag();
+          Integer tag = input.readTag();
           switch (tag) {
             case 0:
               done = true;
               break;
             case 8: {
 
-              from_ = input.readInt32();
+              from_ = input.readInteger32();
               break;
             }
             case 16: {
@@ -2028,7 +1959,7 @@ public final class CommunicationServiceOuterClass {
             }
             case 24: {
 
-              clock_ = input.readInt32();
+              clock_ = input.readInteger32();
               break;
             }
             default: {
@@ -2052,28 +1983,28 @@ public final class CommunicationServiceOuterClass {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Authorization_descriptor;
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Authorization_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Authorization_fieldAccessorTable
+        IntegerernalGetFieldAccessorTable() {
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Authorization_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.example.chat.CommunicationServiceOuterClass.Authorization.class, com.example.chat.CommunicationServiceOuterClass.Authorization.Builder.class);
     }
 
-    public static final int FROM_FIELD_NUMBER = 1;
-    private int from_;
+    public static final Integer FROM_FIELD_NUMBER = 1;
+    private Integer from_;
     /**
-     * <code>int32 from = 1;</code>
+     * <code>Integer32 from = 1;</code>
      * @return The from.
      */
-    public int getFrom() {
+    public Integer getFrom() {
       return from_;
     }
 
-    public static final int OK_FIELD_NUMBER = 2;
+    public static final Integer OK_FIELD_NUMBER = 2;
     private boolean ok_;
     /**
      * <code>bool ok = 2;</code>
@@ -2083,13 +2014,13 @@ public final class CommunicationServiceOuterClass {
       return ok_;
     }
 
-    public static final int CLOCK_FIELD_NUMBER = 3;
-    private int clock_;
+    public static final Integer CLOCK_FIELD_NUMBER = 3;
+    private Integer clock_;
     /**
-     * <code>int32 clock = 3;</code>
+     * <code>Integer32 clock = 3;</code>
      * @return The clock.
      */
-    public int getClock() {
+    public Integer getClock() {
       return clock_;
     }
 
@@ -2108,26 +2039,26 @@ public final class CommunicationServiceOuterClass {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (from_ != 0) {
-        output.writeInt32(1, from_);
+        output.writeInteger32(1, from_);
       }
       if (ok_ != false) {
         output.writeBool(2, ok_);
       }
       if (clock_ != 0) {
-        output.writeInt32(3, clock_);
+        output.writeInteger32(3, clock_);
       }
       unknownFields.writeTo(output);
     }
 
     @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
+    public Integer getSerializedSize() {
+      Integer size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       if (from_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, from_);
+          .computeInteger32Size(1, from_);
       }
       if (ok_ != false) {
         size += com.google.protobuf.CodedOutputStream
@@ -2135,7 +2066,7 @@ public final class CommunicationServiceOuterClass {
       }
       if (clock_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, clock_);
+          .computeInteger32Size(3, clock_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2163,16 +2094,16 @@ public final class CommunicationServiceOuterClass {
     }
 
     @java.lang.Override
-    public int hashCode() {
+    public Integer hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
       }
-      int hash = 41;
+      Integer hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + FROM_FIELD_NUMBER;
       hash = (53 * hash) + getFrom();
       hash = (37 * hash) + OK_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+      hash = (53 * hash) + com.google.protobuf.Integerernal.hashBoolean(
           getOk());
       hash = (37 * hash) + CLOCK_FIELD_NUMBER;
       hash = (53 * hash) + getClock();
@@ -2276,17 +2207,17 @@ public final class CommunicationServiceOuterClass {
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.example.chat.Authorization)
+        // @@protoc_insertion_poInteger(builder_implements:com.example.chat.Authorization)
         com.example.chat.CommunicationServiceOuterClass.AuthorizationOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Authorization_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Authorization_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Authorization_fieldAccessorTable
+          IntegerernalGetFieldAccessorTable() {
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Authorization_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.example.chat.CommunicationServiceOuterClass.Authorization.class, com.example.chat.CommunicationServiceOuterClass.Authorization.Builder.class);
       }
@@ -2321,7 +2252,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.example.chat.CommunicationServiceOuterClass.internal_static_com_example_chat_Authorization_descriptor;
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_Authorization_descriptor;
       }
 
       @java.lang.Override
@@ -2371,7 +2302,7 @@ public final class CommunicationServiceOuterClass {
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          Integer index, java.lang.Object value) {
         return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
@@ -2430,27 +2361,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int from_ ;
+      private Integer from_ ;
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @return The from.
        */
-      public int getFrom() {
+      public Integer getFrom() {
         return from_;
       }
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @param value The from to set.
        * @return This builder for chaining.
        */
-      public Builder setFrom(int value) {
+      public Builder setFrom(Integer value) {
         
         from_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 from = 1;</code>
+       * <code>Integer32 from = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearFrom() {
@@ -2490,27 +2421,27 @@ public final class CommunicationServiceOuterClass {
         return this;
       }
 
-      private int clock_ ;
+      private Integer clock_ ;
       /**
-       * <code>int32 clock = 3;</code>
+       * <code>Integer32 clock = 3;</code>
        * @return The clock.
        */
-      public int getClock() {
+      public Integer getClock() {
         return clock_;
       }
       /**
-       * <code>int32 clock = 3;</code>
+       * <code>Integer32 clock = 3;</code>
        * @param value The clock to set.
        * @return This builder for chaining.
        */
-      public Builder setClock(int value) {
+      public Builder setClock(Integer value) {
         
         clock_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 clock = 3;</code>
+       * <code>Integer32 clock = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearClock() {
@@ -2532,10 +2463,10 @@ public final class CommunicationServiceOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.example.chat.Authorization)
+      // @@protoc_insertion_poInteger(builder_scope:com.example.chat.Authorization)
     }
 
-    // @@protoc_insertion_point(class_scope:com.example.chat.Authorization)
+    // @@protoc_insertion_poInteger(class_scope:com.example.chat.Authorization)
     private static final com.example.chat.CommunicationServiceOuterClass.Authorization DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new com.example.chat.CommunicationServiceOuterClass.Authorization();
@@ -2572,26 +2503,517 @@ public final class CommunicationServiceOuterClass {
 
   }
 
+  public Integererface UncontrolledCrashOrBuilder extends
+      // @@protoc_insertion_poInteger(Integererface_extends:com.example.chat.UncontrolledCrash)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>Integer32 id = 1;</code>
+     * @return The id.
+     */
+    Integer getId();
+  }
+  /**
+   * Protobuf type {@code com.example.chat.UncontrolledCrash}
+   */
+  public  static final class UncontrolledCrash extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_poInteger(message_implements:com.example.chat.UncontrolledCrash)
+      UncontrolledCrashOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UncontrolledCrash.newBuilder() to construct.
+    private UncontrolledCrash(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UncontrolledCrash() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new UncontrolledCrash();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UncontrolledCrash(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPoIntegererException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          Integer tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              id_ = input.readInteger32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_UncontrolledCrash_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        IntegerernalGetFieldAccessorTable() {
+      return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_UncontrolledCrash_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.class, com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.Builder.class);
+    }
+
+    public static final Integer ID_FIELD_NUMBER = 1;
+    private Integer id_;
+    /**
+     * <code>Integer32 id = 1;</code>
+     * @return The id.
+     */
+    public Integer getId() {
+      return id_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (id_ != 0) {
+        output.writeInteger32(1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public Integer getSerializedSize() {
+      Integer size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (id_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInteger32Size(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash)) {
+        return super.equals(obj);
+      }
+      com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash other = (com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash) obj;
+
+      if (getId()
+          != other.getId()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public Integer hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      Integer hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.example.chat.UncontrolledCrash}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_poInteger(builder_implements:com.example.chat.UncontrolledCrash)
+        com.example.chat.CommunicationServiceOuterClass.UncontrolledCrashOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_UncontrolledCrash_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          IntegerernalGetFieldAccessorTable() {
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_UncontrolledCrash_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.class, com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.Builder.class);
+      }
+
+      // Construct using com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.example.chat.CommunicationServiceOuterClass.Integerernal_static_com_example_chat_UncontrolledCrash_descriptor;
+      }
+
+      @java.lang.Override
+      public com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash getDefaultInstanceForType() {
+        return com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash build() {
+        com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash buildPartial() {
+        com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash result = new com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Integer index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash) {
+          return mergeFrom((com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash other) {
+        if (other == com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.getDefaultInstance()) return this;
+        if (other.getId() != 0) {
+          setId(other.getId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private Integer id_ ;
+      /**
+       * <code>Integer32 id = 1;</code>
+       * @return The id.
+       */
+      public Integer getId() {
+        return id_;
+      }
+      /**
+       * <code>Integer32 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(Integer value) {
+        
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>Integer32 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_poInteger(builder_scope:com.example.chat.UncontrolledCrash)
+    }
+
+    // @@protoc_insertion_poInteger(class_scope:com.example.chat.UncontrolledCrash)
+    private static final com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash();
+    }
+
+    public static com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UncontrolledCrash>
+        PARSER = new com.google.protobuf.AbstractParser<UncontrolledCrash>() {
+      @java.lang.Override
+      public UncontrolledCrash parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UncontrolledCrash(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UncontrolledCrash> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UncontrolledCrash> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_example_chat_Presentation_descriptor;
+    Integerernal_static_com_example_chat_Presentation_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_example_chat_Presentation_fieldAccessorTable;
+      Integerernal_static_com_example_chat_Presentation_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_example_chat_Goodbye_descriptor;
+    Integerernal_static_com_example_chat_Goodbye_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_example_chat_Goodbye_fieldAccessorTable;
+      Integerernal_static_com_example_chat_Goodbye_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_example_chat_Request_descriptor;
+    Integerernal_static_com_example_chat_Request_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_example_chat_Request_fieldAccessorTable;
+      Integerernal_static_com_example_chat_Request_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_example_chat_Authorization_descriptor;
+    Integerernal_static_com_example_chat_Authorization_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_example_chat_Authorization_fieldAccessorTable;
+      Integerernal_static_com_example_chat_Authorization_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    Integerernal_static_com_example_chat_UncontrolledCrash_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      Integerernal_static_com_example_chat_UncontrolledCrash_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2605,50 +3027,59 @@ public final class CommunicationServiceOuterClass {
       "e.chat\032\033google/protobuf/empty.proto\"P\n\014P" +
       "resentation\022\014\n\004port\030\001 \001(\005\022\020\n\010district\030\002 " +
       "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"#\n" +
-      "\007Goodbye\022\014\n\004from\030\001 \001(\005\022\n\n\002id\030\002 \001(\005\"4\n\007Re" +
-      "quest\022\014\n\004from\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022\r\n\005clo" +
-      "ck\030\003 \001(\005\"8\n\rAuthorization\022\014\n\004from\030\001 \001(\005\022" +
-      "\n\n\002ok\030\002 \001(\010\022\r\n\005clock\030\003 \001(\0052\273\002\n\024Communica" +
-      "tionService\022?\n\nremovalMsg\022\031.com.example." +
-      "chat.Goodbye\032\026.google.protobuf.Empty\022I\n\017" +
-      "presentationMsg\022\036.com.example.chat.Prese" +
-      "ntation\032\026.google.protobuf.Empty\022M\n\017reque" +
-      "stMechanic\022\031.com.example.chat.Request\032\037." +
-      "com.example.chat.Authorization\022H\n\ranswer" +
-      "Pending\022\037.com.example.chat.Authorization" +
-      "\032\026.google.protobuf.Emptyb\006proto3"
+      "\007Goodbye\022\014\n\004from\030\001 \001(\005\022\n\n\002id\030\002 \001(\005\"&\n\007Re" +
+      "quest\022\014\n\004from\030\001 \001(\005\022\r\n\005clock\030\003 \001(\005\"8\n\rAu" +
+      "thorization\022\014\n\004from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\010\022\r\n" +
+      "\005clock\030\003 \001(\005\"\037\n\021UncontrolledCrash\022\n\n\002id\030" +
+      "\001 \001(\0052\204\003\n\024CommunicationService\022?\n\nremova" +
+      "lMsg\022\031.com.example.chat.Goodbye\032\026.google" +
+      ".protobuf.Empty\022I\n\017presentationMsg\022\036.com" +
+      ".example.chat.Presentation\032\026.google.prot" +
+      "obuf.Empty\022M\n\017requestMechanic\022\031.com.exam" +
+      "ple.chat.Request\032\037.com.example.chat.Auth" +
+      "orization\022H\n\ranswerPending\022\037.com.example" +
+      ".chat.Authorization\032\026.google.protobuf.Em" +
+      "pty\022G\n\010organize\022#.com.example.chat.Uncon" +
+      "trolledCrash\032\026.google.protobuf.Emptyb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
+      .IntegerernalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.EmptyProto.getDescriptor(),
         });
-    internal_static_com_example_chat_Presentation_descriptor =
+    Integerernal_static_com_example_chat_Presentation_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_com_example_chat_Presentation_fieldAccessorTable = new
+    Integerernal_static_com_example_chat_Presentation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_example_chat_Presentation_descriptor,
+        Integerernal_static_com_example_chat_Presentation_descriptor,
         new java.lang.String[] { "Port", "District", "Id", "X", "Y", });
-    internal_static_com_example_chat_Goodbye_descriptor =
+    Integerernal_static_com_example_chat_Goodbye_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_com_example_chat_Goodbye_fieldAccessorTable = new
+    Integerernal_static_com_example_chat_Goodbye_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_example_chat_Goodbye_descriptor,
+        Integerernal_static_com_example_chat_Goodbye_descriptor,
         new java.lang.String[] { "From", "Id", });
-    internal_static_com_example_chat_Request_descriptor =
+    Integerernal_static_com_example_chat_Request_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_com_example_chat_Request_fieldAccessorTable = new
+    Integerernal_static_com_example_chat_Request_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_example_chat_Request_descriptor,
-        new java.lang.String[] { "From", "Time", "Clock", });
-    internal_static_com_example_chat_Authorization_descriptor =
+        Integerernal_static_com_example_chat_Request_descriptor,
+        new java.lang.String[] { "From", "Clock", });
+    Integerernal_static_com_example_chat_Authorization_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_com_example_chat_Authorization_fieldAccessorTable = new
+    Integerernal_static_com_example_chat_Authorization_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_example_chat_Authorization_descriptor,
+        Integerernal_static_com_example_chat_Authorization_descriptor,
         new java.lang.String[] { "From", "Ok", "Clock", });
+    Integerernal_static_com_example_chat_UncontrolledCrash_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    Integerernal_static_com_example_chat_UncontrolledCrash_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        Integerernal_static_com_example_chat_UncontrolledCrash_descriptor,
+        new java.lang.String[] { "Id", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 
-  // @@protoc_insertion_point(outer_class_scope)
+  // @@protoc_insertion_poInteger(outer_class_scope)
 }

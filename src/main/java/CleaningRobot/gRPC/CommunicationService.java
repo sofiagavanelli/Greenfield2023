@@ -4,14 +4,10 @@ import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import CleaningRobot.breakHandler.STATE;
 import CleaningRobot.breakHandler.robotState;
-import CleaningRobot.personalInfo;
 import com.example.chat.CommunicationServiceGrpc;
 import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommunicationService extends CommunicationServiceGrpc.CommunicationServiceImplBase {
 
@@ -21,7 +17,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         System.out.println(request);
 
-        personalInfo.getInstance().incrementClock();
+        robotState.getInstance().incrementClock();
 
         RobotList.getInstance().remove(request.getId());
 
@@ -39,10 +35,10 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         System.out.println(request);
 
-        personalInfo.getInstance().incrementClock();
+        robotState.getInstance().incrementClock();
 
         //creo un robot e lo aggiungo
-        //int id, int portN, int x, int y, int district
+        //Integer id, Integer portN, Integer x, Integer y, Integer district
         RobotInfo newBot = new RobotInfo(request.getId(), request.getPort(), request.getX(), request.getY(), request.getDistrict());
         RobotList.getInstance().add(newBot);
 
@@ -73,12 +69,12 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     public void requestMechanic(CommunicationServiceOuterClass.Request request, StreamObserver<CommunicationServiceOuterClass.Authorization> responseObserver) {
 
         //LAMPORT ?
-        System.out.println("my clock: " + personalInfo.getInstance().getClock());
+        System.out.println("my clock: " + robotState.getInstance().getClock());
         System.out.println("the sender's clock: " + request.getClock());
-        int senderClock = request.getClock();
-        int newClock = (Math.max(senderClock, personalInfo.getInstance().getClock()) + 1);
-        personalInfo.getInstance().setClock(newClock);
-        System.out.println("my new clock: " + personalInfo.getInstance().getClock());
+        Integer senderClock = request.getClock();
+        Integer newClock = Math.max(senderClock, robotState.getInstance().getClock()) + 1;
+        robotState.getInstance().setClock(newClock);
+        System.out.println("my new clock: " + robotState.getInstance().getClock());
 
         //qui sono dentro chi riceve
         System.out.println("somebody needs the mechanic");
@@ -86,14 +82,14 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         CommunicationServiceOuterClass.Authorization response;
 
         //devo dire da chi è!! mi serve il mio botPort (ma voglio aggiungere l'id?)
-        int myPort = personalInfo.getInstance().getPort();
+        Integer myPort = RobotInfo.getInstance().getPortN();
 
         //i need the mechanic so i have a request out
         if(robotState.getInstance().getState() == STATE.NEEDING) {
 
             CommunicationServiceOuterClass.Request mine = MechanicRequests.getInstance().getPersonal();
 
-            if(mine.getTime() < request.getTime()) {
+            if(mine.getClock() < request.getClock()) {
                 //metto la tua richiesta nella mia coda
                 MechanicRequests.getInstance().addRequest(request);
                 //ho già io una richiesta ed è inferiore quindi dico di no
@@ -135,11 +131,28 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         System.out.println("somebody released the mechanic");
         //chi è in attesa riceve una risposta ?
-        personalInfo.getInstance().incrementClock();
+        robotState.getInstance().incrementClock();
 
         Authorizations.getInstance().addAuthorization(authorization);
         //non posso metterla qui perché il wait viene fatto dentro il mechanic ?
         //Authorizations.getInstance().unblockAuthorizations();
+        Authorizations.getInstance().unblockMechanic();
+
+        responseObserver.onNext(null);
+
+        //completo e finisco la comunicazione
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void organize(CommunicationServiceOuterClass.UncontrolledCrash request, StreamObserver<Empty> responseObserver) {
+
+        //call to remove
+        System.out.println("somebody told me to remove " + request.getId());
+        RobotList.getInstance().remove(request.getId());
+
+        //if i'm waiting to obtain its authorization?
+        //what happens if i notify and nobody is waiting?
         Authorizations.getInstance().unblockMechanic();
 
         responseObserver.onNext(null);

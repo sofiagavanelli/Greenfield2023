@@ -19,7 +19,7 @@ public class AdminClient {
     static String serverAddress;
     static ClientResponse clientResponse;
 
-    //devo mettere su l'interfaccia delle richieste e poi in base a quale opzione sceglie poi si fanno le chiamate al server
+    //devo mettere su l'Integererfaccia delle richieste e poi in base a quale opzione sceglie poi si fanno le chiamate al server
 
     public static void main(String args[]){
 
@@ -31,29 +31,29 @@ public class AdminClient {
 
         // POST EXAMPLE
 
-        int cmd;
+        Integer cmd;
 
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
 
         while(!stopCondition) {
-            System.out.print("Enter your request: ");
-            cmd = sc.nextInt();
+            System.out.prInteger("Enter your request: ");
+            cmd = sc.nextInteger();
 
             if (cmd == 0) {
 
-                System.out.print("Enter robot id: ");
-                int id = sc.nextInt();
-                System.out.print("Enter number of measurements: ");
-                int n = sc.nextInt();
+                System.out.prInteger("Enter robot id: ");
+                Integer id = sc.nextInteger();
+                System.out.prInteger("Enter number of measurements: ");
+                Integer n = sc.nextInteger();
 
                 requestLastAverages(id, n);
             } else if (cmd == 1) {
 
-                System.out.println("The current timestamp is: " + System.currentTimeMillis());
+                System.out.prIntegerln("The current timestamp is: " + System.currentTimeMillis());
 
-                System.out.print("Enter t1: ");
+                System.out.prInteger("Enter t1: ");
                 long t1 = sc.nextLong();
-                System.out.print("Enter t2: ");
+                System.out.prInteger("Enter t2: ");
                 long t2 = sc.nextLong();
 
                 requestAveragesBetweenTime(t1, t2);
@@ -63,7 +63,7 @@ public class AdminClient {
                 getAllRobots();
             }
             else
-                System.out.println("There aren't requests with this number");
+                System.out.prIntegerln("There aren't requests with this number");
 
             //also list of all the cleaning robot currently there
 
@@ -78,18 +78,18 @@ public class AdminClient {
      }
      */
 
-    public static void requestLastAverages(int id, int n) {
+    public static void requestLastAverages(Integer id, Integer n) {
 
         // GET EXAMPLE
         String getPath = "/averages/get-last/" + id + ":" + n;
-        //System.out.println("calling: " + getPath);
+        //System.out.prIntegerln("calling: " + getPath);
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
-        //System.out.println(clientResponse.toString());
+        //System.out.prIntegerln(clientResponse.toString());
 
         //il risultato della richiesta? come ho l'accesso?
-        System.out.println("The average of the last " + n + " measurements for robot " + id + " is: ");
-        System.out.println(clientResponse.getEntity(String.class));
+        System.out.prIntegerln("The average of the last " + n + " measurements for robot " + id + " is: ");
+        System.out.prIntegerln(clientResponse.getEntity(String.class));
 
     }
 
@@ -97,33 +97,33 @@ public class AdminClient {
 
         // GET EXAMPLE
         String getPath = "/averages/get-between/" + t1 + ":" + t2;
-        //System.out.println("calling: " + getPath);
+        //System.out.prIntegerln("calling: " + getPath);
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
-        //System.out.println(clientResponse.toString());
+        //System.out.prIntegerln(clientResponse.toString());
 
         //il risultato della richiesta? come ho l'accesso?
-        System.out.println("The average of the measurements between " + t1 + " and " + t2 + " is: ");
-        System.out.println(clientResponse.getEntity(String.class));
+        System.out.prIntegerln("The average of the measurements between " + t1 + " and " + t2 + " is: ");
+        System.out.prIntegerln(clientResponse.getEntity(String.class));
     }
 
     public static void getAllRobots() {
 
-        System.out.println("The robots currently in Greenfield are: ");
+        System.out.prIntegerln("The robots currently in Greenfield are: ");
 
         // GET EXAMPLE
         String getPath = "/robots";
-        System.out.println("calling: " + getPath);
+        System.out.prIntegerln("calling: " + getPath);
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
-        //System.out.println(clientResponse.toString());
+        //System.out.prIntegerln(clientResponse.toString());
 
         //il risultato della richiesta? come ho l'accesso?
         //RobotList.class lo stampa male!!
         RobotList list = clientResponse.getEntity(RobotList.class);
         for (RobotInfo r : list.getRobotslist())  {
-            System.out.println("ROBOT-" + r.getId());
-            System.out.println("in district: " + r.getDistrict());
+            System.out.prIntegerln("ROBOT-" + r.getId());
+            System.out.prIntegerln("in district: " + r.getDistrict());
         }
 
     }

@@ -151,6 +151,37 @@ public final class CommunicationServiceGrpc {
     return getAnswerPendingMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash,
+      com.google.protobuf.Empty> getOrganizeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "organize",
+      requestType = com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash,
+      com.google.protobuf.Empty> getOrganizeMethod() {
+    io.grpc.MethodDescriptor<com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash, com.google.protobuf.Empty> getOrganizeMethod;
+    if ((getOrganizeMethod = CommunicationServiceGrpc.getOrganizeMethod) == null) {
+      synchronized (CommunicationServiceGrpc.class) {
+        if ((getOrganizeMethod = CommunicationServiceGrpc.getOrganizeMethod) == null) {
+          CommunicationServiceGrpc.getOrganizeMethod = getOrganizeMethod =
+              io.grpc.MethodDescriptor.<com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "organize"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new CommunicationServiceMethodDescriptorSupplier("organize"))
+              .build();
+        }
+      }
+    }
+    return getOrganizeMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -206,6 +237,13 @@ public final class CommunicationServiceGrpc {
       asyncUnimplementedUnaryCall(getAnswerPendingMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void organize(com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      asyncUnimplementedUnaryCall(getOrganizeMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -236,6 +274,13 @@ public final class CommunicationServiceGrpc {
                 com.example.chat.CommunicationServiceOuterClass.Authorization,
                 com.google.protobuf.Empty>(
                   this, METHODID_ANSWER_PENDING)))
+          .addMethod(
+            getOrganizeMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash,
+                com.google.protobuf.Empty>(
+                  this, METHODID_ORGANIZE)))
           .build();
     }
   }
@@ -289,6 +334,14 @@ public final class CommunicationServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getAnswerPendingMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void organize(com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getOrganizeMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -335,6 +388,13 @@ public final class CommunicationServiceGrpc {
     public com.google.protobuf.Empty answerPending(com.example.chat.CommunicationServiceOuterClass.Authorization request) {
       return blockingUnaryCall(
           getChannel(), getAnswerPendingMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty organize(com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash request) {
+      return blockingUnaryCall(
+          getChannel(), getOrganizeMethod(), getCallOptions(), request);
     }
   }
 
@@ -387,12 +447,21 @@ public final class CommunicationServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getAnswerPendingMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> organize(
+        com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash request) {
+      return futureUnaryCall(
+          getChannel().newCall(getOrganizeMethod(), getCallOptions()), request);
+    }
   }
 
-  private static final int METHODID_REMOVAL_MSG = 0;
-  private static final int METHODID_PRESENTATION_MSG = 1;
-  private static final int METHODID_REQUEST_MECHANIC = 2;
-  private static final int METHODID_ANSWER_PENDING = 3;
+  private static final Integer METHODID_REMOVAL_MSG = 0;
+  private static final Integer METHODID_PRESENTATION_MSG = 1;
+  private static final Integer METHODID_REQUEST_MECHANIC = 2;
+  private static final Integer METHODID_ANSWER_PENDING = 3;
+  private static final Integer METHODID_ORGANIZE = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -400,9 +469,9 @@ public final class CommunicationServiceGrpc {
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
     private final CommunicationServiceImplBase serviceImpl;
-    private final int methodId;
+    private final Integer methodId;
 
-    MethodHandlers(CommunicationServiceImplBase serviceImpl, int methodId) {
+    MethodHandlers(CommunicationServiceImplBase serviceImpl, Integer methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -425,6 +494,10 @@ public final class CommunicationServiceGrpc {
           break;
         case METHODID_ANSWER_PENDING:
           serviceImpl.answerPending((com.example.chat.CommunicationServiceOuterClass.Authorization) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_ORGANIZE:
+          serviceImpl.organize((com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash) request,
               (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
         default:
@@ -492,6 +565,7 @@ public final class CommunicationServiceGrpc {
               .addMethod(getPresentationMsgMethod())
               .addMethod(getRequestMechanicMethod())
               .addMethod(getAnswerPendingMethod())
+              .addMethod(getOrganizeMethod())
               .build();
         }
       }

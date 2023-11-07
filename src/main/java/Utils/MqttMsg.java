@@ -6,13 +6,13 @@ public class MqttMsg {
 
     long timestamp;
     List<Double> averages;
-    int robotID;
+    Integer robotID;
 
     public MqttMsg() {
     }
 
-    public MqttMsg(List<Double> averages, int robotID) {
-        this.timestamp = System.currentTimeMillis();
+    public MqttMsg(List<Double> averages, Integer robotID) {
+        this.timestamp = System.currentTimeMillis(); //qui ci andrà il clock
         this.averages = averages;
         this.robotID = robotID;
     }
@@ -25,7 +25,7 @@ public class MqttMsg {
         return averages;
     }
 
-    public int getRobotID() {
+    public Integer getRobotID() {
         return robotID;
     }
 }

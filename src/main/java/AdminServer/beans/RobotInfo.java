@@ -8,24 +8,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RobotInfo {
 
-    private int id;
-    private int portN;
-    int x; //int x int y separated?
-    int y;
-    int district;
+    private Integer id;
+    private Integer portN;
+    Integer x; //Integer x Integer y separated?
+    Integer y;
+    Integer district;
     //IPaddress? String?
     String ipAddress;
+
+    private static RobotInfo instance;
 
     public RobotInfo() {}
 
     //equivalent of @post robot
-    public RobotInfo(int id, int portN) { //, String ipAddress) {
+    public RobotInfo(Integer id, Integer portN) { //, String ipAddress) {
         this.id = id;
         this.portN = portN;
         //this.ipAddress = ipAddress;
     }
 
-    public RobotInfo(int id, int portN, int x, int y, int district) {
+    public RobotInfo(Integer id, Integer portN, Integer x, Integer y, Integer district) {
         this.id = id;
         this.portN = portN;
         this.x = x;
@@ -33,48 +35,60 @@ public class RobotInfo {
         this.district = district;
     }
 
-    public RobotInfo(int robotID) {
-        this.id = robotID;
+    //getInstance !!!
+    //singleton
+    public static synchronized RobotInfo getInstance(){
+        if(instance==null)
+            instance = new RobotInfo();
+        return instance;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setPortN(int p) { this.portN = p; }
+    public void setPortN(Integer p) { this.portN = p; }
 
-    public int getPortN() {
+    public Integer getPortN() {
         return portN;
     }
 
-    public void setX(int x) {
+    public void setX(Integer x) {
         this.x = x;
     }
 
-    public int getX() {
+    public Integer getX() {
         return x;
     }
 
-    public void setY(int y) {
+    public void setY(Integer y) {
         this.y = y;
     }
 
-    public int getY() {
+    public Integer getY() {
         return y;
     }
 
-    public int getDistrict() {
+    public Integer getDistrict() {
         return district;
     }
 
-
-    public void setCoordinates(int posX, int posY, int d){
+    public void setCoordinates(Integer posX, Integer posY, Integer d){
         x = posX;
         y = posY;
         district = d;
     }
+
+    public void setAll(Integer id, Integer district, Integer x, Integer y, Integer portN) {
+        this.id = id;
+        this.district = district;
+        this.x = x;
+        this.y = y;
+        this.portN = portN;
+    }
+
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /*At the end of a read operation, readAllAndClean makes room for new measurements in
 the buffer. Specifically, you must process sensor data through the sliding
-window technique that was introduced in the theory lessons. You must
+window technique that was Integerroduced in the theory lessons. You must
 consider a buffer of 8 measurements, with an overlap factor of 50%. When
 the dimension of the buffer is equal to 8 measurements, you must compute
 the average of these 8 measurements. A cleaning robot will periodically send
@@ -13,14 +13,14 @@ these averages to the Administrator Server*/
 
 public class WindowBuffer implements Buffer {
 
-    private int size;
+    private Integer size;
     //private float overlap = 1/2;
     private double overlap = 0.5;
     private List<Measurement> buffer;
 
     private Measurement average;
 
-    public WindowBuffer(int size) {
+    public WindowBuffer(Integer size) {
         this.size = size;
 
         //option: Array deques have no capacity restrictions; they grow as necessary to support usage.
@@ -35,15 +35,15 @@ public class WindowBuffer implements Buffer {
 
         try {
             while (buffer.size() == this.size) {
-                //System.out.println("add in wait");
+                //System.out.prIntegerln("add in wait");
                 this.wait();
             }
 
-            //System.out.println(m.getValue());
+            //System.out.prIntegerln(m.getValue());
             this.buffer.add(m);
 
             if (buffer.size() == this.size) {
-                //System.out.println("add in notify");
+                //System.out.prIntegerln("add in notify");
                 this.notify();
             }
         }
@@ -61,23 +61,23 @@ public class WindowBuffer implements Buffer {
 
         try {
             while (buffer.size() < this.size) {
-                //System.out.println("read in wait");
+                //System.out.prIntegerln("read in wait");
                 this.wait();
             }
 
             List<Measurement> windowMeasurements = new ArrayList<>(this.buffer);
 
-            int toDelete = 4; // Math.round(this.size * this.overlap);
+            Integer toDelete = 4; // Math.round(this.size * this.overlap);
 
-            for (int i = 0; i < toDelete; i++)
+            for (Integer i = 0; i < toDelete; i++)
                 this.buffer.remove(i);
 
             this.notify();
-            //System.out.println("read in notify");
+            //System.out.prIntegerln("read in notify");
 
             return windowMeasurements;
 
-        } catch (InterruptedException e) {
+        } catch (IntegererruptedException e) {
             return new ArrayList<>(this.buffer);
         }
 

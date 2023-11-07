@@ -29,7 +29,6 @@ message Goodbye {
 message Request {
 
     int32 from = 1;
-    int64 time = 2;
     int32 clock = 3;
 }
 
@@ -39,11 +38,15 @@ message Authorization {
     int32 clock = 3;
 }
 
+message UncontrolledCrash {
+   int32 id = 1;
+}
+
 service CommunicationService {
 
     rpc removalMsg(Goodbye) returns (google.protobuf.Empty);
     rpc presentationMsg(Presentation) returns (google.protobuf.Empty);
     rpc requestMechanic(Request) returns (Authorization);
     rpc answerPending(Authorization) returns (google.protobuf.Empty);
-
+    rpc organize(UncontrolledCrash) returns (google.protobuf.Empty);
 }
