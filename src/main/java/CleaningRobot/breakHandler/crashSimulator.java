@@ -24,11 +24,11 @@ public class crashSimulator extends Thread {
 
             try {
                 sleep(10000);
-            } catch (IntegererruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
 
-            Integer i = rnd.nextInteger(100);
+            Integer i = rnd.nextInt(100);
             //Integer i = 8;
 
             if (i < 10 && i >= 0) {
@@ -53,7 +53,7 @@ public class crashSimulator extends Thread {
             while(robotState.getInstance().getState() == STATE.WORKING) {
                 try {
                     crash.wait();
-                } catch (IntegererruptedException e) {
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -64,7 +64,7 @@ public class crashSimulator extends Thread {
         synchronized (crash) {
             robotState.getInstance().setState(STATE.NEEDING);
             crash.notify();
-            System.out.prIntegerln("This robot has crashed");
+            System.out.println("This robot has crashed");
         }
     }
 
@@ -78,7 +78,7 @@ public class crashSimulator extends Thread {
 
         try {
             RobotP2P.organize(id);
-        } catch (IntegererruptedException e) {
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 

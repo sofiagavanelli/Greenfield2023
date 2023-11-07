@@ -50,7 +50,7 @@ public class MqttPub extends Thread {
             try {
                 //he has to get the averages every 15 seconds
                 sleep(15000);
-            } catch (IntegererruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             read = sensor.getAverages();
@@ -58,14 +58,14 @@ public class MqttPub extends Thread {
             MqttMsg msg = new MqttMsg(read, robotID);
             String payload = new Gson().toJson(msg);
 
-            //System.out.prIntegerln(msg.getStringMessage());
+            //System.out.println(msg.getStringMessage());
 
             //String payload = msg.getStringMessage(); // create a random number between 0 and 10
             MqttMessage message = new MqttMessage(payload.getBytes());
 
             //Set the QoS on the Message
             message.setQos(qos);
-            //System.out.prIntegerln(clientId + " Publishing message: " + payload + " ...");
+            //System.out.println(clientId + " Publishing message: " + payload + " ...");
             try {
                 client.publish(topic, message);
 
@@ -95,18 +95,18 @@ public class MqttPub extends Thread {
             //connOpts.setKeepAliveIntegererval(60);  // optional
 
             // Connect the client
-            System.out.prIntegerln(clientId + " Connecting Broker " + broker);
+            System.out.println(clientId + " Connecting Broker " + broker);
             client.connect(connOpts);
-            System.out.prIntegerln(clientId + " Connected");
+            System.out.println(clientId + " Connected");
 
 
         } catch (MqttException me ) {
-            System.out.prIntegerln("reason " + me.getReasonCode());
-            System.out.prIntegerln("msg " + me.getMessage());
-            System.out.prIntegerln("loc " + me.getLocalizedMessage());
-            System.out.prIntegerln("cause " + me.getCause());
-            System.out.prIntegerln("excep " + me);
-            me.prIntegerStackTrace();
+            System.out.println("reason " + me.getReasonCode());
+            System.out.println("msg " + me.getMessage());
+            System.out.println("loc " + me.getLocalizedMessage());
+            System.out.println("cause " + me.getCause());
+            System.out.println("excep " + me);
+            me.printStackTrace();
         }
     }
 }

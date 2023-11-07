@@ -15,7 +15,7 @@ import java.util.Random;
 @Path("robots")
 public class RobotsService {
 
-    private List<Integereger> botDistricts = new ArrayList<Integereger>();
+    private List<Integer> botDistricts = new ArrayList<Integer>();
 
     private Integer x = 0;
     private Integer y = 0;
@@ -81,12 +81,12 @@ public class RobotsService {
         for(Integer i=0; i<4; i++) {
             if(i==0 && botDistricts.get(i) == 0) {
                 d = i + 1;
-                System.out.prIntegerln("DISTRETTO " + d + " bot dentro: " + botDistricts.get(i));
+                System.out.println("DISTRETTO " + d + " bot dentro: " + botDistricts.get(i));
             }
             else {
                 if (botDistricts.get(i) < botDistricts.get(d)) {
                     d = i + 1;
-                    System.out.prIntegerln("DISTRETTO " + d + " bot dentro: " + botDistricts.get(i));
+                    System.out.println("DISTRETTO " + d + " bot dentro: " + botDistricts.get(i));
                 }
             }
         }
@@ -97,8 +97,8 @@ public class RobotsService {
         //botDistricts.add(district - 1, 1); //inutile?
         RobotPositions.getInstance().addDistricts(d - 1);
 
-        this.x = pos.nextInteger(5);
-        this.y = pos.nextInteger(5);
+        this.x = pos.nextInt(5);
+        this.y = pos.nextInt(5);
 
         if(this.district == 2) {
             this.x = this.x + 5;
@@ -111,8 +111,8 @@ public class RobotsService {
             this.y = this.y + 5;
         }
 
-        System.out.prIntegerln("x: " + x);
-        System.out.prIntegerln("y: " + y);
+        System.out.println("x: " + x);
+        System.out.println("y: " + y);
 
         return true;
 

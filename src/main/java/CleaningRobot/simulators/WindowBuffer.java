@@ -35,15 +35,15 @@ public class WindowBuffer implements Buffer {
 
         try {
             while (buffer.size() == this.size) {
-                //System.out.prIntegerln("add in wait");
+                //System.out.println("add in wait");
                 this.wait();
             }
 
-            //System.out.prIntegerln(m.getValue());
+            //System.out.println(m.getValue());
             this.buffer.add(m);
 
             if (buffer.size() == this.size) {
-                //System.out.prIntegerln("add in notify");
+                //System.out.println("add in notify");
                 this.notify();
             }
         }
@@ -61,7 +61,7 @@ public class WindowBuffer implements Buffer {
 
         try {
             while (buffer.size() < this.size) {
-                //System.out.prIntegerln("read in wait");
+                //System.out.println("read in wait");
                 this.wait();
             }
 
@@ -73,11 +73,11 @@ public class WindowBuffer implements Buffer {
                 this.buffer.remove(i);
 
             this.notify();
-            //System.out.prIntegerln("read in notify");
+            //System.out.println("read in notify");
 
             return windowMeasurements;
 
-        } catch (IntegererruptedException e) {
+        } catch (InterruptedException e) {
             return new ArrayList<>(this.buffer);
         }
 

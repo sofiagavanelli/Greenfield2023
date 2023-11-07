@@ -41,16 +41,16 @@ public class Mechanic extends Thread {
                 try {
                     RobotP2P.requestMechanic();
 
-                    System.out.prIntegerln("out of requestMechanic");
-                    System.out.prIntegerln(Authorizations.getInstance().getAuthorizations());
+                    System.out.println("out of requestMechanic");
+                    System.out.println(Authorizations.getInstance().getAuthorizations());
 
                     Authorizations.getInstance().controlAuthorizations();
 
                     //ha ottenuto le autorizzazioni per andare dal meccanico
                     robotState.getInstance().setState(STATE.MECHANIC);
-                    System.out.prIntegerln("uso il meccanico");
+                    System.out.println("uso il meccanico");
                     sleep(10000); //10s di meccanico
-                    System.out.prIntegerln("rilascio il meccanico");
+                    System.out.println("rilascio il meccanico");
                     //ha finito di usare il meccanico e torna a lavorare
                     robotState.getInstance().setState(STATE.WORKING);
                     //rimuovo la mia richiesta
@@ -61,7 +61,7 @@ public class Mechanic extends Thread {
                         RobotP2P.answerPending();
                     }
 
-                } catch (IntegererruptedException e) {
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
@@ -101,10 +101,10 @@ public class Mechanic extends Thread {
 
         try {
             RobotP2P.requestMechanic();
-            System.out.prIntegerln("out of requestMechanic");
+            System.out.println("out of requestMechanic");
             while(Authorizations.getInstance().getAuthorizations().size() < (listCopy.size()-1)) {
                 //non ho ancora tutte le authorizations
-                System.out.prIntegerln("sono nel while");
+                System.out.println("sono nel while");
                 Authorizations.getInstance().getAuthorizations().wait();
             } //non posso mettere qua notify!!
             //this.notify();
@@ -113,7 +113,7 @@ public class Mechanic extends Thread {
             throw new RuntimeException(e);
         }
 
-        System.out.prIntegerln("ho concluso le richieste");
+        System.out.println("ho concluso le richieste");
 
         //ha ottenuto le autorizzazioni per andare dal meccanico
         robotState.getInstance().setState(STATE.MECHANIC);

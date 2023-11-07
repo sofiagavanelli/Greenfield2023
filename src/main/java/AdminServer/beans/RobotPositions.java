@@ -6,13 +6,13 @@ import java.util.List;
 
 public class RobotPositions {
 
-    private ArrayList<Integereger> districts;
+    private ArrayList<Integer> districts;
 
     private static RobotPositions instance;
 
     //--> il costruttore infatti è privato
     private RobotPositions() {
-        districts = new ArrayList<Integereger>(Collections.nCopies(4, 0));; //ne crea una nuova//
+        districts = new ArrayList<Integer>(Collections.nCopies(4, 0));; //ne crea una nuova//
         //robotsList.add(new RobotInfo(12, 7));
     }
 
@@ -23,12 +23,12 @@ public class RobotPositions {
         return instance;
     }
 
-    public synchronized ArrayList<Integereger> getRobotsDistricts() {
+    public synchronized ArrayList<Integer> getRobotsDistricts() {
 
         return new ArrayList<>(districts);
     }
 
-    public ArrayList<Integereger> getDistricts() {
+    public ArrayList<Integer> getDistricts() {
         return districts;
     }
 

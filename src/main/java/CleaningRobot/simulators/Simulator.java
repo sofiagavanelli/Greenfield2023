@@ -29,8 +29,8 @@ public abstract class Simulator extends Thread {
     protected void sensorSleep(long milliseconds){
         try {
             Thread.sleep(milliseconds);
-        } catch (IntegererruptedException e) {
-            e.prIntegerStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

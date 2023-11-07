@@ -27,7 +27,7 @@ public class RestFunc {
         String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.prIntegerln(clientResponse.toString());
+        System.out.println(clientResponse.toString());
 
         //qui cosa sto facendo: chiedo al server la lista dei robot
         RobotList robs = clientResponse.getEntity(RobotList.class);
@@ -58,7 +58,7 @@ public class RestFunc {
         String deletePath = "/robots/remove";
 
         clientResponse = RestFunc.deleteRequest(client,serverAddress+deletePath, id);
-        System.out.prIntegerln(clientResponse.toString());
+        System.out.println(clientResponse.toString());
 
     }
 
@@ -76,12 +76,12 @@ public class RestFunc {
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(r);
-        System.out.prIntegerln(input);
+        System.out.println(input);
 
         try {
             return webResource.type("application/json").post(ClientResponse.class, input);
         } catch (ClientHandlerException e) {
-            System.out.prIntegerln("Server non disponibile");
+            System.out.println("Server non disponibile");
             return null;
         }
     }
@@ -91,7 +91,7 @@ public class RestFunc {
         try {
             return webResource.type("application/json").get(ClientResponse.class);
         } catch (ClientHandlerException e) {
-            System.out.prIntegerln("Server non disponibile");
+            System.out.println("Server non disponibile");
             return null;
         }
     }
@@ -103,12 +103,12 @@ public class RestFunc {
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(id);
-        System.out.prIntegerln(input);
+        System.out.println(input);
 
         try {
             return webResource.type("application/json").delete(ClientResponse.class, input);
         } catch (ClientHandlerException e) {
-            System.out.prIntegerln("Server non disponibile");
+            System.out.println("Server non disponibile");
             return null;
         }
     }

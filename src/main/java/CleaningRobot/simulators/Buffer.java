@@ -2,10 +2,11 @@ package CleaningRobot.simulators;
 
 import java.util.List;
 
-public Integererface Buffer {
+public interface Buffer {
 
     void addMeasurement(Measurement m);
 
     List<Measurement> readAllAndClean();
 
 }
+

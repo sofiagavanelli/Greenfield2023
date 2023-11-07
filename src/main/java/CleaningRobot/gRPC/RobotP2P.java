@@ -43,7 +43,7 @@ public class RobotP2P {
         //setBots();
     }
 
-    public static void firstMSG() throws IntegererruptedException {
+    public static void firstMSG() throws InterruptedException {
 
         //rimuovere listCopy e fare una chiamata! no?
         //rimuovere le info
@@ -61,10 +61,10 @@ public class RobotP2P {
         for (RobotInfo element : listCopy) {
 
             String target = "localhost:" + element.getPortN();
-            //System.out.prIntegerln("sto per creare un channel come target: " + target);
+            //System.out.println("sto per creare un channel come target: " + target);
 
             //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
-            final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaIntegerext().build();
+            final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
             //creating an asynchronous stub on the channel
             CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
@@ -100,7 +100,7 @@ public class RobotP2P {
 
     }
 
-    public static void lastMSG() throws IntegererruptedException {
+    public static void lastMSG() throws InterruptedException {
 
         //rimuovere listCopy e fare una chiamata! no?
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
@@ -119,10 +119,10 @@ public class RobotP2P {
 
             if (element.getId() != myID) {
                 String target = "localhost:" + element.getPortN();
-                //System.out.prIntegerln("sto per creare un channel come target: " + target);
+                //System.out.println("sto per creare un channel come target: " + target);
 
                 //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
-                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaIntegerext().build();
+                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
                 //creating an asynchronous stub on the channel
                 CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
@@ -134,7 +134,7 @@ public class RobotP2P {
                     public void onNext(Empty value) {
                         robotState.getInstance().incrementClock();
                         //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
-                        //System.out.prIntegerln(list.toString());
+                        //System.out.println(list.toString());
 
                     }
 
@@ -160,7 +160,7 @@ public class RobotP2P {
 
     }
 
-    public static void requestMechanic(/*Integer[] RobotPortInfo, *//*List<RobotInfo> listCopy, Integer botPort, Integer botID*/) throws IntegererruptedException {
+    public static void requestMechanic() throws InterruptedException {
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
         Integer botPort = RobotInfo.getInstance().getPortN();
@@ -183,13 +183,13 @@ public class RobotP2P {
 
                 robotState.getInstance().incrementClock();
 
-                System.out.prIntegerln("sto per mandare la richiesta a: " + element.getPortN());
+                System.out.println("sto per mandare la richiesta a: " + element.getPortN());
 
                 String target = "localhost:" + element.getPortN();
-                //System.out.prIntegerln("sto per creare un channel come target: " + target);
+                //System.out.println("sto per creare un channel come target: " + target);
 
                 //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
-                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaIntegerext().build();
+                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
                 //creating an asynchronous stub on the channel
                 CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
@@ -201,7 +201,7 @@ public class RobotP2P {
                     public void onNext(CommunicationServiceOuterClass.Authorization value) {
                         //quando ricevo la risposta
                         if(value.getOk()) {
-                            System.out.prIntegerln("ho ricevuto il si da: " + element.getPortN());
+                            System.out.println("ho ricevuto il si da: " + element.getPortN());
                             Authorizations.getInstance().addAuthorization(value);
                         }
 
@@ -212,7 +212,7 @@ public class RobotP2P {
 
                         //dealing with re-organization
                         //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
-                        System.out.prIntegerln("someone crashed during my requests");
+                        System.out.println("someone crashed during my requests");
                         RobotList.getInstance().remove(element.getId());
                         crashSimulator.dealUncontrolledCrash(element.getId());
                     }
@@ -233,15 +233,15 @@ public class RobotP2P {
 
     }
 
-    public static void answerPending() throws IntegererruptedException {
+    public static void answerPending() throws InterruptedException {
 
         List pending = MechanicRequests.getInstance().getRequests();
         Integer size = MechanicRequests.getInstance().getRequests().size();
 
         Integer botPort = RobotInfo.getInstance().getPortN();
 
-        System.out.prIntegerln("size pending requests: ");
-        System.out.prIntegerln(size);
+        System.out.println("size pending requests: ");
+        System.out.println(size);
 
         //creating the HelloResponse object which will be provided as input to the RPC method
         CommunicationServiceOuterClass.Authorization answer = CommunicationServiceOuterClass.Authorization.newBuilder()
@@ -255,10 +255,10 @@ public class RobotP2P {
             CommunicationServiceOuterClass.Request last = (CommunicationServiceOuterClass.Request) pending.remove((size-1));
 
             String target = "localhost:" + last.getFrom();
-            //System.out.prIntegerln("sto per creare un channel come target: " + target);
+            //System.out.println("sto per creare un channel come target: " + target);
 
             //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
-            final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaIntegerext().build();
+            final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
             //creating an asynchronous stub on the channel
             CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
@@ -293,14 +293,14 @@ public class RobotP2P {
 
     }
 
-    public static void organize(Integer botID) throws IntegererruptedException {
+    public static void organize(Integer botID) throws InterruptedException {
 
         //msg to tell to delete it
         //
         //call to server????
 
-        ArrayList<Integereger> distribution = RobotPositions.getInstance().getRobotsDistricts();
-        System.out.prIntegerln(distribution);
+        ArrayList<Integer> distribution = RobotPositions.getInstance().getRobotsDistricts();
+        System.out.println(distribution);
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
         Integer botPort = RobotInfo.getInstance().getPortN();
@@ -315,7 +315,7 @@ public class RobotP2P {
             if(element.getPortN() != botPort) { //in questo caso non mando il messaggio a me stesso
 
                 String target = "localhost:" + element.getPortN();
-                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaIntegerext().build();
+                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
                 CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
                 stub.organize(robot, new StreamObserver<Empty>() {

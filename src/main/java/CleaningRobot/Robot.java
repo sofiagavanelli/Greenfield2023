@@ -26,9 +26,9 @@ import java.util.Scanner;
 
 public class Robot {
 
-    private static Integereger botId;
-    private static Integereger botPort;
-    private Integereger botDistrict;
+    private static Integer botId;
+    private static Integer botPort;
+    private Integer botDistrict;
     private Integer x;
     private Integer y;
 
@@ -79,7 +79,7 @@ public class Robot {
         /*String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.prIntegerln(clientResponse.toString());
+        System.out.println(clientResponse.toString());
 
         //qui cosa sto facendo: chiedo al server la lista dei robot
         RobotList robs = clientResponse.getEntity(RobotList.class);
@@ -101,10 +101,10 @@ public class Robot {
 
         personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);*/
 
-        System.out.prIntegerln("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
+        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
 
         //MqttPub : ogni robot ha il suo publisher
-        MqttPub pub = new MqttPub(Integereger.toString(RobotInfo.getInstance().getDistrict()), readSensor, botId);
+        MqttPub pub = new MqttPub(Integer.toString(RobotInfo.getInstance().getDistrict()), readSensor, botId);
         this.pub = pub;
         this.pub.start(); //start or run?
 
@@ -117,7 +117,7 @@ public class Robot {
             //Integer[] RobotPortInfo, Integer botPort, Integer botDistrict, Integer botID
             //si può togliere tutto dagli input
             RobotP2P.firstMSG();
-        }  catch (IntegererruptedException e) {
+        }  catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -136,7 +136,7 @@ public class Robot {
 
         try {
             RobotP2P.lastMSG();
-        } catch (IntegererruptedException e) {
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -175,10 +175,10 @@ public class Robot {
     public static void main(String argv[]) throws Exception {
 
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
-        System.out.prInteger("Enter id: ");
-        botId = sc.nextInteger();
-        System.out.prInteger("Enter port: ");
-        botPort = sc.nextInteger();
+        System.out.print("Enter id: ");
+        botId = sc.nextInt();
+        System.out.print("Enter port: ");
+        botPort = sc.nextInt();
 
         //qui?
         boolean stopCondition = false;
@@ -202,9 +202,9 @@ public class Robot {
     /*public static void main(String argv[]) throws Exception {
 
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
-        System.out.prInteger("Enter id: ");
+        System.out.print("Enter id: ");
         botId = sc.nextInteger();
-        System.out.prInteger("Enter port: ");
+        System.out.print("Enter port: ");
         botPort = sc.nextInteger();
 
 
@@ -234,7 +234,7 @@ public class Robot {
         String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.prIntegerln(clientResponse.toString());
+        System.out.println(clientResponse.toString());
 
         //qui cosa sto facendo: chiedo al server la lista dei robot
         RobotList robs = clientResponse.getEntity(RobotList.class);
@@ -257,10 +257,10 @@ public class Robot {
 
         personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
 
-        System.out.prIntegerln("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
+        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
 
         //MqttPub : ogni robot ha il suo publisher
-        MqttPub pub = new MqttPub(Integereger.toString(botDistrict), readSensor, botId);
+        MqttPub pub = new MqttPub(Integer.toString(botDistrict), readSensor, botId);
         pub.start(); //start or run?
 
         //Server GRPCserver = ServerBuilder.forPort(botPort).addService(new SERVICE()).build();

@@ -153,7 +153,10 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         //if i'm waiting to obtain its authorization?
         //what happens if i notify and nobody is waiting?
-        Authorizations.getInstance().unblockMechanic();
+        //if i'm needing i need to control
+        //what if he said ok and now i've removed him? i've an authorization in surplus
+        if(robotState.getInstance().getState() == STATE.NEEDING)
+            Authorizations.getInstance().unblockMechanic();
 
         responseObserver.onNext(null);
 

@@ -47,7 +47,7 @@ public class Measurement implements Comparable<Measurement> {
     }
 
     @Override
-    public Integer compareTo(Measurement m) {
+    public int compareTo(Measurement m) {
         Long thisTimestamp = timestamp;
         Long otherTimestamp = m.getTimestamp();
         return thisTimestamp.compareTo(otherTimestamp);

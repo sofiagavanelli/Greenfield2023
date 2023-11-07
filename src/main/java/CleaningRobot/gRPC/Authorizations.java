@@ -49,7 +49,7 @@ public class Authorizations {
             //if(robotState.getInstance().getState() == STATE.NEEDING) {
             //funzione chiamata dopo una richiesta del meccanico
             while (authorizations.size() < (RobotList.getInstance().getRobotslist().size() - 1)) {
-                System.out.prIntegerln("i'm waiting for some authorizations");
+                System.out.println("i'm waiting for some authorizations");
                 try {
                     lock.wait();
                 } catch (IntegererruptedException e) {
@@ -78,10 +78,10 @@ public class Authorizations {
             //if(robotState.getInstance().getState() == STATE.NEEDING) {
             //funzione chiamata dopo una richiesta del meccanico
             while (authorizations.size() < (RobotList.getInstance().getRobotslist().size() - 1)) {
-                System.out.prIntegerln("i'm waiting for some authorizations");
+                System.out.println("i'm waiting for some authorizations");
                 try {
                     authorizations.wait();
-                } catch (IntegererruptedException e) {
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }

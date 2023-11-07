@@ -457,11 +457,11 @@ public final class CommunicationServiceGrpc {
     }
   }
 
-  private static final Integer METHODID_REMOVAL_MSG = 0;
-  private static final Integer METHODID_PRESENTATION_MSG = 1;
-  private static final Integer METHODID_REQUEST_MECHANIC = 2;
-  private static final Integer METHODID_ANSWER_PENDING = 3;
-  private static final Integer METHODID_ORGANIZE = 4;
+  private static final int METHODID_REMOVAL_MSG = 0;
+  private static final int METHODID_PRESENTATION_MSG = 1;
+  private static final int METHODID_REQUEST_MECHANIC = 2;
+  private static final int METHODID_ANSWER_PENDING = 3;
+  private static final int METHODID_ORGANIZE = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -469,9 +469,9 @@ public final class CommunicationServiceGrpc {
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
     private final CommunicationServiceImplBase serviceImpl;
-    private final Integer methodId;
+    private final int methodId;
 
-    MethodHandlers(CommunicationServiceImplBase serviceImpl, Integer methodId) {
+    MethodHandlers(CommunicationServiceImplBase serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }

@@ -15,11 +15,11 @@ public class PollutionStats {
 
     //@XmlElement(name="my_averages")
     //HashMap<ROBOTID, HashMap<Timestamp, Averages>>
-    HashMap<Integereger, HashMap<Long, List<Double>>> RobotAverages; //List<Double> !!
+    HashMap<Integer, HashMap<Long, List<Double>>> RobotAverages; //List<Double> !!
     //HashMap<ROBOTID, Lista<struct>>
-    HashMap<Integereger, List<MqttMsg>> AveragesTime;
+    HashMap<Integer, List<MqttMsg>> AveragesTime;
     //HashMap<ROBOTID, Lista che aumenta>
-    HashMap<Integereger, List<Double>> AveragesNoTime;
+    HashMap<Integer, List<Double>> AveragesNoTime;
 
     private static PollutionStats instance;
 
@@ -36,12 +36,12 @@ public class PollutionStats {
         return instance;
     }
 
-    public synchronized HashMap<Integereger, HashMap<Long, List<Double>>> getPollutionStats() {
-        return new HashMap<Integereger, HashMap<Long, List<Double>>>(RobotAverages);
+    public synchronized HashMap<Integer, HashMap<Long, List<Double>>> getPollutionStats() {
+        return new HashMap<Integer, HashMap<Long, List<Double>>>(RobotAverages);
     }
 
     //aggiunge ad entrambe le hashmap, sia a quella con timestamp che a quella senza --syncro?
-    public synchronized void addAverages(Integereger ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
+    public synchronized void addAverages(Integer ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
 
         //HashMap<Long, List<Double>> previous = new HashMap<>();
         List<MqttMsg> previous = new ArrayList<>();
