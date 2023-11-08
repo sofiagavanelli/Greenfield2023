@@ -13,11 +13,11 @@ import java.util.Random;
 public class Mechanic extends Thread {
 
     boolean stopCondition = false;
-    Integer botId;
-    Integer botPort;
+    int botId;
+    int botPort;
 
     List<RobotInfo> listCopy;
-    Integer[] RobotPortInfo;
+    int[] RobotPortInfo;
 
     Random rnd = new Random();
 
@@ -109,7 +109,7 @@ public class Mechanic extends Thread {
             } //non posso mettere qua notify!!
             //this.notify();
 
-        } catch (IntegererruptedException e) {
+        } catch (interruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -119,7 +119,7 @@ public class Mechanic extends Thread {
         robotState.getInstance().setState(STATE.MECHANIC);
         try {
             sleep(10000); //10s di meccanico
-        } catch (IntegererruptedException e) {
+        } catch (interruptedException e) {
             throw new RuntimeException(e);
         }
         //ha finito di usare il meccanico e torna a lavorare
@@ -128,7 +128,7 @@ public class Mechanic extends Thread {
         try {
             RobotP2P.answerPending();
             //notifyAll();
-        } catch (IntegererruptedException e) {
+        } catch (interruptedException e) {
             throw new RuntimeException(e);
         }
 
@@ -136,7 +136,7 @@ public class Mechanic extends Thread {
 
     }
 
-    /*public void setConnections(Integer[] ports) {
+    /*public void setConnections(int[] ports) {
         this.RobotPortInfo = ports;
     }*/
 

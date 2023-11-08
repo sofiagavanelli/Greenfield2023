@@ -32,7 +32,7 @@ public class RobotPositions {
         return districts;
     }
 
-    public void addDistricts(Integer i) {
+    public void addDistricts(int i) {
         districts.add(i, 1);
     }
 

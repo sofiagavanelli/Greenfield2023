@@ -21,9 +21,9 @@ public class MqttPub extends Thread {
     String broker = "tcp://localhost:1883";
     String clientId = "ROBOT-"; //MqttClient.generateClientId();
     String topic = "greenfield/pollution/district";
-    Integer qos = 2;
+    int qos = 2;
     
-    private Integer robotID;
+    private int robotID;
 
     boolean stopCondition = false;
 
@@ -32,7 +32,7 @@ public class MqttPub extends Thread {
 
     //public static void main(String[] args) {
 
-    public MqttPub(String d, Reader sensor, Integer robotID) {
+    public MqttPub(String d, Reader sensor, int robotID) {
         topic = topic+d;
         this.sensor = sensor;
         this.robotID = robotID;
@@ -65,7 +65,8 @@ public class MqttPub extends Thread {
 
             //Set the QoS on the Message
             message.setQos(qos);
-            //System.out.println(clientId + " Publishing message: " + payload + " ...");
+
+            System.out.println(clientId + " Publishing message on" + topic);
             try {
                 client.publish(topic, message);
 
@@ -92,7 +93,7 @@ public class MqttPub extends Thread {
             //connOpts.setUserName(username); // optional
             //connOpts.setPassword(password.toCharArray()); // optional
             //connOpts.setWill("this/is/a/topic","will message".getBytes(),1,false);  // optional
-            //connOpts.setKeepAliveIntegererval(60);  // optional
+            //connOpts.setKeepAliveInterval(60);  // optional
 
             // Connect the client
             System.out.println(clientId + " Connecting Broker " + broker);

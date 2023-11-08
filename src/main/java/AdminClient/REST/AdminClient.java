@@ -19,7 +19,7 @@ public class AdminClient {
     static String serverAddress;
     static ClientResponse clientResponse;
 
-    //devo mettere su l'Integererfaccia delle richieste e poi in base a quale opzione sceglie poi si fanno le chiamate al server
+    //devo mettere su l'interfaccia delle richieste e poi in base a quale opzione sceglie poi si fanno le chiamate al server
 
     public static void main(String args[]){
 
@@ -31,7 +31,7 @@ public class AdminClient {
 
         // POST EXAMPLE
 
-        Integer cmd;
+        int cmd;
 
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
 
@@ -42,9 +42,9 @@ public class AdminClient {
             if (cmd == 0) {
 
                 System.out.print("Enter robot id: ");
-                Integer id = sc.nextInt();
+                int id = sc.nextInt();
                 System.out.print("Enter number of measurements: ");
-                Integer n = sc.nextInt();
+                int n = sc.nextInt();
 
                 requestLastAverages(id, n);
             } else if (cmd == 1) {
@@ -78,7 +78,7 @@ public class AdminClient {
      }
      */
 
-    public static void requestLastAverages(Integer id, Integer n) {
+    public static void requestLastAverages(int id, int n) {
 
         // GET EXAMPLE
         String getPath = "/averages/get-last/" + id + ":" + n;

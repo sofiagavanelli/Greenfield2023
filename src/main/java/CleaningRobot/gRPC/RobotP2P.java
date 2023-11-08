@@ -16,24 +16,25 @@ import io.grpc.stub.StreamObserver;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class RobotP2P {
 
-    Integer botID;
+    int botID;
 
-    Integer[] allID;
-    static Integer[] RobotPortInfo; //only the ports
-    Integer botPort;
+    int[] allID;
+    static int[] RobotPortInfo; //only the ports
+    int botPort;
     List<RobotInfo> bots;
-    Integer botDistrict;
+    int botDistrict;
 
     Socket s;
     //Server gRPCserver;
 
     private ManagedChannel channel;
 
-    public RobotP2P(/*Integer botID, Integer botPort*/) {/*, List<RobotInfo> bots) {*/
+    public RobotP2P(/*int botID, int botPort*/) {/*, List<RobotInfo> bots) {*/
         //this.botPorts = botPorts;
 
         /*this.botID = botID;
@@ -63,7 +64,7 @@ public class RobotP2P {
             String target = "localhost:" + element.getPortN();
             //System.out.println("sto per creare un channel come target: " + target);
 
-            //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
+            //plaintext channel on the address (ip/port) which offers the GreetingService service
             final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
             //creating an asynchronous stub on the channel
@@ -105,8 +106,8 @@ public class RobotP2P {
         //rimuovere listCopy e fare una chiamata! no?
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
-        Integer myID = RobotInfo.getInstance().getId();
-        Integer myPort = RobotInfo.getInstance().getPortN();
+        int myID = RobotInfo.getInstance().getId();
+        int myPort = RobotInfo.getInstance().getPortN();
 
         //creating the HelloResponse object which will be provided as input to the RPC method
         CommunicationServiceOuterClass.Goodbye bye =  CommunicationServiceOuterClass.Goodbye.newBuilder()
@@ -121,7 +122,7 @@ public class RobotP2P {
                 String target = "localhost:" + element.getPortN();
                 //System.out.println("sto per creare un channel come target: " + target);
 
-                //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
+                //plaintext channel on the address (ip/port) which offers the GreetingService service
                 final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
                 //creating an asynchronous stub on the channel
@@ -163,10 +164,12 @@ public class RobotP2P {
     public static void requestMechanic() throws InterruptedException {
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
-        Integer botPort = RobotInfo.getInstance().getPortN();
+
+        int botPort = RobotInfo.getInstance().getPortN();
+        System.out.println("my port: " + botPort);
 
         //ma a cosa mi serve l'ID ?
-        Integer botId = RobotInfo.getInstance().getId();
+        int botId = RobotInfo.getInstance().getId();
 
         CommunicationServiceOuterClass.Request ask = CommunicationServiceOuterClass.Request.newBuilder()
                 .setFrom(botPort)
@@ -176,10 +179,10 @@ public class RobotP2P {
         //fare una sola volta -- tengo conto della mia richiesta
         MechanicRequests.getInstance().addPersonal(ask);
 
-        //for (Integer element : RobotPortInfo) {
+        //for (int element : RobotPortInfo) {
         for (RobotInfo element : listCopy) {
 
-            if(element.getPortN() != botPort) { //in questo caso non mando il messaggio a me stesso
+            if(!Objects.equals(element.getPortN(), botPort)) { //in questo caso non mando il messaggio a me stesso
 
                 robotState.getInstance().incrementClock();
 
@@ -188,7 +191,7 @@ public class RobotP2P {
                 String target = "localhost:" + element.getPortN();
                 //System.out.println("sto per creare un channel come target: " + target);
 
-                //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
+                //plaintext channel on the address (ip/port) which offers the GreetingService service
                 final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
                 //creating an asynchronous stub on the channel
@@ -236,9 +239,9 @@ public class RobotP2P {
     public static void answerPending() throws InterruptedException {
 
         List pending = MechanicRequests.getInstance().getRequests();
-        Integer size = MechanicRequests.getInstance().getRequests().size();
+        int size = MechanicRequests.getInstance().getRequests().size();
 
-        Integer botPort = RobotInfo.getInstance().getPortN();
+        int botPort = RobotInfo.getInstance().getPortN();
 
         System.out.println("size pending requests: ");
         System.out.println(size);
@@ -257,7 +260,7 @@ public class RobotP2P {
             String target = "localhost:" + last.getFrom();
             //System.out.println("sto per creare un channel come target: " + target);
 
-            //plaIntegerext channel on the address (ip/port) which offers the GreetingService service
+            //plaintext channel on the address (ip/port) which offers the GreetingService service
             final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
             //creating an asynchronous stub on the channel
@@ -293,7 +296,7 @@ public class RobotP2P {
 
     }
 
-    public static void organize(Integer botID) throws InterruptedException {
+    public static void organize(int botID) throws InterruptedException {
 
         //msg to tell to delete it
         //
@@ -303,13 +306,13 @@ public class RobotP2P {
         System.out.println(distribution);
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
-        Integer botPort = RobotInfo.getInstance().getPortN();
+        int botPort = RobotInfo.getInstance().getPortN();
 
         CommunicationServiceOuterClass.UncontrolledCrash robot = CommunicationServiceOuterClass.UncontrolledCrash.newBuilder()
                 .setId(botID)
                 .build();
 
-        //for (Integer element : RobotPortInfo) {
+        //for (int element : RobotPortInfo) {
         for (RobotInfo element : listCopy) {
 
             if(element.getPortN() != botPort) { //in questo caso non mando il messaggio a me stesso

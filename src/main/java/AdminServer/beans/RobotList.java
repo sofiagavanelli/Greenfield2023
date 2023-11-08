@@ -66,7 +66,7 @@ public class RobotList {
 
     }
 
-    public synchronized boolean remove(Integer robotID) {
+    public synchronized boolean remove(int robotID) {
 
         List<RobotInfo> listCopy = getRobotslist();
         System.out.println("before if to remove: " + robotID);

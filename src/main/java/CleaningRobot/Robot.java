@@ -26,16 +26,16 @@ import java.util.Scanner;
 
 public class Robot {
 
-    private static Integer botId;
-    private static Integer botPort;
-    private Integer botDistrict;
-    private Integer x;
-    private Integer y;
+    private static int botId;
+    private static int botPort;
+    private int botDistrict;
+    private int x;
+    private int y;
 
     static Random rnd = new Random();
 
     List<RobotInfo> robotInfoList;
-    Integer[] RobotPortInfo;
+    int[] RobotPortInfo;
 
     //static
     WindowBuffer newB; // = new WindowBuffer(8);
@@ -101,8 +101,6 @@ public class Robot {
 
         personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);*/
 
-        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
-
         //MqttPub : ogni robot ha il suo publisher
         MqttPub pub = new MqttPub(Integer.toString(RobotInfo.getInstance().getDistrict()), readSensor, botId);
         this.pub = pub;
@@ -114,7 +112,7 @@ public class Robot {
         try {
             //anche questo passaggio delle liste !!!! no.
             //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
-            //Integer[] RobotPortInfo, Integer botPort, Integer botDistrict, Integer botID
+            //int[] RobotPortInfo, int botPort, int botDistrict, int botID
             //si può togliere tutto dagli input
             RobotP2P.firstMSG();
         }  catch (InterruptedException e) {
@@ -203,9 +201,9 @@ public class Robot {
 
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
         System.out.print("Enter id: ");
-        botId = sc.nextInteger();
+        botId = sc.nextint();
         System.out.print("Enter port: ");
-        botPort = sc.nextInteger();
+        botPort = sc.nextint();
 
 
         WindowBuffer newB = new WindowBuffer(8);
@@ -217,7 +215,7 @@ public class Robot {
 
         botDistrict = 0; //non dovrebbe servire
         //cambiare botId in String? e mettere "ROBOT-n" ?
-        //botId = rnd.nextInteger(100) + 10;
+        //botId = rnd.nextint(100) + 10;
         //botPort = 1234; //input??
 
         //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
@@ -260,7 +258,7 @@ public class Robot {
         System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
 
         //MqttPub : ogni robot ha il suo publisher
-        MqttPub pub = new MqttPub(Integer.toString(botDistrict), readSensor, botId);
+        MqttPub pub = new MqttPub(int.toString(botDistrict), readSensor, botId);
         pub.start(); //start or run?
 
         //Server GRPCserver = ServerBuilder.forPort(botPort).addService(new SERVICE()).build();

@@ -1,11 +1,14 @@
 package CleaningRobot.breakHandler;
 
+import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
 import Utils.RestFunc;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -28,8 +31,8 @@ public class crashSimulator extends Thread {
                 throw new RuntimeException(e);
             }
 
-            Integer i = rnd.nextInt(100);
-            //Integer i = 8;
+            int i = rnd.nextInt(100);
+            //int i = 8;
 
             if (i < 10 && i >= 0) {
                 //stopCondition = true;
@@ -69,12 +72,41 @@ public class crashSimulator extends Thread {
     }
 
 
-    public static void dealUncontrolledCrash(Integer id) {
+    public static void dealUncontrolledCrash(int id) {
 
         //new client ?????
         //e quello già aperto su robot ??
         RestFunc.deleteRobot(id);
         RestFunc.requestDistricts();
+
+        List<RobotInfo> list = RobotList.getInstance().getRobotslist();
+
+        HashMap<Integer, List<Integer>> distribution = new HashMap<>();
+        ArrayList<Integer> districts = new ArrayList<>();
+        List<Integer> move = new ArrayList<>();
+        List<Integer> need = new ArrayList<>();
+
+        HashMap<Integer, Integer> newDistribution = new HashMap<>();
+
+        int n = list.size()/4;
+
+        for(RobotInfo r : list) {
+            List<Integer> previous = distribution.get(r.getDistrict());
+            previous.add(r.getId());
+            distribution.put(r.getDistrict(), previous);
+            districts.add(r.getDistrict(), 1);
+        }
+
+        for(int i=0; i<4; i++) {
+            if(districts.get(i) > n)
+                move.add(distribution.get(i).get(0));
+            else if(districts.get(i) < n)
+                need.add(i);
+        }
+
+        System.out.println("The robots were: " + distribution);
+        System.out.println("move is: " + move);
+        System.out.println("need is: " + need);
 
         try {
             RobotP2P.organize(id);

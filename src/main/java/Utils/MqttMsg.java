@@ -4,20 +4,20 @@ import java.util.List;
 
 public class MqttMsg {
 
-    long timestamp;
+    Long timestamp;
     List<Double> averages;
-    Integer robotID;
+    int robotID;
 
     public MqttMsg() {
     }
 
-    public MqttMsg(List<Double> averages, Integer robotID) {
-        this.timestamp = System.currentTimeMillis(); //qui ci andrà il clock
+    public MqttMsg(List<Double> averages, int robotID) {
+        this.timestamp = System.currentTimeMillis();
         this.averages = averages;
         this.robotID = robotID;
     }
 
-    public long getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
@@ -25,7 +25,7 @@ public class MqttMsg {
         return averages;
     }
 
-    public Integer getRobotID() {
+    public int getRobotID() {
         return robotID;
     }
 }

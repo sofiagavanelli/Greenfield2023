@@ -1,5 +1,6 @@
 package CleaningRobot.simulators;
 
+import java.util.Calendar;
 import java.util.Random;
 
 public abstract class Simulator extends Thread {
@@ -16,7 +17,9 @@ public abstract class Simulator extends Thread {
         this.buffer = buffer;
     }
 
-    public void stopMeGently() { stopCondition = true;}
+    public void stopMeGently() {
+        stopCondition = true;
+    }
 
     protected void addMeasurement(double measurement){
         buffer.addMeasurement(new Measurement(id, type, measurement, currentTime()));

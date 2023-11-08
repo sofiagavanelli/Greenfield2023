@@ -19,10 +19,10 @@ public class RestFunc {
     static String serverAddress = "http://localhost:1337";
     static ClientResponse clientResponse = null;
 
-    public static void addNewRobot(Integer botId, Integer botPort) {
+    public static void addNewRobot(int botId, int botPort) {
 
         // POST EXAMPLE
-        Integer botDistrict = 0, x = 0, y = 0;
+        int botDistrict = 0, x = 0, y = 0;
 
         String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
@@ -45,14 +45,19 @@ public class RestFunc {
 
         RobotInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
 
+        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
+
+
     }
 
 
     public static void requestDistricts() {
 
+
+
     }
 
-    public static void deleteRobot(Integer id) {
+    public static void deleteRobot(int id) {
 
         //delete request
         String deletePath = "/robots/remove";
@@ -96,7 +101,7 @@ public class RestFunc {
         }
     }
 
-    public static ClientResponse deleteRequest(Client client, String url, Integer id) {
+    public static ClientResponse deleteRequest(Client client, String url, int id) {
         //WebResource webResource = client.resource(url);
         //String input = new Gson().toJson(r);
         //return webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class);

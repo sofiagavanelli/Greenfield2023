@@ -5,7 +5,7 @@ public class robotState {
     public static STATE current = STATE.WORKING;
 
     //logical clock?
-    private Integer logicalClock=0;
+    private int logicalClock=0;
     Object lock = new Object();
     /* when to increment:
         - state change
@@ -32,11 +32,11 @@ public class robotState {
     }
 
     //CLOCK
-    public void setClock(Integer value) {
+    public void setClock(int value) {
         this.logicalClock = value;
     }
 
-    public Integer getClock() {
+    public int getClock() {
         return logicalClock;
     }
 

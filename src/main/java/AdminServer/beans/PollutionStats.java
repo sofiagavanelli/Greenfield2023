@@ -41,7 +41,7 @@ public class PollutionStats {
     }
 
     //aggiunge ad entrambe le hashmap, sia a quella con timestamp che a quella senza --syncro?
-    public synchronized void addAverages(Integer ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
+    public synchronized void addAverages(int ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
 
         //HashMap<Long, List<Double>> previous = new HashMap<>();
         List<MqttMsg> previous = new ArrayList<>();
@@ -64,7 +64,7 @@ public class PollutionStats {
     }
 
 
-    public HashMap<Long, List<Double>> getById(Integer id) {
+    public HashMap<Long, List<Double>> getById(int id) {
 
         if(RobotAverages.get(id) != null) {
             return RobotAverages.get(id);
@@ -74,7 +74,7 @@ public class PollutionStats {
 
     }
 
-    public Double getLast(Integer id, Integer number) {
+    public Double getLast(int id, int number) {
 
         double sum = 0.0;
 
@@ -82,9 +82,9 @@ public class PollutionStats {
 
             List<Double> averages = AveragesNoTime.get(id);
 
-            Integer size = averages.size();
+            int size = averages.size();
 
-            for(Integer i=0; i<number; i++)
+            for(int i=0; i<number; i++)
                 sum = sum + averages.get((size - 1) - i);
 
             double average = sum/number;
@@ -108,9 +108,9 @@ public class PollutionStats {
         boolean higher = true;
 
         List<RobotInfo> IDs = RobotList.getInstance().getRobotslist();
-        Integer numBots = IDs.size(); //for the last average
+        int numBots = IDs.size(); //for the last average
 
-        Integer n = 0;
+        int n = 0;
 
         //i take one robot in the hashmap at a time --> using the current robotList: meaning if one
         // robot has crashed in the meantime i won't consider its averages
@@ -119,7 +119,7 @@ public class PollutionStats {
             //i obtain ALL its averages
             List<MqttMsg> personalAverages = AveragesTime.get(r.getId());
 
-            Integer size = personalAverages.size();
+            int size = personalAverages.size();
 
             //i look at one msg of averages at a time
             while(size > 0) {
@@ -132,9 +132,9 @@ public class PollutionStats {
 
                     List<Double> averagesList = personalAverages.get(size - 1).getAverages();
 
-                    Integer listSize = averagesList.size();
+                    int listSize = averagesList.size();
 
-                    for(Integer i=0; i<(listSize - 1); i++) {
+                    for(int i=0; i<(listSize - 1); i++) {
                         sum = sum + averagesList.get(i);
 
                         n = n + 1;

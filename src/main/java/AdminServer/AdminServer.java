@@ -21,7 +21,7 @@ public class AdminServer {
 
     //the server itself is a server which also subscribes to the mqtt broker
     private static final String HOST = "localhost";
-    private static final Integer PORT = 1337;
+    private static final int PORT = 1337;
 
     static {
         Logger.getLogger("com.sun.jersey").setLevel(Level.SEVERE);
@@ -33,7 +33,7 @@ public class AdminServer {
         String clientId = "ADMIN-SERVER"; //MqttClient.generateClientId();
         String topic = "greenfield/pollution/#";
 
-        Integer qos = 2;
+        int qos = 2;
 
         try {
             client = new MqttClient(broker, clientId, null);

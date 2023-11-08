@@ -52,7 +52,7 @@ public class Authorizations {
                 System.out.println("i'm waiting for some authorizations");
                 try {
                     lock.wait();
-                } catch (IntegererruptedException e) {
+                } catch (interruptedException e) {
                     throw new RuntimeException(e);
                 }
             }

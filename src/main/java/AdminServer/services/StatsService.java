@@ -22,7 +22,7 @@ public class StatsService {
     @Path("get-last/{id}:{n}")
     @GET
     @Produces({"application/json", "application/xml"})
-    public Response getLast(@PathParam("id") Integer ID, @PathParam("n") Integer n) {
+    public Response getLast(@PathParam("id") int ID, @PathParam("n") int n) {
 
         Double average = PollutionStats.getInstance().getLast(ID, n);
 

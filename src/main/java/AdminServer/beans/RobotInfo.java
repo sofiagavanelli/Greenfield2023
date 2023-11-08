@@ -8,11 +8,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RobotInfo {
 
-    private Integer id;
-    private Integer portN;
-    Integer x; //Integer x Integer y separated?
-    Integer y;
-    Integer district;
+    private int id;
+    private int portN;
+    int x; //int x int y separated?
+    int y;
+    int district;
     //IPaddress? String?
     String ipAddress;
 
@@ -21,13 +21,13 @@ public class RobotInfo {
     public RobotInfo() {}
 
     //equivalent of @post robot
-    public RobotInfo(Integer id, Integer portN) { //, String ipAddress) {
+    public RobotInfo(int id, int portN) { //, String ipAddress) {
         this.id = id;
         this.portN = portN;
         //this.ipAddress = ipAddress;
     }
 
-    public RobotInfo(Integer id, Integer portN, Integer x, Integer y, Integer district) {
+    public RobotInfo(int id, int portN, int x, int y, int district) {
         this.id = id;
         this.portN = portN;
         this.x = x;
@@ -43,47 +43,47 @@ public class RobotInfo {
         return instance;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setPortN(Integer p) { this.portN = p; }
+    public void setPortN(int p) { this.portN = p; }
 
-    public Integer getPortN() {
+    public int getPortN() {
         return portN;
     }
 
-    public void setX(Integer x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public Integer getX() {
+    public int getX() {
         return x;
     }
 
-    public void setY(Integer y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public Integer getY() {
+    public int getY() {
         return y;
     }
 
-    public Integer getDistrict() {
+    public int getDistrict() {
         return district;
     }
 
-    public void setCoordinates(Integer posX, Integer posY, Integer d){
+    public void setCoordinates(int posX, int posY, int d){
         x = posX;
         y = posY;
         district = d;
     }
 
-    public void setAll(Integer id, Integer district, Integer x, Integer y, Integer portN) {
+    public void setAll(int id, int district, int x, int y, int portN) {
         this.id = id;
         this.district = district;
         this.x = x;

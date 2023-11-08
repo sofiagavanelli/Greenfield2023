@@ -38,7 +38,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         robotState.getInstance().incrementClock();
 
         //creo un robot e lo aggiungo
-        //Integer id, Integer portN, Integer x, Integer y, Integer district
+        //int id, int portN, int x, int y, int district
         RobotInfo newBot = new RobotInfo(request.getId(), request.getPort(), request.getX(), request.getY(), request.getDistrict());
         RobotList.getInstance().add(newBot);
 
@@ -71,8 +71,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         //LAMPORT ?
         System.out.println("my clock: " + robotState.getInstance().getClock());
         System.out.println("the sender's clock: " + request.getClock());
-        Integer senderClock = request.getClock();
-        Integer newClock = Math.max(senderClock, robotState.getInstance().getClock()) + 1;
+        int senderClock = request.getClock();
+        int newClock = Math.max(senderClock, robotState.getInstance().getClock()) + 1;
         robotState.getInstance().setClock(newClock);
         System.out.println("my new clock: " + robotState.getInstance().getClock());
 
@@ -82,7 +82,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         CommunicationServiceOuterClass.Authorization response;
 
         //devo dire da chi è!! mi serve il mio botPort (ma voglio aggiungere l'id?)
-        Integer myPort = RobotInfo.getInstance().getPortN();
+        int myPort = RobotInfo.getInstance().getPortN();
 
         //i need the mechanic so i have a request out
         if(robotState.getInstance().getState() == STATE.NEEDING) {

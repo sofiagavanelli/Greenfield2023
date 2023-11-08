@@ -17,9 +17,9 @@ public class RobotsService {
 
     private List<Integer> botDistricts = new ArrayList<Integer>();
 
-    private Integer x = 0;
-    private Integer y = 0;
-    private Integer district;
+    private int x = 0;
+    private int y = 0;
+    private int district;
 
     //restituisce la lista di utenti
     @GET
@@ -49,7 +49,7 @@ public class RobotsService {
     @Path("remove")
     @DELETE
     @Consumes({"application/json", "application/xml"}) //use of json?
-    public Response removeRobot(Integer ID){
+    public Response removeRobot(int ID){
 
         if(RobotList.getInstance().remove(ID))
             return Response.ok(RobotList.getInstance()).build();
@@ -75,10 +75,10 @@ public class RobotsService {
 
         botDistricts = RobotPositions.getInstance().getDistricts();
 
-        Integer d = 0;
+        int d = 0;
 
         //sarebbe da mettere in modalità random!!
-        for(Integer i=0; i<4; i++) {
+        for(int i=0; i<4; i++) {
             if(i==0 && botDistricts.get(i) == 0) {
                 d = i + 1;
                 System.out.println("DISTRETTO " + d + " bot dentro: " + botDistricts.get(i));
@@ -92,7 +92,7 @@ public class RobotsService {
         }
 
         //the real district [1,4] is the one chosen [0,4] plus 1
-        this.district =  d; //pos.nextInteger(4) + 1;
+        this.district =  d; //pos.nextint(4) + 1;
         //we put the elements in 0=1, 1=2, 2=3, 3=4 where (position=district)
         //botDistricts.add(district - 1, 1); //inutile?
         RobotPositions.getInstance().addDistricts(d - 1);

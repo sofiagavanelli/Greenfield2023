@@ -2,10 +2,9 @@ package CleaningRobot.simulators;
 
 public class PM10Simulator extends Simulator {
 
-
     private final double A = 15;
     private final double W = 0.05;
-    private static Integer ID = 1;
+    private static int ID = 1;
 
     public PM10Simulator(String id, Buffer buffer){
         super(id, "PM10", buffer);

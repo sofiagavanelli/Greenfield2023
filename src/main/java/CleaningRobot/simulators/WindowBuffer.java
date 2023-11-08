@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /*At the end of a read operation, readAllAndClean makes room for new measurements in
 the buffer. Specifically, you must process sensor data through the sliding
-window technique that was Integerroduced in the theory lessons. You must
+window technique that was introduced in the theory lessons. You must
 consider a buffer of 8 measurements, with an overlap factor of 50%. When
 the dimension of the buffer is equal to 8 measurements, you must compute
 the average of these 8 measurements. A cleaning robot will periodically send
@@ -13,14 +13,14 @@ these averages to the Administrator Server*/
 
 public class WindowBuffer implements Buffer {
 
-    private Integer size;
+    private int size;
     //private float overlap = 1/2;
     private double overlap = 0.5;
     private List<Measurement> buffer;
 
     private Measurement average;
 
-    public WindowBuffer(Integer size) {
+    public WindowBuffer(int size) {
         this.size = size;
 
         //option: Array deques have no capacity restrictions; they grow as necessary to support usage.
@@ -67,9 +67,9 @@ public class WindowBuffer implements Buffer {
 
             List<Measurement> windowMeasurements = new ArrayList<>(this.buffer);
 
-            Integer toDelete = 4; // Math.round(this.size * this.overlap);
+            int toDelete = 4; // Math.round(this.size * this.overlap);
 
-            for (Integer i = 0; i < toDelete; i++)
+            for (int i = 0; i < toDelete; i++)
                 this.buffer.remove(i);
 
             this.notify();
