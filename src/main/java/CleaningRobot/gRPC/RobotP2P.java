@@ -59,7 +59,10 @@ public class RobotP2P {
                 .setY(RobotInfo.getInstance().getY())
                 .build();
 
+
         for (RobotInfo element : listCopy) {
+
+            robotState.getInstance().incrementClock();
 
             String target = "localhost:" + element.getPortN();
             //System.out.println("sto per creare un channel come target: " + target);
@@ -75,7 +78,7 @@ public class RobotP2P {
 
                 @Override
                 public void onNext(Empty value) {
-                    robotState.getInstance().incrementClock();
+
                 }
 
                 @Override
@@ -115,10 +118,14 @@ public class RobotP2P {
                 .setId(myID)
                 .build();
 
+
         //telling other robots !!
         for (RobotInfo element : listCopy) {
 
             if (element.getId() != myID) {
+                //ma prima di iniziare o prima di ognuno???
+                robotState.getInstance().incrementClock();
+
                 String target = "localhost:" + element.getPortN();
                 //System.out.println("sto per creare un channel come target: " + target);
 
@@ -133,7 +140,6 @@ public class RobotP2P {
 
                     @Override
                     public void onNext(Empty value) {
-                        robotState.getInstance().incrementClock();
                         //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
                         //System.out.println(list.toString());
 
@@ -212,11 +218,15 @@ public class RobotP2P {
 
                     @Override
                     public void onError(Throwable t) {
-
                         //dealing with re-organization
                         //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
                         System.out.println("someone crashed during my requests");
                         RobotList.getInstance().remove(element.getId());
+                        try {
+                            organize(element.getId());
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                         crashSimulator.dealUncontrolledCrash(element.getId());
                     }
 
@@ -302,8 +312,6 @@ public class RobotP2P {
         //
         //call to server????
 
-        ArrayList<Integer> distribution = RobotPositions.getInstance().getRobotsDistricts();
-        System.out.println(distribution);
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
         int botPort = RobotInfo.getInstance().getPortN();

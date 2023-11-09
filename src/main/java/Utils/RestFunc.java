@@ -2,15 +2,18 @@ package Utils;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
-import com.google.gson.Gson;
+
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import java.util.List;
+
+import AdminServer.beans.RobotPositions;
+import com.google.gson.Gson;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.WebResource;
 
 public class RestFunc {
 
@@ -41,6 +44,9 @@ public class RestFunc {
                 x = r.getX();
                 y = r.getY();
             }
+
+            //i create the distribution
+            RobotPositions.getInstance().addIntoDistribution(r.getDistrict(), r.getId());
         }
 
         RobotInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
@@ -51,10 +57,19 @@ public class RestFunc {
     }
 
 
-    public static void requestDistricts() {
+    public static String getDistricts() {
 
+        // GET EXAMPLE
+        String getPath = "/robots/get/districts";
 
+        clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
+        //System.out.println(clientResponse.toString());
 
+        //il risultato della richiesta? come ho l'accesso?
+        System.out.println("The distribution is: ");
+        System.out.println(clientResponse.getEntity(String.class));
+
+        return(clientResponse.getEntity(String.class));
     }
 
     public static void deleteRobot(int id) {
@@ -66,10 +81,6 @@ public class RestFunc {
         System.out.println(clientResponse.toString());
 
     }
-
-
-
-
 
 
     /*****utility*/

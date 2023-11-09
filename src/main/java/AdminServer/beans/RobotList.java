@@ -69,8 +69,6 @@ public class RobotList {
     public synchronized boolean remove(int robotID) {
 
         List<RobotInfo> listCopy = getRobotslist();
-        System.out.println("before if to remove: " + robotID);
-
         /*if(listCopy.contains()) {
             System.out.println("inside to remove: " + robotID);
             robotsList.removeIf(r -> r.getId() == robotID);
@@ -78,11 +76,9 @@ public class RobotList {
 
         for(RobotInfo r : listCopy) {
             if (r.getId() == (robotID)) {
-                System.out.println("inside to remove: " + robotID);
                 robotsList.removeIf(bot -> bot.getId() == robotID);
-
                 //va anche tolto dalle posizioni !!!
-
+                RobotPositions.getInstance().removeFromDistrict(r.getDistrict());
             }
         }
 

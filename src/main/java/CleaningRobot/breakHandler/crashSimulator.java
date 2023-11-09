@@ -2,6 +2,7 @@ package CleaningRobot.breakHandler;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
+import AdminServer.beans.RobotPositions;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
@@ -74,14 +75,38 @@ public class crashSimulator extends Thread {
 
     public static void dealUncontrolledCrash(int id) {
 
+        System.out.println("inside dealUncontrolledCrash");
+
+        boolean balanced = false;
+
         //new client ?????
         //e quello già aperto su robot ??
         RestFunc.deleteRobot(id);
-        RestFunc.requestDistricts();
 
-        List<RobotInfo> list = RobotList.getInstance().getRobotslist();
+        HashMap<Integer, List<Integer>> distribution = RobotPositions.getInstance().getDistribution();
+        int n = RobotList.getInstance().getRobotslist().size()/4;
 
-        HashMap<Integer, List<Integer>> distribution = new HashMap<>();
+        List<Integer> move = new ArrayList<>();
+        List<Integer> need = new ArrayList<>();
+
+        System.out.println("what i have: ");
+        System.out.println(distribution);
+
+        for(int i=0; i<4; i++) {
+                if(distribution.get(i).size() < n) {
+                    need.add(i);
+                } else if (distribution.get(i).size() > n) {
+                    move.add(i);
+                }
+            }
+
+        System.out.println("move is: " + move);
+        System.out.println("need is: " + need);
+
+
+        /*List<RobotInfo> list = RobotList.getInstance().getRobotslist();
+
+
         ArrayList<Integer> districts = new ArrayList<>();
         List<Integer> move = new ArrayList<>();
         List<Integer> need = new ArrayList<>();
@@ -106,13 +131,13 @@ public class crashSimulator extends Thread {
 
         System.out.println("The robots were: " + distribution);
         System.out.println("move is: " + move);
-        System.out.println("need is: " + need);
+        System.out.println("need is: " + need);*/
 
-        try {
+        /*try {
             RobotP2P.organize(id);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 

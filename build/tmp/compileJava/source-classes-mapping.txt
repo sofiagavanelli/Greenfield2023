@@ -37,10 +37,10 @@ CleaningRobot/simulators/WindowBuffer.java
  CleaningRobot.simulators.WindowBuffer
 CleaningRobot/breakHandler/robotState.java
  CleaningRobot.breakHandler.robotState
-AdminServer/services/RobotsService.java
- AdminServer.services.RobotsService
-Utils/RestFunc.java
- Utils.RestFunc
+AdminClient/REST/AdminClient.java
+ AdminClient.REST.AdminClient
+CleaningRobot/MQTT/Reader.java
+ CleaningRobot.MQTT.Reader
 AdminServer/beans/RobotInfo.java
  AdminServer.beans.RobotInfo
 CleaningRobot/simulators/Simulator.java
@@ -71,24 +71,24 @@ com/example/chat/CommunicationServiceGrpc.java
  com.example.chat.CommunicationServiceGrpc$CommunicationServiceMethodDescriptorSupplier
  com.example.chat.CommunicationServiceGrpc$CommunicationServiceStub
  com.example.chat.CommunicationServiceGrpc$MethodHandlers
-AdminServer/beans/RobotPositions.java
- AdminServer.beans.RobotPositions
+CleaningRobot/Robot.java
+ CleaningRobot.Robot
 CleaningRobot/simulators/Buffer.java
  CleaningRobot.simulators.Buffer
 AdminServer/MQTT/MqttSub.java
  AdminServer.MQTT.MqttSub
  AdminServer.MQTT.MqttSub$1
-CleaningRobot/breakHandler/crashSimulator.java
- CleaningRobot.breakHandler.crashSimulator
-CleaningRobot/simulators/Measurement.java
- CleaningRobot.simulators.Measurement
-AdminClient/REST/AdminClient.java
- AdminClient.REST.AdminClient
-CleaningRobot/Robot.java
- CleaningRobot.Robot
-CleaningRobot/MQTT/Reader.java
- CleaningRobot.MQTT.Reader
 AdminServer/AdminServer.java
  AdminServer.AdminServer
+CleaningRobot/simulators/Measurement.java
+ CleaningRobot.simulators.Measurement
+AdminServer/beans/RobotPositions.java
+ AdminServer.beans.RobotPositions
+CleaningRobot/breakHandler/crashSimulator.java
+ CleaningRobot.breakHandler.crashSimulator
+AdminServer/services/RobotsService.java
+ AdminServer.services.RobotsService
+Utils/RestFunc.java
+ Utils.RestFunc
 AdminServer/beans/RobotList.java
  AdminServer.beans.RobotList

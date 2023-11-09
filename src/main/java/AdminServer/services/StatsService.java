@@ -11,7 +11,6 @@ import java.util.*;
 @Path("averages")
 public class StatsService {
 
-
     //restituisce la lista
     @GET
     @Produces({"application/json", "application/xml"})
@@ -37,8 +36,6 @@ public class StatsService {
     @GET
     @Produces({"application/json", "application/xml"})
     public Response getAllBetween(@PathParam("t1") long firstT, @PathParam("t2") long secondT) {
-
-        /*HashMap<Long, List<Double>> averages = PollutionStats.getInstance().getById(ID);*/
 
         Double average = PollutionStats.getInstance().getBetween(firstT, secondT);
 

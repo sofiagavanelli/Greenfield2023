@@ -5,12 +5,12 @@ public class robotState {
     public static STATE current = STATE.WORKING;
 
     //logical clock?
-    private int logicalClock=0;
+    private int logicalClock = 0;
     Object lock = new Object();
     /* when to increment:
         - state change
-        - before sending msg?
-        - when receiving msg?
+        - before sending msg
+        - when receiving msg you set the clock depending on lamport
      */
 
     private static robotState instance;
@@ -28,21 +28,21 @@ public class robotState {
 
     public synchronized void setState(STATE newS) {
         current = newS;
-        this.incrementClock();
+        incrementClock();
     }
 
     //CLOCK
-    public void setClock(int value) {
-        this.logicalClock = value;
+    public synchronized void setClock(int value) {
+        logicalClock = value;
     }
 
-    public int getClock() {
+    public synchronized int getClock() {
         return logicalClock;
     }
 
     public void incrementClock() {
         synchronized (lock) {
-            this.logicalClock = this.logicalClock + 1;
+            logicalClock = logicalClock + 1;
         }
     }
 

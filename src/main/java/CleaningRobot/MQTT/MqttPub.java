@@ -66,7 +66,6 @@ public class MqttPub extends Thread {
             //Set the QoS on the Message
             message.setQos(qos);
 
-            System.out.println(clientId + " Publishing message on" + topic);
             try {
                 client.publish(topic, message);
 
