@@ -3,6 +3,7 @@ package CleaningRobot.breakHandler;
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import AdminServer.beans.RobotPositions;
+import CleaningRobot.MQTT.MqttPub;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
@@ -73,15 +74,14 @@ public class crashSimulator extends Thread {
     }
 
 
-    public static void dealUncontrolledCrash(int id) {
+    public static HashMap<Integer, Integer> dealUncontrolledCrash(int id) {
 
         System.out.println("inside dealUncontrolledCrash");
 
-        boolean balanced = false;
+        //in this remove there is also the removeFromDistribution
+        RobotList.getInstance().remove(id);
 
-        //new client ?????
-        //e quello già aperto su robot ??
-        RestFunc.deleteRobot(id);
+        boolean balanced = false;
 
         HashMap<Integer, List<Integer>> distribution = RobotPositions.getInstance().getDistribution();
         int n = RobotList.getInstance().getRobotslist().size()/4;
@@ -89,49 +89,51 @@ public class crashSimulator extends Thread {
         List<Integer> move = new ArrayList<>();
         List<Integer> need = new ArrayList<>();
 
+        //hashmap<id, newDistrict>
+        HashMap<Integer, Integer> changes = new HashMap<>();
+
         System.out.println("what i have: ");
         System.out.println(distribution);
 
-        for(int i=0; i<4; i++) {
-                if(distribution.get(i).size() < n) {
-                    need.add(i);
-                } else if (distribution.get(i).size() > n) {
-                    move.add(i);
-                }
-            }
-
-        System.out.println("move is: " + move);
-        System.out.println("need is: " + need);
-
-
-        /*List<RobotInfo> list = RobotList.getInstance().getRobotslist();
-
-
-        ArrayList<Integer> districts = new ArrayList<>();
-        List<Integer> move = new ArrayList<>();
-        List<Integer> need = new ArrayList<>();
-
-        HashMap<Integer, Integer> newDistribution = new HashMap<>();
-
-        int n = list.size()/4;
-
-        for(RobotInfo r : list) {
-            List<Integer> previous = distribution.get(r.getDistrict());
-            previous.add(r.getId());
-            distribution.put(r.getDistrict(), previous);
-            districts.add(r.getDistrict(), 1);
-        }
-
-        for(int i=0; i<4; i++) {
-            if(districts.get(i) > n)
-                move.add(distribution.get(i).get(0));
-            else if(districts.get(i) < n)
+        for(int i=1; i<=4; i++) {
+            if(distribution.get(i) != null && distribution.get(i).size() < n) {
                 need.add(i);
+            } else if (distribution.get(i) != null && distribution.get(i).size() > n) {
+                move.add(i);
+            }
+            //it is empty
+            if (distribution.get(i) == null) {
+                need.add(i);
+            }
         }
 
-        System.out.println("The robots were: " + distribution);
-        System.out.println("move is: " + move);
-        System.out.println("need is: " + need);*/
+
+        if((move.size() > 0) && (need.size() > 0)) {
+            int minSize = (Math.min(move.size(), need.size()));
+
+            for (int i = 0; i < minSize; i++) {
+                changes.put(distribution.get(move.get(i)).get(i), need.get(i));
+            }
+        }
+
+        System.out.println("changes is: " + changes);
+        /*if(need != null)
+            System.out.println("need is: " + need);*/
+
+        System.out.println("se non ci sono stampe e' perche' siamo pari");
+        System.out.println("robot " + distribution.get(move.get(0)).get(0) + " should move from district " + move.get(0) + " to district " + need.get(0));
+
+        //i'm one of the robot who has to change
+        int myId = RobotInfo.getInstance().getId();
+        if(changes.get(myId) != null) {
+            RobotInfo.getInstance().setDistrict(changes.get(myId));
+            System.out.println("my topic before changes is: ");
+            MqttPub.changeTopic(changes.get(myId));
+            System.out.println("after is: ");
+        }
+
+
+        return changes;
 
         /*try {
             RobotP2P.organize(id);

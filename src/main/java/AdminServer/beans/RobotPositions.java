@@ -59,7 +59,22 @@ public class RobotPositions {
 
     }
 
+    public void removeFromDistribution(int district, int id) {
+
+        List<Integer> old = distribution.get(district);
+        if(old.size() == 1)
+            //if there is only one element then the district will be empty
+            distribution.remove(district);
+        else if(old.size() > 1) {
+            old.remove(id);
+            distribution.put(district, old);
+        }
+        //how can it be a null district ?
+
+    }
+
     public void removeFromDistrict(int i) {
+
         districts.set(i-1, districts.get(i-1)-1);
     }
 

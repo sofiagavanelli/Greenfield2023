@@ -787,6 +787,12 @@ public final class CommunicationServiceOuterClass {
      * @return The id.
      */
     int getId();
+
+    /**
+     * <code>int32 district = 3;</code>
+     * @return The district.
+     */
+    int getDistrict();
   }
   /**
    * Protobuf type {@code com.example.chat.Goodbye}
@@ -843,6 +849,11 @@ public final class CommunicationServiceOuterClass {
               id_ = input.readInt32();
               break;
             }
+            case 24: {
+
+              district_ = input.readInt32();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -895,6 +906,16 @@ public final class CommunicationServiceOuterClass {
       return id_;
     }
 
+    public static final int DISTRICT_FIELD_NUMBER = 3;
+    private int district_;
+    /**
+     * <code>int32 district = 3;</code>
+     * @return The district.
+     */
+    public int getDistrict() {
+      return district_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -915,6 +936,9 @@ public final class CommunicationServiceOuterClass {
       if (id_ != 0) {
         output.writeInt32(2, id_);
       }
+      if (district_ != 0) {
+        output.writeInt32(3, district_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -931,6 +955,10 @@ public final class CommunicationServiceOuterClass {
       if (id_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, id_);
+      }
+      if (district_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, district_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -951,6 +979,8 @@ public final class CommunicationServiceOuterClass {
           != other.getFrom()) return false;
       if (getId()
           != other.getId()) return false;
+      if (getDistrict()
+          != other.getDistrict()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -966,6 +996,8 @@ public final class CommunicationServiceOuterClass {
       hash = (53 * hash) + getFrom();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId();
+      hash = (37 * hash) + DISTRICT_FIELD_NUMBER;
+      hash = (53 * hash) + getDistrict();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1103,6 +1135,8 @@ public final class CommunicationServiceOuterClass {
 
         id_ = 0;
 
+        district_ = 0;
+
         return this;
       }
 
@@ -1131,6 +1165,7 @@ public final class CommunicationServiceOuterClass {
         com.example.chat.CommunicationServiceOuterClass.Goodbye result = new com.example.chat.CommunicationServiceOuterClass.Goodbye(this);
         result.from_ = from_;
         result.id_ = id_;
+        result.district_ = district_;
         onBuilt();
         return result;
       }
@@ -1184,6 +1219,9 @@ public final class CommunicationServiceOuterClass {
         }
         if (other.getId() != 0) {
           setId(other.getId());
+        }
+        if (other.getDistrict() != 0) {
+          setDistrict(other.getDistrict());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1270,6 +1308,36 @@ public final class CommunicationServiceOuterClass {
       public Builder clearId() {
         
         id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int district_ ;
+      /**
+       * <code>int32 district = 3;</code>
+       * @return The district.
+       */
+      public int getDistrict() {
+        return district_;
+      }
+      /**
+       * <code>int32 district = 3;</code>
+       * @param value The district to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDistrict(int value) {
+        
+        district_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 district = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDistrict() {
+        
+        district_ = 0;
         onChanged();
         return this;
       }
@@ -2512,6 +2580,12 @@ public final class CommunicationServiceOuterClass {
      * @return The id.
      */
     int getId();
+
+    /**
+     * <code>int32 district = 2;</code>
+     * @return The district.
+     */
+    int getDistrict();
   }
   /**
    * Protobuf type {@code com.example.chat.UncontrolledCrash}
@@ -2563,6 +2637,11 @@ public final class CommunicationServiceOuterClass {
               id_ = input.readInt32();
               break;
             }
+            case 16: {
+
+              district_ = input.readInt32();
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -2605,6 +2684,16 @@ public final class CommunicationServiceOuterClass {
       return id_;
     }
 
+    public static final int DISTRICT_FIELD_NUMBER = 2;
+    private int district_;
+    /**
+     * <code>int32 district = 2;</code>
+     * @return The district.
+     */
+    public int getDistrict() {
+      return district_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -2622,6 +2711,9 @@ public final class CommunicationServiceOuterClass {
       if (id_ != 0) {
         output.writeInt32(1, id_);
       }
+      if (district_ != 0) {
+        output.writeInt32(2, district_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -2634,6 +2726,10 @@ public final class CommunicationServiceOuterClass {
       if (id_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, id_);
+      }
+      if (district_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, district_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2652,6 +2748,8 @@ public final class CommunicationServiceOuterClass {
 
       if (getId()
           != other.getId()) return false;
+      if (getDistrict()
+          != other.getDistrict()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2665,6 +2763,8 @@ public final class CommunicationServiceOuterClass {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId();
+      hash = (37 * hash) + DISTRICT_FIELD_NUMBER;
+      hash = (53 * hash) + getDistrict();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2800,6 +2900,8 @@ public final class CommunicationServiceOuterClass {
         super.clear();
         id_ = 0;
 
+        district_ = 0;
+
         return this;
       }
 
@@ -2827,6 +2929,7 @@ public final class CommunicationServiceOuterClass {
       public com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash buildPartial() {
         com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash result = new com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash(this);
         result.id_ = id_;
+        result.district_ = district_;
         onBuilt();
         return result;
       }
@@ -2877,6 +2980,9 @@ public final class CommunicationServiceOuterClass {
         if (other == com.example.chat.CommunicationServiceOuterClass.UncontrolledCrash.getDefaultInstance()) return this;
         if (other.getId() != 0) {
           setId(other.getId());
+        }
+        if (other.getDistrict() != 0) {
+          setDistrict(other.getDistrict());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -2933,6 +3039,36 @@ public final class CommunicationServiceOuterClass {
       public Builder clearId() {
         
         id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int district_ ;
+      /**
+       * <code>int32 district = 2;</code>
+       * @return The district.
+       */
+      public int getDistrict() {
+        return district_;
+      }
+      /**
+       * <code>int32 district = 2;</code>
+       * @param value The district to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDistrict(int value) {
+        
+        district_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 district = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDistrict() {
+        
+        district_ = 0;
         onChanged();
         return this;
       }
@@ -3026,22 +3162,22 @@ public final class CommunicationServiceOuterClass {
       "\n\032CommunicationService.proto\022\020com.exampl" +
       "e.chat\032\033google/protobuf/empty.proto\"P\n\014P" +
       "resentation\022\014\n\004port\030\001 \001(\005\022\020\n\010district\030\002 " +
-      "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"#\n" +
-      "\007Goodbye\022\014\n\004from\030\001 \001(\005\022\n\n\002id\030\002 \001(\005\"&\n\007Re" +
-      "quest\022\014\n\004from\030\001 \001(\005\022\r\n\005clock\030\003 \001(\005\"8\n\rAu" +
-      "thorization\022\014\n\004from\030\001 \001(\005\022\n\n\002ok\030\002 \001(\010\022\r\n" +
-      "\005clock\030\003 \001(\005\"\037\n\021UncontrolledCrash\022\n\n\002id\030" +
-      "\001 \001(\0052\204\003\n\024CommunicationService\022?\n\nremova" +
-      "lMsg\022\031.com.example.chat.Goodbye\032\026.google" +
-      ".protobuf.Empty\022I\n\017presentationMsg\022\036.com" +
-      ".example.chat.Presentation\032\026.google.prot" +
-      "obuf.Empty\022M\n\017requestMechanic\022\031.com.exam" +
-      "ple.chat.Request\032\037.com.example.chat.Auth" +
-      "orization\022H\n\ranswerPending\022\037.com.example" +
-      ".chat.Authorization\032\026.google.protobuf.Em" +
-      "pty\022G\n\010organize\022#.com.example.chat.Uncon" +
-      "trolledCrash\032\026.google.protobuf.Emptyb\006pr" +
-      "oto3"
+      "\001(\005\022\n\n\002id\030\003 \001(\005\022\t\n\001x\030\004 \001(\005\022\t\n\001y\030\005 \001(\005\"5\n" +
+      "\007Goodbye\022\014\n\004from\030\001 \001(\005\022\n\n\002id\030\002 \001(\005\022\020\n\010di" +
+      "strict\030\003 \001(\005\"&\n\007Request\022\014\n\004from\030\001 \001(\005\022\r\n" +
+      "\005clock\030\003 \001(\005\"8\n\rAuthorization\022\014\n\004from\030\001 " +
+      "\001(\005\022\n\n\002ok\030\002 \001(\010\022\r\n\005clock\030\003 \001(\005\"1\n\021Uncont" +
+      "rolledCrash\022\n\n\002id\030\001 \001(\005\022\020\n\010district\030\002 \001(" +
+      "\0052\204\003\n\024CommunicationService\022?\n\nremovalMsg" +
+      "\022\031.com.example.chat.Goodbye\032\026.google.pro" +
+      "tobuf.Empty\022I\n\017presentationMsg\022\036.com.exa" +
+      "mple.chat.Presentation\032\026.google.protobuf" +
+      ".Empty\022M\n\017requestMechanic\022\031.com.example." +
+      "chat.Request\032\037.com.example.chat.Authoriz" +
+      "ation\022H\n\ranswerPending\022\037.com.example.cha" +
+      "t.Authorization\032\026.google.protobuf.Empty\022" +
+      "G\n\010organize\022#.com.example.chat.Uncontrol" +
+      "ledCrash\032\026.google.protobuf.Emptyb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3059,7 +3195,7 @@ public final class CommunicationServiceOuterClass {
     internal_static_com_example_chat_Goodbye_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_Goodbye_descriptor,
-        new java.lang.String[] { "From", "Id", });
+        new java.lang.String[] { "From", "Id", "District", });
     internal_static_com_example_chat_Request_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_example_chat_Request_fieldAccessorTable = new
@@ -3077,7 +3213,7 @@ public final class CommunicationServiceOuterClass {
     internal_static_com_example_chat_UncontrolledCrash_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_chat_UncontrolledCrash_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "Id", "District", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 

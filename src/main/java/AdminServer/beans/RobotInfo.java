@@ -77,6 +77,10 @@ public class RobotInfo {
         return district;
     }
 
+    public void setDistrict(int newD) {
+        this.district = newD;
+    }
+
     public void setCoordinates(int posX, int posY, int d){
         x = posX;
         y = posY;

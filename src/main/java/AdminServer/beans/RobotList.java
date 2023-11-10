@@ -79,6 +79,7 @@ public class RobotList {
                 robotsList.removeIf(bot -> bot.getId() == robotID);
                 //va anche tolto dalle posizioni !!!
                 RobotPositions.getInstance().removeFromDistrict(r.getDistrict());
+                RobotPositions.getInstance().removeFromDistribution(r.getDistrict(), r.getId());
             }
         }
 

@@ -11,23 +11,20 @@ cleaning robot presents itself to the other ones by sending them
 • its port number for communications*/
 
 message Presentation {
-
     int32 port = 1;
     int32 district = 2;
     int32 id = 3;
     int32 x = 4;
     int32 y = 5;
-
 }
 
 message Goodbye {
-
     int32 from = 1;
     int32 id = 2;
+    int32 district = 3;
 }
 
 message Request {
-
     int32 from = 1;
     int32 clock = 3;
 }
@@ -40,6 +37,7 @@ message Authorization {
 
 message UncontrolledCrash {
     int32 id = 1;
+    int32 district = 2;
 }
 
 service CommunicationService {

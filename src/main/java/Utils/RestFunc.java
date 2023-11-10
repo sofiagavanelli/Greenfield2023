@@ -44,9 +44,8 @@ public class RestFunc {
                 x = r.getX();
                 y = r.getY();
             }
-
-            //i create the distribution
-            RobotPositions.getInstance().addIntoDistribution(r.getDistrict(), r.getId());
+            else
+                RobotPositions.getInstance().addIntoDistribution(r.getDistrict(), r.getId());
         }
 
         RobotInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);

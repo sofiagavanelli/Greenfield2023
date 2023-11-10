@@ -2,6 +2,7 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
+import AdminServer.beans.RobotPositions;
 import CleaningRobot.breakHandler.STATE;
 import CleaningRobot.breakHandler.robotState;
 import com.example.chat.CommunicationServiceOuterClass.*;
@@ -70,6 +71,30 @@ public class Authorizations {
         }
     }*/
 
+
+    public boolean isPresent(int id) {
+
+        if(authorizations.get(id).getOk())
+            return true;
+        else
+            return false;
+
+    }
+
+    public void removeOne(int id) {
+
+        List<Authorization> listCopy = getAuthorizations();
+        /*if(listCopy.contains()) {
+            System.out.println("inside to remove: " + robotID);
+            robotsList.removeIf(r -> r.getId() == robotID);
+        }*/
+
+        for(Authorization a : listCopy) {
+            if (a.getFrom() == (id)) {
+                authorizations.removeIf(req -> req.getFrom() == id);
+            }
+        }
+    }
 
     public void controlAuthorizations() {
 

@@ -20,7 +20,7 @@ public class MqttPub extends Thread {
     MqttClient client;
     String broker = "tcp://localhost:1883";
     String clientId = "ROBOT-"; //MqttClient.generateClientId();
-    String topic = "greenfield/pollution/district";
+    static String topic = "greenfield/pollution/district";
     int qos = 2;
     
     private int robotID;
@@ -74,6 +74,10 @@ public class MqttPub extends Thread {
             }
         }
 
+    }
+
+    public static void changeTopic(int district) {
+        topic = "greenfield/pollution/district"+district;
     }
 
     public void stopPublishing() {

@@ -2,9 +2,9 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
-import AdminServer.beans.RobotPositions;
 import CleaningRobot.breakHandler.crashSimulator;
 import CleaningRobot.breakHandler.robotState;
+import Utils.RestFunc;
 import com.example.chat.CommunicationServiceGrpc;
 import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
@@ -14,7 +14,7 @@ import io.grpc.stub.StreamObserver;
 //import sun.misc.Queue;
 
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -111,11 +111,13 @@ public class RobotP2P {
 
         int myID = RobotInfo.getInstance().getId();
         int myPort = RobotInfo.getInstance().getPortN();
+        int myD = RobotInfo.getInstance().getDistrict();
 
         //creating the HelloResponse object which will be provided as input to the RPC method
         CommunicationServiceOuterClass.Goodbye bye =  CommunicationServiceOuterClass.Goodbye.newBuilder()
                 .setFrom(myPort)
                 .setId(myID)
+                .setDistrict(myD)
                 .build();
 
 
@@ -221,13 +223,16 @@ public class RobotP2P {
                         //dealing with re-organization
                         //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
                         System.out.println("someone crashed during my requests");
-                        RobotList.getInstance().remove(element.getId());
+                        //i inform the server
+                        RestFunc.deleteRobot(element.getId());
+                        //i understand who needs to move and i delete him
+                        crashSimulator.dealUncontrolledCrash(element.getId());
                         try {
-                            organize(element.getId());
+                            //i tell everybody who has died
+                            organize(element.getId(), element.getDistrict());
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        crashSimulator.dealUncontrolledCrash(element.getId());
                     }
 
                     @Override
@@ -306,18 +311,19 @@ public class RobotP2P {
 
     }
 
-    public static void organize(int botID) throws InterruptedException {
+    public static void organize(int botID, int botDistrict) throws InterruptedException {
 
         //msg to tell to delete it
         //
         //call to server????
 
-
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
         int botPort = RobotInfo.getInstance().getPortN();
 
+        //these are the crashed robot's information
         CommunicationServiceOuterClass.UncontrolledCrash robot = CommunicationServiceOuterClass.UncontrolledCrash.newBuilder()
                 .setId(botID)
+                .setDistrict(botDistrict)
                 .build();
 
         //for (int element : RobotPortInfo) {

@@ -2,12 +2,16 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
+import AdminServer.beans.RobotPositions;
 import CleaningRobot.breakHandler.STATE;
+import CleaningRobot.breakHandler.crashSimulator;
 import CleaningRobot.breakHandler.robotState;
 import com.example.chat.CommunicationServiceGrpc;
 import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
+
+import java.util.HashMap;
 
 public class CommunicationService extends CommunicationServiceGrpc.CommunicationServiceImplBase {
 
@@ -20,6 +24,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         robotState.getInstance().incrementClock();
 
         RobotList.getInstance().remove(request.getId());
+        RobotPositions.getInstance().removeFromDistribution(request.getDistrict(), request.getId());
 
         //questi due non sono in contraddizione ?
 
@@ -41,6 +46,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         //int id, int portN, int x, int y, int district
         RobotInfo newBot = new RobotInfo(request.getId(), request.getPort(), request.getX(), request.getY(), request.getDistrict());
         RobotList.getInstance().add(newBot);
+        //i create the distribution
+        RobotPositions.getInstance().addIntoDistribution(request.getDistrict(), request.getId());
 
         //se io sono in attesa e un robot è appena entrato allora devo aggiungere
         // la sua autorizzazione alla mia richiesta in corso
@@ -149,14 +156,19 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
         //call to remove
         System.out.println("somebody told me to remove " + request.getId());
-        RobotList.getInstance().remove(request.getId());
+
+        //i calculate who needs to move and i remove him
+        crashSimulator.dealUncontrolledCrash(request.getId());
 
         //if i'm waiting to obtain its authorization?
         //what happens if i notify and nobody is waiting?
         //if i'm needing i need to control
         //what if he said ok and now i've removed him? i've an authorization in surplus
-        if(robotState.getInstance().getState() == STATE.NEEDING)
-            Authorizations.getInstance().unblockMechanic();
+        if(robotState.getInstance().getState() == STATE.NEEDING) {
+            if(Authorizations.getInstance().isPresent(request.getId())) {
+                Authorizations.getInstance().removeOne(request.getId());
+            }
+        }
 
         responseObserver.onNext(null);
 
