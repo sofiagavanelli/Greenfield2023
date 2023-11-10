@@ -1,6 +1,7 @@
 package AdminServer;
 
 import AdminServer.beans.PollutionStats;
+import CleaningRobot.breakHandler.crashSimulator;
 import Utils.MqttMsg;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,6 +17,9 @@ import java.util.logging.Logger;
 
 import AdminServer.MQTT.MqttSub;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import java.util.logging.Formatter;
+import java.util.logging.SimpleFormatter;
+import java.util.Locale;
 
 public class AdminServer {
 
@@ -23,14 +27,18 @@ public class AdminServer {
     private static final String HOST = "localhost";
     private static final int PORT = 1337;
 
+    private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
+
     static {
+        Locale.setDefault(new Locale("en", "EN"));
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
         Logger.getLogger("com.sun.jersey").setLevel(Level.SEVERE);
     }
 
     public static void main(String[] args) throws IOException, MqttException {
         MqttClient client;
         String broker = "tcp://localhost:1883";
-        String clientId = "ADMIN-SERVER"; //MqttClient.generateClientId();
+        String clientId = "ADMIN-SERVER";
         String topic = "greenfield/pollution/#";
 
         int qos = 2;
@@ -43,28 +51,26 @@ public class AdminServer {
             connOpts.setMaxReconnectDelay(3000);
 
             // Connect the client
-            System.out.println(clientId + " Connecting Broker " + broker);
+            logger.info(clientId + " Connecting Broker " + broker);
             client.connect(connOpts);
-            System.out.println(clientId + " Connected - Thread PID: " + Thread.currentThread().getId());
+            logger.info(clientId + " Connected - Thread PID: " + Thread.currentThread().getId());
 
             // Callback
             client.setCallback(new MqttSub(clientId));
 
-            System.out.println(clientId + " Subscribing ... - Thread PID: " + Thread.currentThread().getId());
+            logger.info(clientId + " Subscribing ... - Thread PID: " + Thread.currentThread().getId());
             client.subscribe(topic,qos);
-            System.out.println(clientId + " Subscribed to topics : " + topic);
+            logger.info(clientId + " Subscribed to topics : " + topic);
 
-            //http server
-            System.out.println("I'm here'!");
             HttpServer server = HttpServerFactory.create("http://"+HOST+":"+PORT+"/");
             server.start();
 
-            System.out.println("Server running!");
-            System.out.println("Server started on: http://"+HOST+":"+PORT);
+            logger.info("Server running!");
+            logger.info("Server started on: http://"+HOST+":"+PORT);
 
             //input ? to keep it alive
 
-            System.out.println("Hit return to stop...");
+            //System.out.println("Hit return to stop...");
             System.in.read();
             //System.out.println("Stopping server");
             //server.stop(0);

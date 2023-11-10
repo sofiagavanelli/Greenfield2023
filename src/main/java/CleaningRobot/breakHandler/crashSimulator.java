@@ -13,10 +13,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class crashSimulator extends Thread {
 
     boolean stopCondition = false;
+
+    private static final Logger logger = Logger.getLogger(crashSimulator.class.getSimpleName());
 
     static Object crash = new Object();
 
@@ -69,7 +72,8 @@ public class crashSimulator extends Thread {
         synchronized (crash) {
             robotState.getInstance().setState(STATE.NEEDING);
             crash.notify();
-            System.out.println("This robot has crashed");
+
+            logger.info("This robot has crashed");
         }
     }
 
@@ -134,12 +138,6 @@ public class crashSimulator extends Thread {
 
 
         return changes;
-
-        /*try {
-            RobotP2P.organize(id);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }*/
 
     }
 

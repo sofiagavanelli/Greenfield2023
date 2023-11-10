@@ -83,9 +83,7 @@ public class RobotP2P {
 
                 @Override
                 public void onError(Throwable t) {
-
-                    //tramite on error gestisco se un robot è saltato ??
-
+                    organizeGrid(element.getId(), element.getDistrict());
                 }
 
                 @Override
@@ -149,7 +147,7 @@ public class RobotP2P {
 
                     @Override
                     public void onError(Throwable t) {
-
+                        organizeGrid(element.getId(), element.getDistrict());
                     }
 
                     @Override
@@ -220,19 +218,7 @@ public class RobotP2P {
 
                     @Override
                     public void onError(Throwable t) {
-                        //dealing with re-organization
-                        //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
-                        System.out.println("someone crashed during my requests");
-                        //i inform the server
-                        RestFunc.deleteRobot(element.getId());
-                        //i understand who needs to move and i delete him
-                        crashSimulator.dealUncontrolledCrash(element.getId());
-                        try {
-                            //i tell everybody who has died
-                            organize(element.getId(), element.getDistrict());
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+                        organizeGrid(element.getId(), element.getDistrict());
                     }
 
                     @Override
@@ -291,7 +277,8 @@ public class RobotP2P {
 
                 @Override
                 public void onError(Throwable t) {
-
+                    //problem!!!
+                    //organizeGrid(element.getId(), element.getDistrict());
                 }
 
                 @Override
@@ -358,6 +345,23 @@ public class RobotP2P {
 
             }
 
+        }
+    }
+
+
+    public static void organizeGrid(int id, int district) {
+        //dealing with re-organization
+        //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
+        System.out.println("someone crashed during my message");
+        //i inform the server
+        RestFunc.deleteRobot(id);
+        //i understand who needs to move and i delete him
+        crashSimulator.dealUncontrolledCrash(id);
+        try {
+            //i tell everybody who has died
+            organize(id, district);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

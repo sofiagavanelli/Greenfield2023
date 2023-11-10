@@ -1,15 +1,12 @@
 package CleaningRobot;
 
 import AdminServer.beans.RobotInfo;
-import AdminServer.beans.RobotList;
 import CleaningRobot.MQTT.MqttPub;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.breakHandler.Mechanic;
-import CleaningRobot.breakHandler.STATE;
 import CleaningRobot.breakHandler.crashSimulator;
-import CleaningRobot.breakHandler.robotState;
-import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.gRPC.CommunicationService;
+import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
 import CleaningRobot.simulators.WindowBuffer;
 import Utils.RestFunc;
