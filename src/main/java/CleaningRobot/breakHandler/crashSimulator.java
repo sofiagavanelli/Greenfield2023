@@ -4,10 +4,6 @@ import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import AdminServer.beans.RobotPositions;
 import CleaningRobot.MQTT.MqttPub;
-import CleaningRobot.MQTT.Reader;
-import CleaningRobot.gRPC.RobotP2P;
-import CleaningRobot.simulators.PM10Simulator;
-import Utils.RestFunc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,12 +76,10 @@ public class crashSimulator extends Thread {
 
     public static HashMap<Integer, Integer> dealUncontrolledCrash(int id) {
 
-        System.out.println("inside dealUncontrolledCrash");
+        logger.info("A robot crashed unexpectedly");
 
         //in this remove there is also the removeFromDistribution
         RobotList.getInstance().remove(id);
-
-        boolean balanced = false;
 
         HashMap<Integer, List<Integer>> distribution = RobotPositions.getInstance().getDistribution();
         int n = RobotList.getInstance().getRobotslist().size()/4;
@@ -95,9 +89,6 @@ public class crashSimulator extends Thread {
 
         //hashmap<id, newDistrict>
         HashMap<Integer, Integer> changes = new HashMap<>();
-
-        System.out.println("what i have: ");
-        System.out.println(distribution);
 
         for(int i=1; i<=4; i++) {
             if(distribution.get(i) != null && distribution.get(i).size() < n) {
@@ -120,20 +111,13 @@ public class crashSimulator extends Thread {
             }
         }
 
-        System.out.println("changes is: " + changes);
-        /*if(need != null)
-            System.out.println("need is: " + need);*/
-
-        System.out.println("se non ci sono stampe e' perche' siamo pari");
-        System.out.println("robot " + distribution.get(move.get(0)).get(0) + " should move from district " + move.get(0) + " to district " + need.get(0));
-
         //i'm one of the robot who has to change
         int myId = RobotInfo.getInstance().getId();
         if(changes.get(myId) != null) {
+            logger.info("I need to move, my district before changes is" + RobotInfo.getInstance().getDistrict());
             RobotInfo.getInstance().setDistrict(changes.get(myId));
-            System.out.println("my topic before changes is: ");
             MqttPub.changeTopic(changes.get(myId));
-            System.out.println("after is: ");
+            System.out.println("after is: " + RobotInfo.getInstance().getDistrict());
         }
 
 

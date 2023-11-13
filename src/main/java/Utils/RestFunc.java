@@ -85,9 +85,6 @@ public class RestFunc {
     /*****utility*/
 
     public static ClientResponse postRequest(Client client, String url, RobotInfo r) {
-        //WebResource webResource = client.resource(url);
-        //String input = new Gson().toJson(r);
-        //return webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class);
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(r);
@@ -112,9 +109,6 @@ public class RestFunc {
     }
 
     public static ClientResponse deleteRequest(Client client, String url, int id) {
-        //WebResource webResource = client.resource(url);
-        //String input = new Gson().toJson(r);
-        //return webResource.accept(MediaType.APPLICATION_JSON).post(ClientResponse.class);
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(id);

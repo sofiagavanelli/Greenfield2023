@@ -2,6 +2,7 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
+import AdminServer.beans.RobotPositions;
 import CleaningRobot.breakHandler.crashSimulator;
 import CleaningRobot.breakHandler.robotState;
 import Utils.RestFunc;
@@ -18,35 +19,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class RobotP2P {
 
-    int botID;
+    private static final Logger logger = Logger.getLogger(RobotP2P.class.getSimpleName());
 
-    int[] allID;
-    static int[] RobotPortInfo; //only the ports
-    int botPort;
-    List<RobotInfo> bots;
-    int botDistrict;
-
-    Socket s;
-    //Server gRPCserver;
-
-    private ManagedChannel channel;
-
-    public RobotP2P(/*int botID, int botPort*/) {/*, List<RobotInfo> bots) {*/
-        //this.botPorts = botPorts;
-
-        /*this.botID = botID;
-        this.botPort = botPort;*/
-        //this.bots = bots;
-
-        //setBots();
+    public RobotP2P() {
     }
 
     public static void firstMSG() throws InterruptedException {
 
-        //rimuovere listCopy e fare una chiamata! no?
         //rimuovere le info
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
@@ -57,6 +40,7 @@ public class RobotP2P {
                 .setId(RobotInfo.getInstance().getId())
                 .setX(RobotInfo.getInstance().getX())
                 .setY(RobotInfo.getInstance().getY())
+                .setClock(robotState.getInstance().getClock())
                 .build();
 
 
@@ -65,7 +49,6 @@ public class RobotP2P {
             robotState.getInstance().incrementClock();
 
             String target = "localhost:" + element.getPortN();
-            //System.out.println("sto per creare un channel come target: " + target);
 
             //plaintext channel on the address (ip/port) which offers the GreetingService service
             final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
@@ -104,30 +87,27 @@ public class RobotP2P {
 
     public static void lastMSG() throws InterruptedException {
 
-        //rimuovere listCopy e fare una chiamata! no?
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
         int myID = RobotInfo.getInstance().getId();
         int myPort = RobotInfo.getInstance().getPortN();
         int myD = RobotInfo.getInstance().getDistrict();
 
-        //creating the HelloResponse object which will be provided as input to the RPC method
         CommunicationServiceOuterClass.Goodbye bye =  CommunicationServiceOuterClass.Goodbye.newBuilder()
                 .setFrom(myPort)
                 .setId(myID)
                 .setDistrict(myD)
+                .setClock(robotState.getInstance().getClock())
                 .build();
-
 
         //telling other robots !!
         for (RobotInfo element : listCopy) {
 
             if (element.getId() != myID) {
-                //ma prima di iniziare o prima di ognuno???
+                //prima di ognuno
                 robotState.getInstance().incrementClock();
 
                 String target = "localhost:" + element.getPortN();
-                //System.out.println("sto per creare un channel come target: " + target);
 
                 //plaintext channel on the address (ip/port) which offers the GreetingService service
                 final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
@@ -140,8 +120,6 @@ public class RobotP2P {
 
                     @Override
                     public void onNext(Empty value) {
-                        //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
-                        //System.out.println(list.toString());
 
                     }
 
@@ -152,9 +130,7 @@ public class RobotP2P {
 
                     @Override
                     public void onCompleted() {
-
                         channel.shutdownNow();
-
                     }
 
                 });
@@ -172,30 +148,25 @@ public class RobotP2P {
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
         int botPort = RobotInfo.getInstance().getPortN();
-        System.out.println("my port: " + botPort);
-
-        //ma a cosa mi serve l'ID ?
-        int botId = RobotInfo.getInstance().getId();
 
         CommunicationServiceOuterClass.Request ask = CommunicationServiceOuterClass.Request.newBuilder()
                 .setFrom(botPort)
                 .setClock(robotState.getInstance().getClock())
                 .build();
 
-        //fare una sola volta -- tengo conto della mia richiesta
+        //tengo conto della mia richiesta
         MechanicRequests.getInstance().addPersonal(ask);
 
-        //for (int element : RobotPortInfo) {
         for (RobotInfo element : listCopy) {
 
-            if(!Objects.equals(element.getPortN(), botPort)) { //in questo caso non mando il messaggio a me stesso
+            if(element.getPortN() != botPort) {
+                //in questo caso non mando il messaggio a me stesso
 
                 robotState.getInstance().incrementClock();
 
-                System.out.println("sto per mandare la richiesta a: " + element.getPortN());
+                logger.info("I'm sending my mechanic request to: " + element.getPortN());
 
                 String target = "localhost:" + element.getPortN();
-                //System.out.println("sto per creare un channel come target: " + target);
 
                 //plaintext channel on the address (ip/port) which offers the GreetingService service
                 final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
@@ -210,7 +181,7 @@ public class RobotP2P {
                     public void onNext(CommunicationServiceOuterClass.Authorization value) {
                         //quando ricevo la risposta
                         if(value.getOk()) {
-                            System.out.println("ho ricevuto il si da: " + element.getPortN());
+                            logger.info("I received one authorization from: " + element.getPortN());
                             Authorizations.getInstance().addAuthorization(value);
                         }
 
@@ -244,13 +215,11 @@ public class RobotP2P {
 
         int botPort = RobotInfo.getInstance().getPortN();
 
-        System.out.println("size pending requests: ");
-        System.out.println(size);
-
         //creating the HelloResponse object which will be provided as input to the RPC method
         CommunicationServiceOuterClass.Authorization answer = CommunicationServiceOuterClass.Authorization.newBuilder()
                 .setFrom(botPort)
                 .setOk(true)
+                .setClock(robotState.getInstance().getClock())
                 .build();
 
         while(size > 0) {
@@ -277,7 +246,9 @@ public class RobotP2P {
 
                 @Override
                 public void onError(Throwable t) {
+                    //
                     //problem!!!
+                    //i don't have the information
                     //organizeGrid(element.getId(), element.getDistrict());
                 }
 
@@ -300,10 +271,6 @@ public class RobotP2P {
 
     public static void organize(int botID, int botDistrict) throws InterruptedException {
 
-        //msg to tell to delete it
-        //
-        //call to server????
-
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
         int botPort = RobotInfo.getInstance().getPortN();
 
@@ -311,6 +278,7 @@ public class RobotP2P {
         CommunicationServiceOuterClass.UncontrolledCrash robot = CommunicationServiceOuterClass.UncontrolledCrash.newBuilder()
                 .setId(botID)
                 .setDistrict(botDistrict)
+                .setClock(robotState.getInstance().getClock())
                 .build();
 
         //for (int element : RobotPortInfo) {
@@ -352,7 +320,7 @@ public class RobotP2P {
     public static void organizeGrid(int id, int district) {
         //dealing with re-organization
         //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
-        System.out.println("someone crashed during my message");
+        logger.info("Someone crashed during my message");
         //i inform the server
         RestFunc.deleteRobot(id);
         //i understand who needs to move and i delete him

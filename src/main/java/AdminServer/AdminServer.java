@@ -68,27 +68,16 @@ public class AdminServer {
             logger.info("Server running!");
             logger.info("Server started on: http://"+HOST+":"+PORT);
 
-            //input ? to keep it alive
 
-            //System.out.println("Hit return to stop...");
             System.in.read();
-            //System.out.println("Stopping server");
-            //server.stop(0);
-            //System.out.println("Server stopped");
 
-
-
-            //System.out.println("\n ***  Press a random key to exit *** \n");
-            /*Scanner command = new Scanner(System.in);
-            command.nextLine();
-            client.disconnect();*/
 
         } catch (MqttException me ) {
-            System.out.println("reason " + me.getReasonCode());
-            System.out.println("msg " + me.getMessage());
-            System.out.println("loc " + me.getLocalizedMessage());
-            System.out.println("cause " + me.getCause());
-            System.out.println("excep " + me);
+            logger.info("reason " + me.getReasonCode());
+            logger.info("msg " + me.getMessage());
+            logger.info("loc " + me.getLocalizedMessage());
+            logger.info("cause " + me.getCause());
+            logger.info("excep " + me);
             me.printStackTrace();
         }
 

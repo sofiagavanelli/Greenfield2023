@@ -1,5 +1,6 @@
 package CleaningRobot.MQTT;
 
+import CleaningRobot.breakHandler.Mechanic;
 import com.google.gson.Gson;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -10,6 +11,7 @@ import CleaningRobot.simulators.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import Utils.MqttMsg;
 
@@ -19,18 +21,18 @@ public class MqttPub extends Thread {
 
     MqttClient client;
     String broker = "tcp://localhost:1883";
-    String clientId = "ROBOT-"; //MqttClient.generateClientId();
+    String clientId = "ROBOT-";
     static String topic = "greenfield/pollution/district";
     int qos = 2;
-    
+
+    private static final Logger logger = Logger.getLogger(MqttPub.class.getSimpleName());
+
     private int robotID;
 
     boolean stopCondition = false;
 
     List<Double> read = new ArrayList<>();
     Reader sensor;
-
-    //public static void main(String[] args) {
 
     public MqttPub(String d, Reader sensor, int robotID) {
         topic = topic+d;
@@ -46,7 +48,6 @@ public class MqttPub extends Thread {
 
         while(!stopCondition) {
 
-            ///////////
             try {
                 //he has to get the averages every 15 seconds
                 sleep(15000);
@@ -58,9 +59,6 @@ public class MqttPub extends Thread {
             MqttMsg msg = new MqttMsg(read, robotID);
             String payload = new Gson().toJson(msg);
 
-            //System.out.println(msg.getStringMessage());
-
-            //String payload = msg.getStringMessage(); // create a random number between 0 and 10
             MqttMessage message = new MqttMessage(payload.getBytes());
 
             //Set the QoS on the Message
@@ -93,23 +91,18 @@ public class MqttPub extends Thread {
             connOpts.setCleanSession(true);
             connOpts.setAutomaticReconnect(true);
             connOpts.setMaxReconnectDelay(3000);
-            //connOpts.setUserName(username); // optional
-            //connOpts.setPassword(password.toCharArray()); // optional
-            //connOpts.setWill("this/is/a/topic","will message".getBytes(),1,false);  // optional
-            //connOpts.setKeepAliveInterval(60);  // optional
 
             // Connect the client
-            System.out.println(clientId + " Connecting Broker " + broker);
+            logger.info(clientId + " Connecting Broker " + broker);
             client.connect(connOpts);
-            System.out.println(clientId + " Connected");
+            logger.info(clientId + " Connected");
 
-
-        } catch (MqttException me ) {
-            System.out.println("reason " + me.getReasonCode());
-            System.out.println("msg " + me.getMessage());
-            System.out.println("loc " + me.getLocalizedMessage());
-            System.out.println("cause " + me.getCause());
-            System.out.println("excep " + me);
+        } catch (MqttException me) {
+            logger.info("reason " + me.getReasonCode());
+            logger.info("msg " + me.getMessage());
+            logger.info("loc " + me.getLocalizedMessage());
+            logger.info("cause " + me.getCause());
+            logger.info("excep " + me);
             me.printStackTrace();
         }
     }

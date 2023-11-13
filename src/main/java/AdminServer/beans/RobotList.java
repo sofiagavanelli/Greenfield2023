@@ -44,7 +44,7 @@ public class RobotList {
     }
 
 
-    public synchronized boolean add(RobotInfo bot) {
+    public boolean add(RobotInfo bot) {
 
         List<RobotInfo> listCopy = getRobotslist();
 
@@ -54,29 +54,23 @@ public class RobotList {
             }
         }
 
-        robotsList.add(bot);
-
-        /*then you should send back:
-            • the starting position in Greenfield of the robot
-            • the list of robots already located in the smart city, specifying for
-                each of them the related ID, the IP address, and the port number
-                for communication*/
+        synchronized(robotsList) {
+            robotsList.add(bot);
+        }
 
         return true;
 
     }
 
-    public synchronized boolean remove(int robotID) {
+    public boolean remove(int robotID) {
 
         List<RobotInfo> listCopy = getRobotslist();
-        /*if(listCopy.contains()) {
-            System.out.println("inside to remove: " + robotID);
-            robotsList.removeIf(r -> r.getId() == robotID);
-        }*/
 
         for(RobotInfo r : listCopy) {
             if (r.getId() == (robotID)) {
-                robotsList.removeIf(bot -> bot.getId() == robotID);
+                synchronized(robotsList) {
+                    robotsList.removeIf(bot -> bot.getId() == robotID);
+                }
                 //va anche tolto dalle posizioni !!!
                 RobotPositions.getInstance().removeFromDistrict(r.getDistrict());
                 RobotPositions.getInstance().removeFromDistribution(r.getDistrict(), r.getId());

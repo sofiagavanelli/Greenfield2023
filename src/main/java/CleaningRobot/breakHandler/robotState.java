@@ -27,8 +27,8 @@ public class robotState {
     }
 
     public synchronized void setState(STATE newS) {
-        current = newS;
         incrementClock();
+        current = newS;
     }
 
     //CLOCK
@@ -43,6 +43,13 @@ public class robotState {
     public void incrementClock() {
         synchronized (lock) {
             logicalClock = logicalClock + 1;
+        }
+    }
+
+    public void adjustClock(int senderClock) {
+        synchronized (lock) {
+            int newClock = Math.max(senderClock, logicalClock) + 1;
+            logicalClock = newClock;
         }
     }
 

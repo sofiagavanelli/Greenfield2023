@@ -15,7 +15,7 @@ public class PollutionStats {
 
     //@XmlElement(name="my_averages")
     //HashMap<ROBOTID, HashMap<Timestamp, Averages>>
-    HashMap<Integer, HashMap<Long, List<Double>>> RobotAverages; //List<Double> !!
+    HashMap<Integer, HashMap<Long, List<Double>>> RobotAverages;
     //HashMap<ROBOTID, Lista<struct>>
     HashMap<Integer, List<MqttMsg>> AveragesTime;
     //HashMap<ROBOTID, Lista che aumenta>
@@ -41,7 +41,7 @@ public class PollutionStats {
     }
 
     //aggiunge ad entrambe le hashmap, sia a quella con timestamp che a quella senza --syncro?
-    public synchronized void addAverages(int ID, MqttMsg msg) { //Long timestamp, List<Double> data) {
+    public synchronized void addAverages(int ID, MqttMsg msg) {
 
         //HashMap<Long, List<Double>> previous = new HashMap<>();
         List<MqttMsg> previous = new ArrayList<>();
@@ -97,7 +97,6 @@ public class PollutionStats {
 
     }
 
-    //problema: le hashmap NON si possono scorrere, sono unordered!!!
     //
     public Double getBetween(long t1, long t2) {
 

@@ -69,7 +69,6 @@ public class RobotPositions {
             old.remove(id);
             distribution.put(district, old);
         }
-        //how can it be a null district ?
 
     }
 
@@ -88,8 +87,7 @@ public class RobotPositions {
 
         int d = 0;
 
-        //sarebbe da mettere in modalità random!!
-
+        //ma ha ancora senso il while? non viene mai fatto più di una volta
         while(!found) {
             d = pos.nextInt(4);
             //if this district is empty then it's okay
@@ -116,7 +114,6 @@ public class RobotPositions {
         //we put the elements in 0=1, 1=2, 2=3, 3=4 where (position=district)
         //districts.add(d - 1, 1); //inutile?
         RobotPositions.getInstance().addDistrict(d);
-        System.out.println("DISTRETTO " + d + " bot dentro: " + RobotPositions.getInstance().getDistrict(d));
 
         int x = pos.nextInt(5);
         int y = pos.nextInt(5);
@@ -132,17 +129,11 @@ public class RobotPositions {
             y = y + 5;
         }
 
-        System.out.println("x: " + x);
-        System.out.println("y: " + y);
-
         bot.setCoordinates(x, y, d);
-
-        System.out.println(distribution);
 
         List<Integer> old = new ArrayList<>();
 
         if(distribution.get(d) != null) {
-            System.out.println("sono dentro l'if");
             //i get the list of the robots already in the district d
             old = distribution.get(d);
             //i put this new robot

@@ -15,7 +15,6 @@ public class MechanicRequests {
 
     private MechanicRequests() {
         requests = new ArrayList<Request>(); //ne crea una nuova//
-        //robotsList.add(new RobotInfo(12, 7));
     }
 
     //singleton

@@ -10,8 +10,6 @@ import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
 import CleaningRobot.simulators.WindowBuffer;
 import Utils.RestFunc;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import io.grpc.Server;
@@ -25,14 +23,6 @@ public class Robot {
 
     private static int botId;
     private static int botPort;
-    private int botDistrict;
-    private int x;
-    private int y;
-
-    static Random rnd = new Random();
-
-    List<RobotInfo> robotInfoList;
-    int[] RobotPortInfo;
 
     //static
     WindowBuffer newB; // = new WindowBuffer(8);
@@ -42,14 +32,10 @@ public class Robot {
     PM10Simulator botSimulator; // = new PM10Simulator(newB);
     Mechanic mechanicHandler;
     crashSimulator crashTest;
-    RobotP2P gRPCclient;
     Server gRPCserver;
     MqttPub pub;
 
     ClientConfig config = new DefaultClientConfig();
-    Client client = Client.create(config);
-    String serverAddress = "http://localhost:1337";
-    ClientResponse clientResponse = null;
 
     public Robot() {
 
@@ -68,35 +54,7 @@ public class Robot {
         crashSimulator crashTest = new crashSimulator();
         this.crashTest = crashTest;
 
-        //Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, crashTest, gRPCclient);
-
         RestFunc.addNewRobot(botId, botPort);
-
-        // POST EXAMPLE
-        /*String postPath = "/robots/add";
-        RobotInfo bot1 = new RobotInfo(botId, botPort);
-        clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.println(clientResponse.toString());
-
-        //qui cosa sto facendo: chiedo al server la lista dei robot
-        RobotList robs = clientResponse.getEntity(RobotList.class);
-        //la copio ?
-        List<RobotInfo> copyRobs = robs.getRobotslist();
-        RobotList.getInstance().setRobotslist(copyRobs);*/
-
-        //then you should receive back the position and the district !!!!
-        //inserire una funzione!!!
-
-        //si potrebbero togliere gli assegnamenti ?
-        /*for (RobotInfo r : robs.getRobotslist()){
-            if(r.getId() == botId) {
-                botDistrict = r.getDistrict();
-                x = r.getX();
-                y = r.getY();
-            }
-        }
-
-        personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);*/
 
         //MqttPub : ogni robot ha il suo publisher
         MqttPub pub = new MqttPub(Integer.toString(RobotInfo.getInstance().getDistrict()), readSensor, botId);
@@ -107,10 +65,6 @@ public class Robot {
         this.startGRPCServer();
 
         try {
-            //anche questo passaggio delle liste !!!! no.
-            //List<RobotInfo> list = RobotList.getInstance().getRobotslist();
-            //int[] RobotPortInfo, int botPort, int botDistrict, int botID
-            //si può togliere tutto dagli input
             RobotP2P.firstMSG();
         }  catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -118,11 +72,7 @@ public class Robot {
 
         this.botSimulator.start();
         this.readSensor.start();
-        //set connections probabilmente non serve più!!
-        //this.mechanicHandler.setConnections(RobotPortInfo);
-
         this.crashTest.start();
-
         this.mechanicHandler.start();
 
     }
@@ -146,6 +96,7 @@ public class Robot {
         gRPCserver.shutdown();
         pub.stopPublishing();
 
+        //do i wait?
         mechanicHandler.stopMechanic();
 
         //do i need this?
@@ -193,83 +144,6 @@ public class Robot {
         }
 
     }
-
-    /*public static void main(String argv[]) throws Exception {
-
-        Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
-        System.out.print("Enter id: ");
-        botId = sc.nextint();
-        System.out.print("Enter port: ");
-        botPort = sc.nextint();
-
-
-        WindowBuffer newB = new WindowBuffer(8);
-        PM10Simulator botSimulator = new PM10Simulator(newB);
-        Reader readSensor = new Reader(newB);
-        Mechanic mechanicHandler = new Mechanic(botSimulator, readSensor, botId, botPort);
-        crashSimulator crashTest = new crashSimulator();
-        //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
-
-        botDistrict = 0; //non dovrebbe servire
-        //cambiare botId in String? e mettere "ROBOT-n" ?
-        //botId = rnd.nextint(100) + 10;
-        //botPort = 1234; //input??
-
-        //RobotP2P gRPCclient = new RobotP2P(botId, botPort);
-        Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, mechanicHandler, crashTest);
-
-        //Robot bot = new Robot(botId, botPort, botSimulator, readSensor, newB, crashTest, gRPCclient);
-
-        ClientConfig config = new DefaultClientConfig();
-        Client client = Client.create(config);
-        String serverAddress = "http://localhost:1337";
-        ClientResponse clientResponse = null;
-
-        // POST EXAMPLE
-        String postPath = "/robots/add";
-        RobotInfo bot1 = new RobotInfo(botId, botPort);
-        clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.println(clientResponse.toString());
-
-        //qui cosa sto facendo: chiedo al server la lista dei robot
-        RobotList robs = clientResponse.getEntity(RobotList.class);
-        //la copio ?
-        List<RobotInfo> copyRobs = robs.getRobotslist();
-        RobotList.getInstance().setRobotslist(copyRobs);
-        //gRPCclient.setBots(copyRobs);
-
-        //then you should receive back the position and the district !!!!
-        //inserire una funzione!!!
-
-        //si potrebbero togliere gli assegnamenti ?
-        for (RobotInfo r : robs.getRobotslist()){
-            if(r.getId() == botId) {
-                botDistrict = r.getDistrict();
-                x = r.getX();
-                y = r.getY();
-            }
-        }
-
-        personalInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
-
-        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
-
-        //MqttPub : ogni robot ha il suo publisher
-        MqttPub pub = new MqttPub(int.toString(botDistrict), readSensor, botId);
-        pub.start(); //start or run?
-
-        //Server GRPCserver = ServerBuilder.forPort(botPort).addService(new SERVICE()).build();
-        //GRPCserver.start();
-
-        try {
-            bot.initialize();
-        }
-        catch(Exception e) {
-
-        }
-
-        //clientSocket.close();
-    }*/
 
 
 }

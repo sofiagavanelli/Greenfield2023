@@ -36,10 +36,14 @@ public class AdminClient {
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
 
         while(!stopCondition) {
-            System.out.print("Enter your request: ");
+            System.out.println("Enter 1 to obtain the list of all the robots, 2 to calculate the average of n measurements and 3 to have averages between timestamps.");
+            System.out.print("Your request: ");
             cmd = sc.nextInt();
 
-            if (cmd == 0) {
+            if (cmd == 1) {
+                getAllRobots();
+
+            } else if (cmd == 2) {
 
                 System.out.print("Enter robot id: ");
                 int id = sc.nextInt();
@@ -47,7 +51,9 @@ public class AdminClient {
                 int n = sc.nextInt();
 
                 requestLastAverages(id, n);
-            } else if (cmd == 1) {
+
+            }
+            else if (cmd == 3) {
 
                 System.out.println("The current timestamp is: " + System.currentTimeMillis());
 
@@ -58,36 +64,21 @@ public class AdminClient {
 
                 requestAveragesBetweenTime(t1, t2);
             }
-            else if (cmd == 2) {
-
-                getAllRobots();
-            }
             else
                 System.out.println("There aren't requests with this number");
 
-            //also list of all the cleaning robot currently there
-
         }
-        //stay alive
 
     }
 
-    /*
-    void requestAverages(){
-        get request
-     }
-     */
 
     public static void requestLastAverages(int id, int n) {
 
         // GET EXAMPLE
         String getPath = "/averages/get-last/" + id + ":" + n;
-        //System.out.println("calling: " + getPath);
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
-        //System.out.println(clientResponse.toString());
 
-        //il risultato della richiesta? come ho l'accesso?
         System.out.println("The average of the last " + n + " measurements for robot " + id + " is: ");
         System.out.println(clientResponse.getEntity(String.class));
 
@@ -97,12 +88,9 @@ public class AdminClient {
 
         // GET EXAMPLE
         String getPath = "/averages/get-between/" + t1 + ":" + t2;
-        //System.out.println("calling: " + getPath);
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
-        //System.out.println(clientResponse.toString());
 
-        //il risultato della richiesta? come ho l'accesso?
         System.out.println("The average of the measurements between " + t1 + " and " + t2 + " is: ");
         System.out.println(clientResponse.getEntity(String.class));
     }
@@ -116,10 +104,7 @@ public class AdminClient {
         System.out.println("calling: " + getPath);
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
-        //System.out.println(clientResponse.toString());
 
-        //il risultato della richiesta? come ho l'accesso?
-        //RobotList.class lo stampa male!!
         RobotList list = clientResponse.getEntity(RobotList.class);
         for (RobotInfo r : list.getRobotslist())  {
             System.out.println("ROBOT-" + r.getId());
