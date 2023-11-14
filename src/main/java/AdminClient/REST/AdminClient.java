@@ -91,11 +91,9 @@ public class AdminClient {
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
 
-        if(clientResponse.getEntity(Integer.class) > 0) {
-            System.out.println("The average of the measurements between " + t1 + " and " + t2 + " is: ");
-            System.out.println(clientResponse.getEntity(Integer.class));
-        }
-        else System.out.println("Something went wrong with you request, control your parameters");
+        System.out.println("The average of the measurements between " + t1 + " and " + t2 + " is: ");
+        System.out.println(clientResponse.getEntity(String.class));
+
     }
 
     public static void getAllRobots() {

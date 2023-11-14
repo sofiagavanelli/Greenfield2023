@@ -1,24 +1,14 @@
 package AdminServer;
 
-import AdminServer.beans.PollutionStats;
-import CleaningRobot.breakHandler.crashSimulator;
-import Utils.MqttMsg;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
 import org.eclipse.paho.client.mqttv3.*;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import AdminServer.MQTT.MqttSub;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import java.util.logging.Formatter;
-import java.util.logging.SimpleFormatter;
 import java.util.Locale;
 
 public class AdminServer {
@@ -31,11 +21,11 @@ public class AdminServer {
 
     static {
         Locale.setDefault(new Locale("en", "EN"));
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %3$s : %5$s %n");
         Logger.getLogger("com.sun.jersey").setLevel(Level.SEVERE);
     }
 
-    public static void main(String[] args) throws IOException, MqttException {
+    public static void main(String[] args) throws IOException {
         MqttClient client;
         String broker = "tcp://localhost:1883";
         String clientId = "ADMIN-SERVER";
@@ -77,7 +67,7 @@ public class AdminServer {
             logger.info("msg " + me.getMessage());
             logger.info("loc " + me.getLocalizedMessage());
             logger.info("cause " + me.getCause());
-            logger.info("excep " + me);
+            logger.info("except " + me);
             me.printStackTrace();
         }
 

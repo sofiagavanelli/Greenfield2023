@@ -18,11 +18,6 @@ public class crashSimulator extends Thread {
 
     Random rnd = new Random();
 
-    static {
-        Locale.setDefault(new Locale("en", "EN"));
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
-    }
-
     @Override
     public void run() {
 

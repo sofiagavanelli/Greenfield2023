@@ -25,10 +25,10 @@ public class StatsService {
 
         Double average = PollutionStats.getInstance().getLast(ID, n);
 
-        if(average != null)
-            return Response.ok(average).build();
+        if(average != null && average > 0)
+            return Response.ok(average.toString()).build();
         else
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Problems calculating your average, control your parameters").build();
 
     }
 
@@ -39,10 +39,10 @@ public class StatsService {
 
         Double average = PollutionStats.getInstance().getBetween(firstT, secondT);
 
-        if(average != null)
+        if(average != null && average > 0)
             return Response.ok(average.toString()).build();
         else
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.NOT_FOUND).entity("Problems calculating your average, control your parameters").build();
 
     }
 
