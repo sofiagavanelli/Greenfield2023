@@ -93,7 +93,7 @@ public class RestFunc {
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(id);
-        //System.out.println(input);
+        System.out.println(input);
 
         try {
             return webResource.type("application/json").delete(ClientResponse.class, input);
