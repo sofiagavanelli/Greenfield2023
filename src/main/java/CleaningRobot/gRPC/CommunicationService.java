@@ -12,16 +12,22 @@ import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 public class CommunicationService extends CommunicationServiceGrpc.CommunicationServiceImplBase {
 
     private static final Logger logger = Logger.getLogger(CommunicationService.class.getSimpleName());
 
+    static {
+        Locale.setDefault(new Locale("en", "EN"));
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
+    }
+
     @Override
     public void removalMsg(CommunicationServiceOuterClass.Goodbye request, StreamObserver<Empty> responseObserver) {
 
-        logger.info("A robot left Greenfield " + request);
+        logger.info("A ROBOT-" + request.getId() + " left Greenfield ");
 
         robotState.getInstance().adjustClock(request.getClock());
 
@@ -38,7 +44,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     @Override
     public void presentationMsg(CommunicationServiceOuterClass.Presentation request, StreamObserver<Empty> responseObserver) {
 
-        logger.info("There is a new robot in Greenfield: " + request);
+        logger.info("There is a new robot in Greenfield: ROBOT-" + request.getId() + " in district " + request.getDistrict());
 
         robotState.getInstance().adjustClock(request.getClock());
 
@@ -148,7 +154,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         //if i'm waiting to obtain its authorization?
         //what happens if i notify and nobody is waiting?
         //if i'm needing i need to control
-        //what if he said ok and now i've removed him? i've an authorization in surplus
+        //what if he said ok and now i need to remove also its authorization
         if(robotState.getInstance().getState() == STATE.NEEDING) {
             if(Authorizations.getInstance().isPresent(request.getId())) {
                 Authorizations.getInstance().removeOne(request.getId());

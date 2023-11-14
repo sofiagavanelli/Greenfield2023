@@ -50,25 +50,6 @@ public class RestFunc {
 
         RobotInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
 
-        System.out.println("the current position is in the district: " + botDistrict + " x: " + x + " y: " + y);
-
-
-    }
-
-
-    public static String getDistricts() {
-
-        // GET EXAMPLE
-        String getPath = "/robots/get/districts";
-
-        clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
-        //System.out.println(clientResponse.toString());
-
-        //il risultato della richiesta? come ho l'accesso?
-        System.out.println("The distribution is: ");
-        System.out.println(clientResponse.getEntity(String.class));
-
-        return(clientResponse.getEntity(String.class));
     }
 
     public static void deleteRobot(int id) {
@@ -88,7 +69,7 @@ public class RestFunc {
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(r);
-        System.out.println(input);
+        //System.out.println(input);
 
         try {
             return webResource.type("application/json").post(ClientResponse.class, input);
@@ -112,7 +93,7 @@ public class RestFunc {
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(id);
-        System.out.println(input);
+        //System.out.println(input);
 
         try {
             return webResource.type("application/json").delete(ClientResponse.class, input);

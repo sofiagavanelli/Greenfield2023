@@ -7,13 +7,19 @@ import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import AdminServer.beans.RobotPositions;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Path("robots")
 public class RobotsService {
+
+    private static final Logger logger = Logger.getLogger(RobotsService.class.getSimpleName());
+
+    static {
+        Locale.setDefault(new Locale("en", "EN"));
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
+    }
 
     //restituisce la lista di utenti
     @GET
@@ -32,8 +38,10 @@ public class RobotsService {
         if(!RobotPositions.getInstance().newPosition(r))
             return Response.status(Response.Status.BAD_REQUEST).entity("Something went wrong calculating the position").build();
 
-        if(RobotList.getInstance().add(r))
+        if(RobotList.getInstance().add(r)) {
+            logger.info("There is a new robot in Greenfield: ROBOT-" + r.getId() + " in district " + r.getDistrict());
             return Response.ok(RobotList.getInstance()).build();
+        }
         else
             return Response.status(Response.Status.BAD_REQUEST).entity("ID already in use").build();
 

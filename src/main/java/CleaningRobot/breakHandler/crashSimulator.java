@@ -5,10 +5,7 @@ import AdminServer.beans.RobotList;
 import AdminServer.beans.RobotPositions;
 import CleaningRobot.MQTT.MqttPub;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class crashSimulator extends Thread {
@@ -20,6 +17,11 @@ public class crashSimulator extends Thread {
     static Object crash = new Object();
 
     Random rnd = new Random();
+
+    static {
+        Locale.setDefault(new Locale("en", "EN"));
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
+    }
 
     @Override
     public void run() {
@@ -117,7 +119,7 @@ public class crashSimulator extends Thread {
             logger.info("I need to move, my district before changes is" + RobotInfo.getInstance().getDistrict());
             RobotInfo.getInstance().setDistrict(changes.get(myId));
             MqttPub.changeTopic(changes.get(myId));
-            System.out.println("after is: " + RobotInfo.getInstance().getDistrict());
+            logger.info("after is: " + RobotInfo.getInstance().getDistrict());
         }
 
 

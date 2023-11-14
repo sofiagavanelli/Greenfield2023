@@ -26,7 +26,7 @@ public class StatsService {
         Double average = PollutionStats.getInstance().getLast(ID, n);
 
         if(average != null)
-            return Response.ok(average.toString()).build();
+            return Response.ok(average).build();
         else
             return Response.status(Response.Status.NOT_FOUND).build();
 

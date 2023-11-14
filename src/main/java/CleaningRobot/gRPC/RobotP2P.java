@@ -17,6 +17,7 @@ import io.grpc.stub.StreamObserver;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -24,6 +25,11 @@ import java.util.logging.Logger;
 public class RobotP2P {
 
     private static final Logger logger = Logger.getLogger(RobotP2P.class.getSimpleName());
+
+    static {
+        Locale.setDefault(new Locale("en", "EN"));
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
+    }
 
     public RobotP2P() {
     }
@@ -228,12 +234,7 @@ public class RobotP2P {
             CommunicationServiceOuterClass.Request last = (CommunicationServiceOuterClass.Request) pending.remove((size-1));
 
             String target = "localhost:" + last.getFrom();
-            //System.out.println("sto per creare un channel come target: " + target);
-
-            //plaintext channel on the address (ip/port) which offers the GreetingService service
             final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
-
-            //creating an asynchronous stub on the channel
             CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
             //calling the RPC method. since it is asynchronous, we need to define handlers
@@ -247,9 +248,7 @@ public class RobotP2P {
                 @Override
                 public void onError(Throwable t) {
                     //
-                    //problem!!!
-                    //i don't have the information
-                    //organizeGrid(element.getId(), element.getDistrict());
+                    getByPort(last.getFrom());
                 }
 
                 @Override
@@ -331,6 +330,18 @@ public class RobotP2P {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void getByPort(int port) {
+
+        List<RobotInfo> copy = RobotList.getInstance().getRobotslist();
+
+        for(RobotInfo r : copy) {
+            if(r.getPortN() == port) {
+                organizeGrid(r.getId(), r.getDistrict());
+            }
+        }
+
     }
 
 }
