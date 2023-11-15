@@ -26,7 +26,8 @@ public class crashSimulator extends Thread {
             try {
                 sleep(10000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                //DEAL
+                //throw new RuntimeException(e);
             }
 
             int i = rnd.nextInt(100);
@@ -55,7 +56,7 @@ public class crashSimulator extends Thread {
                 try {
                     crash.wait();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
             }
         }
@@ -66,14 +67,14 @@ public class crashSimulator extends Thread {
             robotState.getInstance().setState(STATE.NEEDING);
             crash.notify();
 
-            logger.info("This robot has crashed");
+            logger.warning("This robot needs the mechanic");
         }
     }
 
 
     public static HashMap<Integer, Integer> dealUncontrolledCrash(int id) {
 
-        logger.info("A robot crashed unexpectedly");
+        logger.warning("A robot crashed unexpectedly");
 
         //in this remove there is also the removeFromDistribution
         RobotList.getInstance().remove(id);
@@ -111,10 +112,9 @@ public class crashSimulator extends Thread {
         //i'm one of the robot who has to change
         int myId = RobotInfo.getInstance().getId();
         if(changes.get(myId) != null) {
-            logger.info("I need to move, my district before changes is" + RobotInfo.getInstance().getDistrict());
             RobotInfo.getInstance().setDistrict(changes.get(myId));
             MqttPub.changeTopic(changes.get(myId));
-            logger.info("after is: " + RobotInfo.getInstance().getDistrict());
+            logger.info("I needed to move, my new district is: " + RobotInfo.getInstance().getDistrict());
         }
 
 

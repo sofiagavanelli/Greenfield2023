@@ -36,7 +36,6 @@ public class Robot {
     Server gRPCserver;
     MqttPub pub;
 
-    ClientConfig config = new DefaultClientConfig();
 
     static {
         Locale.setDefault(new Locale("en", "EN"));
@@ -60,7 +59,7 @@ public class Robot {
         crashSimulator crashTest = new crashSimulator();
         this.crashTest = crashTest;
 
-        RestFunc.addNewRobot(botId, botPort);
+        //RestFunc.addNewRobot(botId, botPort);
 
         //MqttPub : ogni robot ha il suo publisher
         MqttPub pub = new MqttPub(Integer.toString(RobotInfo.getInstance().getDistrict()), readSensor, botId);
@@ -73,7 +72,7 @@ public class Robot {
         try {
             RobotP2P.firstMSG();
         }  catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
         this.botSimulator.start();
@@ -88,23 +87,23 @@ public class Robot {
         try {
             RobotP2P.lastMSG();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
 
+        //make the server delete me
         RestFunc.deleteRobot(RobotInfo.getInstance().getId());
 
         //not failing anymore
         crashTest.stopCrash();
-
+        //stop pollution
         botSimulator.stopMeGently();
         readSensor.stopReading();
-
-        gRPCserver.shutdown();
         pub.stopPublishing();
 
         //do i wait?
         mechanicHandler.stopMechanic();
 
+        gRPCserver.shutdown();
         //do i need this?
         System.exit(0);
 
@@ -134,8 +133,21 @@ public class Robot {
 
         //qui?
         boolean stopCondition = false;
+        boolean added;
 
         Robot bot = new Robot();
+        added = RestFunc.addNewRobot(botId, botPort);
+
+        while(!added){
+            System.out.println("You inserted an ID/port already in use.");
+            System.out.print("Enter new id: ");
+            botId = sc.nextInt();
+            System.out.print("Enter new port: ");
+            botPort = sc.nextInt();
+
+            added = RestFunc.addNewRobot(botId, botPort);
+        }
+
         bot.initialize();
 
         while(!stopCondition) {

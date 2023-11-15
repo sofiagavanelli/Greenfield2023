@@ -43,7 +43,7 @@ public class RobotsService {
             return Response.ok(RobotList.getInstance()).build();
         }
         else
-            return Response.status(Response.Status.BAD_REQUEST).entity("ID already in use").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("ID or port already in use").build();
 
     }
 
@@ -52,8 +52,10 @@ public class RobotsService {
     @Consumes({"application/json", "application/xml"}) //use of json?
     public Response removeRobot(int ID){
 
-        if(RobotList.getInstance().remove(ID))
+        if(RobotList.getInstance().remove(ID)) {
+            logger.warning("ROBOT- " + ID + " left Greenfield");
             return Response.ok(RobotList.getInstance()).build();
+        }
 
         else return Response.status(Response.Status.BAD_REQUEST).entity("problems eliminating robot").build();
     }

@@ -27,12 +27,16 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     @Override
     public void removalMsg(CommunicationServiceOuterClass.Goodbye request, StreamObserver<Empty> responseObserver) {
 
-        logger.info("A ROBOT-" + request.getId() + " left Greenfield ");
+        logger.warning("ROBOT-" + request.getId() + " left Greenfield ");
 
         robotState.getInstance().adjustClock(request.getClock());
-
         RobotList.getInstance().remove(request.getId());
-        RobotPositions.getInstance().removeFromDistribution(request.getDistrict(), request.getId());
+
+        if(robotState.getInstance().getState() == STATE.NEEDING) {
+            if(Authorizations.getInstance().isPresent(request.getId())) {
+                Authorizations.getInstance().removeOne(request.getId());
+            }
+        }
 
         responseObserver.onNext(null);
 
@@ -145,7 +149,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     public void organize(CommunicationServiceOuterClass.UncontrolledCrash request, StreamObserver<Empty> responseObserver) {
 
         //call to remove
-        logger.info("Somebody told me to remove " + request.getId() + " because it has crashed");
+        logger.warning("Somebody told me to remove " + request.getId() + " because it has crashed");
 
         robotState.getInstance().adjustClock(request.getClock());
         //i calculate who needs to move and i remove him

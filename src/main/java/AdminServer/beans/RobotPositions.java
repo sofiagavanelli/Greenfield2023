@@ -45,7 +45,6 @@ public class RobotPositions {
         List<Integer> old = new ArrayList<>();
 
         if(distribution.get(district) != null) {
-            System.out.println("sono dentro l'if");
             //i get the list of the robots already in the district d
             old = distribution.get(district);
             //i put this new robot
@@ -113,7 +112,7 @@ public class RobotPositions {
 
         //we put the elements in 0=1, 1=2, 2=3, 3=4 where (position=district)
         //districts.add(d - 1, 1); //inutile?
-        RobotPositions.getInstance().addDistrict(d);
+        addDistrict(d);
 
         int x = pos.nextInt(5);
         int y = pos.nextInt(5);

@@ -80,7 +80,7 @@ public class Authorizations {
                 try {
                     authorizations.wait();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    //throw new RuntimeException(e);
                 }
             }
         }

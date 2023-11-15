@@ -314,7 +314,7 @@ public class RobotP2P {
     public static void organizeGrid(int id, int district) {
         //dealing with re-organization
         //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
-        logger.info("Someone crashed during my message");
+        logger.warning("Someone crashed during my message");
         //i inform the server
         RestFunc.deleteRobot(id);
         //i understand who needs to move and i delete him
@@ -323,7 +323,7 @@ public class RobotP2P {
             //i tell everybody who has died
             organize(id, district);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
     }
 

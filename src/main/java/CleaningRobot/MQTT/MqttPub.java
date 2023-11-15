@@ -54,7 +54,7 @@ public class MqttPub extends Thread {
                 //he has to get the averages every 15 seconds
                 sleep(15000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
             read = sensor.getAverages();
 
@@ -70,7 +70,7 @@ public class MqttPub extends Thread {
                 client.publish(topic, message);
 
             } catch (MqttException e) {
-                throw new RuntimeException(e);
+                //throw new RuntimeException(e);
             }
         }
 

@@ -49,7 +49,8 @@ public class Mechanic extends Thread {
 
                 } catch (InterruptedException e) {
                     //how to deal?
-                    throw new RuntimeException(e);
+                    logger.warning("mandato un interrupt, cosa accade?");
+                    //throw new RuntimeException(e);
                 }
 
 
@@ -62,6 +63,5 @@ public class Mechanic extends Thread {
     public void stopMechanic() {
         stopCondition = true;
     }
-
 
 }

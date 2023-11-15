@@ -49,7 +49,7 @@ public class RobotList {
         List<RobotInfo> listCopy = getRobotslist();
 
         for(RobotInfo r : listCopy) {
-            if (r.getId() == (bot.getId())) {
+            if ((r.getId() == bot.getId()) || (r.getPortN() == bot.getPortN())) {
                 return false;
             }
         }

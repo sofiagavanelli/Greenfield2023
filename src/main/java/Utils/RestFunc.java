@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.WebResource;
 
+import javax.ws.rs.core.Response;
+
 public class RestFunc {
 
     static ClientConfig config = new DefaultClientConfig();
@@ -22,7 +24,7 @@ public class RestFunc {
     static String serverAddress = "http://localhost:1337";
     static ClientResponse clientResponse = null;
 
-    public static void addNewRobot(int botId, int botPort) {
+    public static boolean addNewRobot(int botId, int botPort) {
 
         // POST EXAMPLE
         int botDistrict = 0, x = 0, y = 0;
@@ -30,25 +32,33 @@ public class RestFunc {
         String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        System.out.println(clientResponse.toString());
+        //System.out.println(clientResponse.toString());
 
-        //qui cosa sto facendo: chiedo al server la lista dei robot
-        RobotList robs = clientResponse.getEntity(RobotList.class);
-        List<RobotInfo> copyRobs = robs.getRobotslist();
-        RobotList.getInstance().setRobotslist(copyRobs);
-
-        //mettere 3 funzioni apposta?
-        for (RobotInfo r : robs.getRobotslist()){
-            if(r.getId() == botId) {
-                botDistrict = r.getDistrict();
-                x = r.getX();
-                y = r.getY();
-            }
-            else
-                RobotPositions.getInstance().addIntoDistribution(r.getDistrict(), r.getId());
+        if(clientResponse.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
+            System.out.println(clientResponse.toString());
+            return false;
         }
+        else {
+            System.out.println(clientResponse.toString());
+            //qui cosa sto facendo: chiedo al server la lista dei robot
+            RobotList robs = clientResponse.getEntity(RobotList.class);
+            List<RobotInfo> copyRobs = robs.getRobotslist();
+            RobotList.getInstance().setRobotslist(copyRobs);
 
-        RobotInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
+            //mettere 3 funzioni apposta?
+            for (RobotInfo r : robs.getRobotslist()) {
+                if (r.getId() == botId) {
+                    botDistrict = r.getDistrict();
+                    x = r.getX();
+                    y = r.getY();
+                } else
+                    RobotPositions.getInstance().addIntoDistribution(r.getDistrict(), r.getId());
+            }
+
+            RobotInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
+
+            return true;
+        }
 
     }
 
