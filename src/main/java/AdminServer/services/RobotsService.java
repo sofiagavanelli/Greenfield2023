@@ -53,11 +53,11 @@ public class RobotsService {
     public Response removeRobot(int ID){
 
         if(RobotList.getInstance().remove(ID)) {
-            logger.warning("ROBOT- " + ID + " left Greenfield");
+            logger.warning("ROBOT-" + ID + " left Greenfield");
             return Response.ok(RobotList.getInstance()).build();
         }
 
-        else return Response.status(Response.Status.BAD_REQUEST).entity("problems eliminating robot").build();
+        else return Response.status(Response.Status.BAD_REQUEST).entity("Problems deleting robot").build();
     }
 
     //permette di prelevare un utente con un determinato nome

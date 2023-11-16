@@ -2,10 +2,6 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
-import AdminServer.beans.RobotPositions;
-import CleaningRobot.breakHandler.Mechanic;
-import CleaningRobot.breakHandler.STATE;
-import CleaningRobot.breakHandler.robotState;
 import com.example.chat.CommunicationServiceOuterClass.*;
 
 import java.util.*;
@@ -14,9 +10,7 @@ import java.util.logging.Logger;
 public class Authorizations {
 
     List<Authorization> authorizations;
-
-    Object lock = new Object();
-
+    
     private static Authorizations instance;
 
     private static final Logger logger = Logger.getLogger(Authorizations.class.getSimpleName());

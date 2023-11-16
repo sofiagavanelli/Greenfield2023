@@ -33,7 +33,7 @@ public class AdminServer {
 
         int qos = 2;
 
-        try {
+        try{
             client = new MqttClient(broker, clientId, null);
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
@@ -63,11 +63,11 @@ public class AdminServer {
 
 
         } catch (MqttException me ) {
-            logger.info("reason " + me.getReasonCode());
-            logger.info("msg " + me.getMessage());
-            logger.info("loc " + me.getLocalizedMessage());
-            logger.info("cause " + me.getCause());
-            logger.info("except " + me);
+            logger.severe("reason " + me.getReasonCode());
+            logger.severe("msg " + me.getMessage());
+            logger.severe("loc " + me.getLocalizedMessage());
+            logger.severe("cause " + me.getCause());
+            logger.severe("except " + me);
             me.printStackTrace();
         }
 

@@ -1,10 +1,13 @@
 package CleaningRobot;
 
+import AdminServer.AdminServer;
 import AdminServer.beans.RobotInfo;
 import CleaningRobot.MQTT.MqttPub;
 import CleaningRobot.MQTT.Reader;
 import CleaningRobot.breakHandler.Mechanic;
+import CleaningRobot.breakHandler.STATE;
 import CleaningRobot.breakHandler.crashSimulator;
+import CleaningRobot.breakHandler.robotState;
 import CleaningRobot.gRPC.CommunicationService;
 import CleaningRobot.gRPC.RobotP2P;
 import CleaningRobot.simulators.PM10Simulator;
@@ -19,11 +22,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Robot {
 
     private static int botId;
     private static int botPort;
+    //qui?
+    static boolean stopCondition = false;
 
     //static
     WindowBuffer newB; // = new WindowBuffer(8);
@@ -35,6 +41,8 @@ public class Robot {
     crashSimulator crashTest;
     Server gRPCserver;
     MqttPub pub;
+
+    private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
 
 
     static {
@@ -82,8 +90,32 @@ public class Robot {
 
     }
 
-    public void stop() {
+    public void stop() throws InterruptedException {
 
+        //not failing anymore
+        crashTest.stopCrash();
+        crashTest.join();
+        //do i wait?
+        //mechanicHandler.interrupt();
+        if(robotState.getInstance().getState() == STATE.WORKING)
+            crashSimulator.signalCrash();
+        mechanicHandler.stopMechanic();
+        mechanicHandler.join();
+
+        //stop pollution
+        logger.info("going to stop simulator");
+        botSimulator.stopMeGently();
+        botSimulator.join();
+        logger.info("going to stop publisher");
+        pub.stopPublishing();
+        pub.join();
+        logger.info("going to stop the reader");
+        readSensor.stopReading();
+        readSensor.interrupt();
+        readSensor.join();
+
+
+        logger.info("going to send last message");
         try {
             RobotP2P.lastMSG();
         } catch (InterruptedException e) {
@@ -93,19 +125,11 @@ public class Robot {
         //make the server delete me
         RestFunc.deleteRobot(RobotInfo.getInstance().getId());
 
-        //not failing anymore
-        crashTest.stopCrash();
-        //stop pollution
-        botSimulator.stopMeGently();
-        readSensor.stopReading();
-        pub.stopPublishing();
-
-        //do i wait?
-        mechanicHandler.stopMechanic();
-
         gRPCserver.shutdown();
+
+        stopCondition = true;
         //do i need this?
-        System.exit(0);
+        //System.exit(0);
 
     }
 
@@ -131,8 +155,6 @@ public class Robot {
         System.out.print("Enter port: ");
         botPort = sc.nextInt();
 
-        //qui?
-        boolean stopCondition = false;
         boolean added;
 
         Robot bot = new Robot();
@@ -158,8 +180,9 @@ public class Robot {
                 crashSimulator.signalCrash();
             else if (cmd.equalsIgnoreCase("quit"))
                 bot.stop();
-
         }
+
+        System.exit(0);
 
     }
 

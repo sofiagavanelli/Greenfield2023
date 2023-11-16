@@ -1,5 +1,6 @@
 package Utils;
 
+import AdminServer.AdminServer;
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 
@@ -9,6 +10,9 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import AdminServer.beans.RobotPositions;
 import com.google.gson.Gson;
@@ -23,6 +27,14 @@ public class RestFunc {
     static Client client = Client.create(config);
     static String serverAddress = "http://localhost:1337";
     static ClientResponse clientResponse = null;
+
+    private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
+
+    static {
+        Locale.setDefault(new Locale("en", "EN"));
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %3$s : %5$s %n");
+        Logger.getLogger("com.sun.jersey").setLevel(Level.SEVERE);
+    }
 
     public static boolean addNewRobot(int botId, int botPort) {
 
@@ -84,7 +96,7 @@ public class RestFunc {
         try {
             return webResource.type("application/json").post(ClientResponse.class, input);
         } catch (ClientHandlerException e) {
-            System.out.println("Server non disponibile");
+            logger.severe("Server non disponibile");
             return null;
         }
     }
@@ -94,7 +106,7 @@ public class RestFunc {
         try {
             return webResource.type("application/json").get(ClientResponse.class);
         } catch (ClientHandlerException e) {
-            System.out.println("Server non disponibile");
+            logger.severe("Server non disponibile");
             return null;
         }
     }
@@ -108,7 +120,7 @@ public class RestFunc {
         try {
             return webResource.type("application/json").delete(ClientResponse.class, input);
         } catch (ClientHandlerException e) {
-            System.out.println("Server non disponibile");
+            logger.severe("Server non disponibile");
             return null;
         }
     }

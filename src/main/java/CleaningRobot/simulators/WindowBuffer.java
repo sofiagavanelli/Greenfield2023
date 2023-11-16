@@ -35,15 +35,12 @@ public class WindowBuffer implements Buffer {
 
         try {
             while (buffer.size() == this.size) {
-                //System.out.println("add in wait");
                 this.wait();
             }
 
-            //System.out.println(m.getValue());
             this.buffer.add(m);
 
             if (buffer.size() == this.size) {
-                //System.out.println("add in notify");
                 this.notify();
             }
         }
@@ -56,12 +53,8 @@ public class WindowBuffer implements Buffer {
     @Override
     public synchronized List<Measurement> readAllAndClean() {
 
-        //List<Measurement> windowMeasurements = new ArrayList<>(this.buffer);
-        //return windowMeasurements;
-
         try {
             while (buffer.size() < this.size) {
-                //System.out.println("read in wait");
                 this.wait();
             }
 
@@ -73,11 +66,11 @@ public class WindowBuffer implements Buffer {
                 this.buffer.remove(i);
 
             this.notify();
-            //System.out.println("read in notify");
 
             return windowMeasurements;
 
         } catch (InterruptedException e) {
+            //ma questo???
             return new ArrayList<>(this.buffer);
         }
 

@@ -165,7 +165,7 @@ public class RobotP2P {
 
                 robotState.getInstance().incrementClock();
 
-                logger.info("I'm sending my mechanic request to: " + element.getPortN());
+                //logger.info("I'm sending my mechanic request to: " + element.getPortN());
 
                 String target = "localhost:" + element.getPortN();
 
@@ -182,7 +182,7 @@ public class RobotP2P {
                     public void onNext(CommunicationServiceOuterClass.Authorization value) {
                         //quando ricevo la risposta
                         if(value.getOk()) {
-                            logger.info("I received one authorization from: " + element.getPortN());
+                            logger.info("I received an authorization from: " + element.getPortN());
                             Authorizations.getInstance().addAuthorization(value);
                         }
 

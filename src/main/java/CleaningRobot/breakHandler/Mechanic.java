@@ -34,9 +34,9 @@ public class Mechanic extends Thread {
 
                     //ha ottenuto le autorizzazioni per andare dal meccanico
                     robotState.getInstance().setState(STATE.MECHANIC);
-                    logger.info("I'm using the mechanic");
+                    logger.warning("I'm using the mechanic");
                     sleep(10000); //10s di meccanico
-                    logger.info("I'm releasing the mechanic");
+                    logger.warning("I'm releasing the mechanic");
                     //ha finito di usare il meccanico e torna a lavorare
                     robotState.getInstance().setState(STATE.WORKING);
                     //rimuovo la mia richiesta
@@ -49,7 +49,6 @@ public class Mechanic extends Thread {
 
                 } catch (InterruptedException e) {
                     //how to deal?
-                    logger.warning("mandato un interrupt, cosa accade?");
                     //throw new RuntimeException(e);
                 }
 
