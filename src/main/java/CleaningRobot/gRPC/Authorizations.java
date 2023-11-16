@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Authorizations {
 
-    List<Authorization> authorizations;
+    final List<Authorization> authorizations;
     
     private static Authorizations instance;
 
@@ -35,7 +35,7 @@ public class Authorizations {
     }
 
     public synchronized void removeAll() {
-        authorizations = new ArrayList<>();
+        authorizations.clear();
     }
 
     public synchronized List<Authorization> getAuthorizations() {
@@ -43,9 +43,7 @@ public class Authorizations {
     }
 
     public boolean isPresent(int id) {
-
         return authorizations.get(id).getOk();
-
     }
 
     public void removeOne(int id) {

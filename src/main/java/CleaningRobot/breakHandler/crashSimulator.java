@@ -14,7 +14,7 @@ public class crashSimulator extends Thread {
 
     private static final Logger logger = Logger.getLogger(crashSimulator.class.getSimpleName());
 
-    static Object crash = new Object();
+    static final Object crash = new Object();
 
     Random rnd = new Random();
 

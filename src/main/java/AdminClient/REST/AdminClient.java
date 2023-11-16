@@ -29,7 +29,7 @@ public class AdminClient {
         Scanner sc = new Scanner(System.in);
 
         while(!stopCondition) {
-            System.out.println("Enter 1 to obtain the list of all the robots, 2 to calculate the average of n measurements and 3 to have averages between timestamps.");
+            System.out.println("Enter 1 to obtain the list of all the robots, 2 to calculate the average of n measurements of a specific robot and 3 to have averages between timestamps.");
             System.out.print("Your request: ");
             cmd = sc.nextInt();
 

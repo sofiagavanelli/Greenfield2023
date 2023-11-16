@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RobotList {
 
     @XmlElement(name="my_robots")
-    private List<RobotInfo> robotsList;
+    private final List<RobotInfo> robotsList;
 
     //singleton --> pattern usato per avere solo UNA instanza di questa lista
     private static RobotList instance;
@@ -36,7 +36,7 @@ public class RobotList {
     }
 
     public synchronized void setRobotslist(List<RobotInfo> list) {
-        robotsList = list;
+        robotsList.addAll(list);
     }
 
 

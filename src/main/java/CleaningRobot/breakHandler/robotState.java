@@ -5,7 +5,7 @@ public class robotState {
     public static STATE current = STATE.WORKING;
 
     private int logicalClock = 0;
-    Object lock = new Object();
+    final Object lock = new Object();
     /* when to increment:
         - state change
         - before sending msg

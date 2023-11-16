@@ -39,7 +39,7 @@ public class Robot {
 
     static {
         Locale.setDefault(new Locale("en", "EN"));
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$-7s] %3$s : %5$s %n");
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
     }
 
     public Robot() {
@@ -62,11 +62,7 @@ public class Robot {
 
         this.startGRPCServer();
 
-        try {
-            RobotP2P.firstMSG();
-        }  catch (InterruptedException e) {
-           logger.severe("Problems sending first message");
-        }
+        RobotP2P.firstMSG();
 
         this.botSimulator.start();
         this.readSensor.start();
@@ -98,11 +94,7 @@ public class Robot {
 
         logger.info("Saying goodbye to the others.");
 
-        try {
-            RobotP2P.lastMSG();
-        } catch (InterruptedException e) {
-            logger.severe("Last message never sent");
-        }
+        RobotP2P.lastMSG();
 
         //make the server delete me
         RestFunc.deleteRobot(RobotInfo.getInstance().getId());

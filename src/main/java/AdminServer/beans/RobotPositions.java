@@ -4,8 +4,8 @@ import java.util.*;
 
 public class RobotPositions {
 
-    private ArrayList<Integer> districts;
-    private HashMap<Integer, List<Integer>> distribution;
+    private final ArrayList<Integer> districts;
+    private final HashMap<Integer, List<Integer>> distribution;
 
     private static RobotPositions instance;
 

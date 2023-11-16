@@ -84,11 +84,11 @@ CleaningRobot/simulators/Measurement.java
  CleaningRobot.simulators.Measurement
 AdminClient/REST/AdminClient.java
  AdminClient.REST.AdminClient
-AdminServer/beans/RobotList.java
- AdminServer.beans.RobotList
+CleaningRobot/Robot.java
+ CleaningRobot.Robot
 CleaningRobot/MQTT/Reader.java
  CleaningRobot.MQTT.Reader
 AdminServer/AdminServer.java
  AdminServer.AdminServer
-CleaningRobot/Robot.java
- CleaningRobot.Robot
+AdminServer/beans/RobotList.java
+ AdminServer.beans.RobotList

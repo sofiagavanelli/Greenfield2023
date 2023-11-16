@@ -23,7 +23,7 @@ public class RobotP2P {
     public RobotP2P() {
     }
 
-    public static void firstMSG() throws InterruptedException {
+    public static void firstMSG() {
 
         //rimuovere le info
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
@@ -74,13 +74,17 @@ public class RobotP2P {
             });
 
             //you need this. otherwise the method will terminate before that answers from the server are received
-            channel.awaitTermination(10, TimeUnit.SECONDS);
+            try {
+                channel.awaitTermination(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                logger.severe("Problems with message sending");
+            }
 
         }
 
     }
 
-    public static void lastMSG() throws InterruptedException {
+    public static void lastMSG() {
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
@@ -131,14 +135,18 @@ public class RobotP2P {
                 });
 
                 //you need this. otherwise the method will terminate before that answers from the server are received
-                channel.awaitTermination(10, TimeUnit.SECONDS);
+                try {
+                    channel.awaitTermination(10, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    logger.severe("Problems with message sending");
+                }
 
             }
         }
 
     }
 
-    public static void requestMechanic() throws InterruptedException {
+    public static void requestMechanic() {
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
@@ -195,7 +203,11 @@ public class RobotP2P {
                 });
 
                 //you need this. otherwise the method will terminate before that answers from the server are received
-                channel.awaitTermination(10, TimeUnit.SECONDS);
+                try {
+                    channel.awaitTermination(10, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    logger.severe("Problems with message sending");
+                }
 
             }
 
@@ -203,7 +215,7 @@ public class RobotP2P {
 
     }
 
-    public static void answerPending() throws InterruptedException {
+    public static void answerPending() {
 
         List<CommunicationServiceOuterClass.Request> pending = MechanicRequests.getInstance().getRequests();
         int size = MechanicRequests.getInstance().getRequests().size();
@@ -248,7 +260,11 @@ public class RobotP2P {
             });
 
             //you need this. otherwise the method will terminate before that answers from the server are received
-            channel.awaitTermination(10, TimeUnit.SECONDS);
+            try {
+                channel.awaitTermination(10, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                logger.severe("Problems with message sending");
+            }
 
             size = size - 1;
 
@@ -257,7 +273,7 @@ public class RobotP2P {
 
     }
 
-    public static void organize(int botID, int botDistrict) throws InterruptedException {
+    public static void organize(int botID, int botDistrict) {
 
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
         int botPort = RobotInfo.getInstance().getPortN();
@@ -297,7 +313,11 @@ public class RobotP2P {
                     }
                 });
 
-                channel.awaitTermination(10, TimeUnit.SECONDS);
+                try {
+                    channel.awaitTermination(10, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    logger.severe("Problems with message sending");
+                }
 
             }
 
@@ -313,12 +333,8 @@ public class RobotP2P {
         RestFunc.deleteRobot(id);
         //i understand who needs to move and i delete him
         crashSimulator.dealUncontrolledCrash(id);
-        try {
-            //i tell everybody who has died
-            organize(id, district);
-        } catch (InterruptedException e) {
-            //throw new RuntimeException(e);
-        }
+        //i tell everybody who has died
+        organize(id, district);
     }
 
     public static void getByPort(int port) {
