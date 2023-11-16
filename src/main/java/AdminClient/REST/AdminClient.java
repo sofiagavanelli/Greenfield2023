@@ -74,7 +74,6 @@ public class AdminClient {
 
     public static void requestLastAverages(int id, int n) {
 
-        // GET EXAMPLE
         String getPath = "/averages/get-last/" + id + ":" + n;
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
@@ -86,7 +85,6 @@ public class AdminClient {
 
     public static void requestAveragesBetweenTime(long t1, long t2) {
 
-        // GET EXAMPLE
         String getPath = "/averages/get-between/" + t1 + ":" + t2;
 
         clientResponse = RestFunc.getRequest(client,serverAddress+getPath);
@@ -100,7 +98,6 @@ public class AdminClient {
 
         System.out.println("The robots currently in Greenfield are: ");
 
-        // GET EXAMPLE
         String getPath = "/robots";
         System.out.println("calling: " + getPath);
 

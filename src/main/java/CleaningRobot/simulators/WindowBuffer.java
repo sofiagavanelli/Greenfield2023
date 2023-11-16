@@ -1,7 +1,10 @@
 package CleaningRobot.simulators;
 
+import AdminServer.AdminServer;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /*At the end of a read operation, readAllAndClean makes room for new measurements in
 the buffer. Specifically, you must process sensor data through the sliding
@@ -14,18 +17,13 @@ these averages to the Administrator Server*/
 public class WindowBuffer implements Buffer {
 
     private int size;
-    //private float overlap = 1/2;
-    private double overlap = 0.5;
     private List<Measurement> buffer;
 
-    private Measurement average;
+    private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
 
     public WindowBuffer(int size) {
         this.size = size;
 
-        //option: Array deques have no capacity restrictions; they grow as necessary to support usage.
-        // They are not thread-safe; in the absence of external synchronization, they do not support
-        // concurrent access by multiple threads. Null elements are prohibited.
         this.buffer = new ArrayList<>(this.size);
     }
 
@@ -45,7 +43,7 @@ public class WindowBuffer implements Buffer {
             }
         }
         catch (Exception e) {
-
+            logger.warning("Exception inside the buffer");
         }
 
     }
@@ -60,7 +58,8 @@ public class WindowBuffer implements Buffer {
 
             List<Measurement> windowMeasurements = new ArrayList<>(this.buffer);
 
-            int toDelete = 4; // Math.round(this.size * this.overlap);
+            //50%
+            int toDelete = 4;
 
             for (int i = 0; i < toDelete; i++)
                 this.buffer.remove(i);
@@ -70,7 +69,7 @@ public class WindowBuffer implements Buffer {
             return windowMeasurements;
 
         } catch (InterruptedException e) {
-            //ma questo???
+            //in case of interrupt i send what i have even if under the buffer size
             return new ArrayList<>(this.buffer);
         }
 

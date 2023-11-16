@@ -102,24 +102,24 @@ public class Robot {
         mechanicHandler.stopMechanic();
         mechanicHandler.join();
 
+        logger.warning("Going to stop the other threads: there is a sleep somewhere, it can take some time.");
+
         //stop pollution
-        logger.info("going to stop simulator");
         botSimulator.stopMeGently();
         botSimulator.join();
-        logger.info("going to stop publisher");
         pub.stopPublishing();
         pub.join();
-        logger.info("going to stop the reader");
         readSensor.stopReading();
+        //devo usare l'interrupt perché dentro il reader si chiama una funzione del simulator che ha dentro una wait
         readSensor.interrupt();
         readSensor.join();
 
+        logger.info("Saying goodbye to the others.");
 
-        logger.info("going to send last message");
         try {
             RobotP2P.lastMSG();
         } catch (InterruptedException e) {
-            //throw new RuntimeException(e);
+            logger.severe("Last message never sent");
         }
 
         //make the server delete me
@@ -128,8 +128,6 @@ public class Robot {
         gRPCserver.shutdown();
 
         stopCondition = true;
-        //do i need this?
-        //System.exit(0);
 
     }
 
@@ -143,7 +141,7 @@ public class Robot {
             gRPCserver.start();
         }
         catch (Exception e) {
-
+            logger.severe("The GRPC server couldn't start");
         }
     }
 
