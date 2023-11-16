@@ -6,11 +6,7 @@ import Utils.RestFunc;
 import com.sun.jersey.api.client.ClientResponse;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class AdminClient {
@@ -19,9 +15,7 @@ public class AdminClient {
     static String serverAddress;
     static ClientResponse clientResponse;
 
-    //devo mettere su l'interfaccia delle richieste e poi in base a quale opzione sceglie poi si fanno le chiamate al server
-
-    public static void main(String args[]){
+    public static void main(String[] args){
 
         client = Client.create();
         serverAddress = "http://localhost:1337";
@@ -29,11 +23,10 @@ public class AdminClient {
 
         boolean stopCondition = false;
 
-        // POST EXAMPLE
-
         int cmd;
 
-        Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
+        //System.in is a standard input stream
+        Scanner sc = new Scanner(System.in);
 
         while(!stopCondition) {
             System.out.println("Enter 1 to obtain the list of all the robots, 2 to calculate the average of n measurements and 3 to have averages between timestamps.");

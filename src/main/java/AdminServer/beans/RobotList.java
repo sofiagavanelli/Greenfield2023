@@ -1,11 +1,8 @@
 package AdminServer.beans;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-import javax.sound.midi.SysexMessage;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,7 +22,6 @@ public class RobotList {
     //--> il costruttore infatti è privato
     private RobotList() {
         robotsList = new ArrayList<RobotInfo>(); //ne crea una nuova//
-        //robotsList.add(new RobotInfo(12, 7));
     }
 
     //singleton

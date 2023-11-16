@@ -27,14 +27,12 @@ public class crashSimulator extends Thread {
                 sleep(10000);
             } catch (InterruptedException e) {
                 //DEAL
-                //throw new RuntimeException(e);
+                logger.severe("An interrupt happened during sleep");
             }
 
             int i = rnd.nextInt(100);
-            //int i = 8;
 
-            if (i < 10 && i >= 0) {
-                //stopCondition = true;
+            if (i < 10) {
 
                 //non stoppando niente devo cambiare lo stato solo quando è working, se è già needing non faccio nulla
                 if(robotState.getInstance().getState() == STATE.WORKING) {
@@ -56,7 +54,7 @@ public class crashSimulator extends Thread {
                 try {
                     crash.wait();
                 } catch (InterruptedException e) {
-                    //throw new RuntimeException(e);
+                    logger.severe("Exception happened during crash wait");
                 }
             }
         }
@@ -72,7 +70,7 @@ public class crashSimulator extends Thread {
     }
 
 
-    public static HashMap<Integer, Integer> dealUncontrolledCrash(int id) {
+    public static void dealUncontrolledCrash(int id) {
 
         logger.warning("A robot crashed unexpectedly");
 
@@ -85,7 +83,6 @@ public class crashSimulator extends Thread {
         List<Integer> move = new ArrayList<>();
         List<Integer> need = new ArrayList<>();
 
-        //hashmap<id, newDistrict>
         HashMap<Integer, Integer> changes = new HashMap<>();
 
         for(int i=1; i<=4; i++) {
@@ -99,7 +96,6 @@ public class crashSimulator extends Thread {
                 need.add(i);
             }
         }
-
 
         if((move.size() > 0) && (need.size() > 0)) {
             int minSize = (Math.min(move.size(), need.size()));
@@ -116,9 +112,6 @@ public class crashSimulator extends Thread {
             MqttPub.changeTopic(changes.get(myId));
             logger.info("I needed to move, my new district is: " + RobotInfo.getInstance().getDistrict());
         }
-
-
-        return changes;
 
     }
 

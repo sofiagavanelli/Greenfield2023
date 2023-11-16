@@ -1,19 +1,14 @@
 package AdminServer.beans;
 
-import CleaningRobot.simulators.Measurement;
 import Utils.MqttMsg;
-
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.OptionalDouble;
 
 @XmlRootElement
 public class PollutionStats {
 
-    //@XmlElement(name="my_averages")
     //HashMap<ROBOTID, HashMap<Timestamp, Averages>>
     HashMap<Integer, HashMap<Long, List<Double>>> RobotAverages;
     //HashMap<ROBOTID, Lista<struct>>
@@ -36,10 +31,6 @@ public class PollutionStats {
         return instance;
     }
 
-    public synchronized HashMap<Integer, HashMap<Long, List<Double>>> getPollutionStats() {
-        return new HashMap<Integer, HashMap<Long, List<Double>>>(RobotAverages);
-    }
-
     //aggiunge ad entrambe le hashmap, sia a quella con timestamp che a quella senza --syncro?
     public synchronized void addAverages(int ID, MqttMsg msg) {
 
@@ -48,7 +39,6 @@ public class PollutionStats {
         List<Double> copyNoTime = new ArrayList<>();
 
         if(RobotAverages.get(ID) != null) {
-            //previous = RobotAverages.get(ID);
             previous = AveragesTime.get(ID);
             copyNoTime = AveragesNoTime.get(ID);
         }
@@ -56,21 +46,8 @@ public class PollutionStats {
         copyNoTime.addAll(msg.getAverages());
         AveragesNoTime.put(ID, copyNoTime);
 
-        //previous.put(timestamp, data);
-        //RobotAverages.put(ID, previous);
         previous.add(msg);
         AveragesTime.put(msg.getRobotID(), previous);
-
-    }
-
-
-    public HashMap<Long, List<Double>> getById(int id) {
-
-        if(RobotAverages.get(id) != null) {
-            return RobotAverages.get(id);
-        }
-        else
-            return null;
 
     }
 
@@ -87,9 +64,8 @@ public class PollutionStats {
             for(int i=0; i<number; i++)
                 sum = sum + averages.get((size - 1) - i);
 
-            double average = sum/number;
-
-            return average;
+            //return average
+            return sum/number;
 
         }
         else
@@ -97,18 +73,14 @@ public class PollutionStats {
 
     }
 
-    //
     public Double getBetween(long t1, long t2) {
 
-        double averageOne;
         double sum = 0;
         double averageAll = 0;
 
-        boolean higher = true;
 
         List<RobotInfo> IDs = RobotList.getInstance().getRobotslist();
-        int numBots = IDs.size(); //for the last average
-
+        
         int n = 0;
 
         //i take one robot in the hashmap at a time --> using the current robotList: meaning if one

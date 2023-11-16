@@ -1,6 +1,5 @@
 package CleaningRobot.gRPC;
 
-import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import com.example.chat.CommunicationServiceOuterClass.*;
 
@@ -21,7 +20,7 @@ public class Authorizations {
     }
 
     private Authorizations() {
-        authorizations = new ArrayList<Authorization>(); //ne crea una nuova//
+        authorizations = new ArrayList<Authorization>();
     }
 
     //singleton
@@ -45,10 +44,7 @@ public class Authorizations {
 
     public boolean isPresent(int id) {
 
-        if(authorizations.get(id).getOk())
-            return true;
-        else
-            return false;
+        return authorizations.get(id).getOk();
 
     }
 

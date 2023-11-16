@@ -1,23 +1,16 @@
 package CleaningRobot.MQTT;
 
-import CleaningRobot.breakHandler.Mechanic;
 import com.google.gson.Gson;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import CleaningRobot.simulators.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Utils.MqttMsg;
-
-import static java.lang.Thread.sleep;
 
 public class MqttPub extends Thread {
 
@@ -54,7 +47,7 @@ public class MqttPub extends Thread {
                 //he has to get the averages every 15 seconds
                 sleep(15000);
             } catch (InterruptedException e) {
-                //throw new RuntimeException(e);
+                logger.severe("Exception during publisher's sleep");
             }
             read = sensor.getAverages();
 
@@ -68,9 +61,8 @@ public class MqttPub extends Thread {
 
             try {
                 client.publish(topic, message);
-
             } catch (MqttException e) {
-                //throw new RuntimeException(e);
+                logger.severe("Problems with publishing");
             }
         }
 
@@ -100,11 +92,11 @@ public class MqttPub extends Thread {
             logger.info(clientId + " Connected");
 
         } catch (MqttException me) {
-            logger.info("reason " + me.getReasonCode());
-            logger.info("msg " + me.getMessage());
-            logger.info("loc " + me.getLocalizedMessage());
-            logger.info("cause " + me.getCause());
-            logger.info("excep " + me);
+            logger.severe("reason " + me.getReasonCode());
+            logger.severe("msg " + me.getMessage());
+            logger.severe("loc " + me.getLocalizedMessage());
+            logger.severe("cause " + me.getCause());
+            logger.severe("except " + me);
             me.printStackTrace();
         }
     }

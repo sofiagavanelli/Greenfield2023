@@ -1,8 +1,6 @@
 package CleaningRobot.gRPC;
 
-import CleaningRobot.breakHandler.robotState;
 import com.example.chat.CommunicationServiceOuterClass.*;
-//import sun.misc.Queue;
 
 import java.util.*;
 
@@ -14,7 +12,7 @@ public class MechanicRequests {
     private static MechanicRequests instance;
 
     private MechanicRequests() {
-        requests = new ArrayList<Request>(); //ne crea una nuova//
+        requests = new ArrayList<Request>();
     }
 
     //singleton

@@ -1,12 +1,9 @@
 package AdminServer.services;
 
 import AdminServer.beans.PollutionStats;
-import AdminServer.beans.RobotInfo;
-import AdminServer.beans.RobotList;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.*;
 
 @Path("averages")
 public class StatsService {

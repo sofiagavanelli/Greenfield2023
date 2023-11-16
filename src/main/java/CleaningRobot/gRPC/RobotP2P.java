@@ -2,7 +2,6 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
-import AdminServer.beans.RobotPositions;
 import CleaningRobot.breakHandler.crashSimulator;
 import CleaningRobot.breakHandler.robotState;
 import Utils.RestFunc;
@@ -12,13 +11,8 @@ import com.google.protobuf.Empty;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
-//import sun.misc.Queue;
 
-import java.net.Socket;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -34,7 +28,7 @@ public class RobotP2P {
         //rimuovere le info
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
-        //creating the HelloResponse object which will be provided as input to the RPC method
+        //creating the response object which will be provided as input to the RPC method
         CommunicationServiceOuterClass.Presentation broadcast =  CommunicationServiceOuterClass.Presentation.newBuilder()
                 .setPort(RobotInfo.getInstance().getPortN())
                 .setDistrict(RobotInfo.getInstance().getDistrict())
@@ -211,7 +205,7 @@ public class RobotP2P {
 
     public static void answerPending() throws InterruptedException {
 
-        List pending = MechanicRequests.getInstance().getRequests();
+        List<CommunicationServiceOuterClass.Request> pending = MechanicRequests.getInstance().getRequests();
         int size = MechanicRequests.getInstance().getRequests().size();
 
         int botPort = RobotInfo.getInstance().getPortN();
@@ -226,7 +220,7 @@ public class RobotP2P {
         while(size > 0) {
             robotState.getInstance().incrementClock();
             //se size=1, index=0 !!
-            CommunicationServiceOuterClass.Request last = (CommunicationServiceOuterClass.Request) pending.remove((size-1));
+            CommunicationServiceOuterClass.Request last = pending.remove((size-1));
 
             String target = "localhost:" + last.getFrom();
             final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();

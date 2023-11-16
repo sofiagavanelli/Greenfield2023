@@ -8,7 +8,6 @@ import AdminServer.beans.RobotList;
 import AdminServer.beans.RobotPositions;
 
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Path("robots")

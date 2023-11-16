@@ -4,7 +4,6 @@ public class robotState {
 
     public static STATE current = STATE.WORKING;
 
-    //logical clock?
     private int logicalClock = 0;
     Object lock = new Object();
     /* when to increment:
@@ -48,8 +47,7 @@ public class robotState {
 
     public void adjustClock(int senderClock) {
         synchronized (lock) {
-            int newClock = Math.max(senderClock, logicalClock) + 1;
-            logicalClock = newClock;
+            logicalClock = Math.max(senderClock, logicalClock) + 1;
         }
     }
 

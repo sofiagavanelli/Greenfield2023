@@ -46,6 +46,7 @@ public class RestFunc {
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
         //System.out.println(clientResponse.toString());
 
+        assert clientResponse != null;
         if(clientResponse.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
             System.out.println(clientResponse.toString());
             return false;
@@ -80,6 +81,7 @@ public class RestFunc {
         String deletePath = "/robots/remove";
 
         clientResponse = RestFunc.deleteRequest(client,serverAddress+deletePath, id);
+        assert clientResponse != null;
         System.out.println(clientResponse.toString());
 
     }

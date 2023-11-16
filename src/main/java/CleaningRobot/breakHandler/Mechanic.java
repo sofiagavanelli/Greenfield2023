@@ -4,7 +4,6 @@ import CleaningRobot.gRPC.Authorizations;
 import CleaningRobot.gRPC.MechanicRequests;
 import CleaningRobot.gRPC.RobotP2P;
 
-import java.util.Locale;
 import java.util.logging.Logger;
 
 public class Mechanic extends Thread {

@@ -10,21 +10,18 @@ public class RobotInfo {
 
     private int id;
     private int portN;
-    int x; //int x int y separated?
+    int x;
     int y;
     int district;
-    //IPaddress? String?
-    String ipAddress;
 
     private static RobotInfo instance;
 
     public RobotInfo() {}
 
     //equivalent of @post robot
-    public RobotInfo(int id, int portN) { //, String ipAddress) {
+    public RobotInfo(int id, int portN) {
         this.id = id;
         this.portN = portN;
-        //this.ipAddress = ipAddress;
     }
 
     public RobotInfo(int id, int portN, int x, int y, int district) {

@@ -11,7 +11,6 @@ import com.example.chat.CommunicationServiceOuterClass;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.logging.Logger;
 

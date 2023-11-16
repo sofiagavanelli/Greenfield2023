@@ -11,9 +11,8 @@ public class RobotPositions {
 
     //--> il costruttore infatti è privato
     private RobotPositions() {
-        districts = new ArrayList<Integer>(Collections.nCopies(4, 0));; //ne crea una nuova//
+        districts = new ArrayList<Integer>(Collections.nCopies(4, 0)); //ne crea una nuova//
         distribution = new HashMap<>();
-        //robotsList.add(new RobotInfo(12, 7));
     }
 
     //singleton
@@ -80,38 +79,33 @@ public class RobotPositions {
 
         Random pos = new Random();
 
-        //botDistricts = RobotPositions.getInstance().getRobotsDistricts();
-
         boolean found = false;
 
         int d = 0;
 
         //ma ha ancora senso il while? non viene mai fatto più di una volta
-        while(!found) {
-            d = pos.nextInt(4);
-            //if this district is empty then it's okay
-            if(districts.get(d) == 0) {
-                d = d + 1;
-                found = true;
-            }
-            else {
-                //if the first is not empty then i look for one with less than this
-                for(int i=0; i<4; i++) {
-                    if (districts.get(i) < districts.get(d)) {
-                        d = i + 1;
-                        found = true;
-                    }
+        d = pos.nextInt(4);
+        //if this district is empty then it's okay
+        if(districts.get(d) == 0) {
+            d = d + 1;
+            found = true;
+        }
+        else {
+            //if the first is not empty then i look for one with less than this
+            for(int i=0; i<4; i++) {
+                if (districts.get(i) < districts.get(d)) {
+                    d = i + 1;
+                    found = true;
                 }
             }
-            //if there isn't one with less than it means they are all equal and we can choose this
-            if(!found) {
-                d = d + 1;
-                found = true;
-            }
+        }
+        //if i still havent' found it then
+        // there isn't one with less than it means they are all equal and we can choose this
+        if(!found) {
+            d = d + 1;
         }
 
         //we put the elements in 0=1, 1=2, 2=3, 3=4 where (position=district)
-        //districts.add(d - 1, 1); //inutile?
         addDistrict(d);
 
         int x = pos.nextInt(5);

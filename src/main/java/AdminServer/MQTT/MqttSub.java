@@ -9,19 +9,10 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MqttSub implements MqttCallback {
 
     String clientId;
-
-    PollutionStats dummy;
-
-    String msgReceived;
 
     public MqttSub(String clientId) {
         this.clientId = clientId;
@@ -35,8 +26,6 @@ public class MqttSub implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) {
-
-        //System.out.println("inside messageArrived callback");
 
         // Called when a message arrives from the server that matches any subscription made by the client
         TypeToken<MqttMsg> token = new TypeToken<MqttMsg>(){};

@@ -8,9 +8,6 @@ public class MqttMsg {
     List<Double> averages;
     int robotID;
 
-    public MqttMsg() {
-    }
-
     public MqttMsg(List<Double> averages, int robotID) {
         this.timestamp = System.currentTimeMillis();
         this.averages = averages;

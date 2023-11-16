@@ -16,8 +16,8 @@ these averages to the Administrator Server*/
 
 public class WindowBuffer implements Buffer {
 
-    private int size;
-    private List<Measurement> buffer;
+    private final int size;
+    private final List<Measurement> buffer;
 
     private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
 
