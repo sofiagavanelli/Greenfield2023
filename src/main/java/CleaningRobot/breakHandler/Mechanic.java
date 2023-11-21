@@ -38,6 +38,7 @@ public class Mechanic extends Thread {
                     logger.warning("I'm releasing the mechanic");
                     //ha finito di usare il meccanico e torna a lavorare
                     robotState.getInstance().setState(STATE.WORKING);
+                    logger.info("Going back to working as always");
                     //rimuovo la mia richiesta
                     MechanicRequests.getInstance().removePersonal();
                     Authorizations.getInstance().removeAll();
@@ -47,8 +48,7 @@ public class Mechanic extends Thread {
                     }
 
                 } catch (InterruptedException e) {
-                    //how to deal?
-                    //throw new RuntimeException(e);
+                    logger.warning("Problems with mechanic's sleep");
                 }
 
 

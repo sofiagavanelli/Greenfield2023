@@ -7,18 +7,12 @@ import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import AdminServer.beans.RobotPositions;
 
-import java.util.*;
 import java.util.logging.Logger;
 
 @Path("robots")
 public class RobotsService {
 
     private static final Logger logger = Logger.getLogger(RobotsService.class.getSimpleName());
-
-    static {
-        Locale.setDefault(new Locale("en", "EN"));
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%1$tF %1$tT] [%4$-7s] %3$s : %5$s %n");
-    }
 
     //restituisce la lista di utenti
     @GET

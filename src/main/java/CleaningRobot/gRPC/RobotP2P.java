@@ -329,12 +329,15 @@ public class RobotP2P {
         //dealing with re-organization
         //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
         logger.warning("Someone crashed during my message");
+
+        //SHOULD I FIRST SEND THE MSG TO EVERYBODY? TO BE THE LEAST AMOUNT OF TIME WITHOUT THIS INFORMATION
+        //i tell everybody who has died
+        organize(id, district);
+
         //i inform the server
         RestFunc.deleteRobot(id);
         //i understand who needs to move and i delete him
         crashSimulator.dealUncontrolledCrash(id);
-        //i tell everybody who has died
-        organize(id, district);
     }
 
     public static void getByPort(int port) {

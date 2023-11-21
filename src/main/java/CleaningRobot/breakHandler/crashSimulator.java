@@ -72,7 +72,7 @@ public class crashSimulator extends Thread {
 
     public static void dealUncontrolledCrash(int id) {
 
-        logger.warning("A robot crashed unexpectedly");
+        //logger.warning("A robot crashed unexpectedly");
 
         //in this remove there is also the removeFromDistribution
         RobotList.getInstance().remove(id);
@@ -110,7 +110,7 @@ public class crashSimulator extends Thread {
         if(changes.get(myId) != null) {
             RobotInfo.getInstance().setDistrict(changes.get(myId));
             MqttPub.changeTopic(changes.get(myId));
-            logger.info("I needed to move, my new district is: " + RobotInfo.getInstance().getDistrict());
+            logger.warning("I needed to move because of this crash, my new district is: " + RobotInfo.getInstance().getDistrict());
         }
 
     }

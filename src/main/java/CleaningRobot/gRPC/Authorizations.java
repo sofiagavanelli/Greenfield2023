@@ -59,6 +59,8 @@ public class Authorizations {
         }
     }
 
+    //what IF i'm waiting for some authorization and the robot using it has crashed? and nobody needs the mechanic
+    //for a while? i'll be waiting for SOME TIME
     public void controlAuthorizations() {
 
         synchronized(authorizations) {
@@ -69,6 +71,7 @@ public class Authorizations {
                     authorizations.wait();
                 } catch (InterruptedException e) {
                     //throw new RuntimeException(e);
+                    logger.warning("Problems with authorization's wait");
                 }
             }
         }
