@@ -36,6 +36,7 @@ public class crashSimulator extends Thread {
 
                 //non stoppando niente devo cambiare lo stato solo quando è working, se è già needing non faccio nulla
                 if(robotState.getInstance().getState() == STATE.WORKING) {
+                    logger.warning("This robot needs the mechanic");
                     signalCrash();
                 }
             }
@@ -64,8 +65,6 @@ public class crashSimulator extends Thread {
         synchronized (crash) {
             robotState.getInstance().setState(STATE.NEEDING);
             crash.notify();
-
-            logger.warning("This robot needs the mechanic");
         }
     }
 

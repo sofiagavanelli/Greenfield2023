@@ -35,6 +35,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
             if(Authorizations.getInstance().isPresent(request.getId())) {
                 Authorizations.getInstance().removeOne(request.getId());
             }
+            Authorizations.getInstance().controlAuthorizations();
         }
 
         responseObserver.onNext(null);
@@ -99,8 +100,18 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
                         .setOk(false)
                         .setFrom(myPort)
                         .build();
-            }
-            else //la mia richiesta è successiva quindi hai tu accesso
+            } else if(Authorizations.getInstance().isPresent(request.getFrom()) && mine.getClock() ==  request.getClock()) {
+                //IF WE HAVE THE SAME CLOCK VALUE: POSSIBLE
+                //if we have the same clock value but YOU have already say YES to me then i have to say no to you
+                //otherwise i say yes
+                //maybe i'm before you in the list and the request is already arrived!!
+                MechanicRequests.getInstance().addRequest(request);
+
+                response = CommunicationServiceOuterClass.Authorization.newBuilder()
+                        .setOk(false)
+                        .setFrom(myPort)
+                        .build();
+            } else //la mia richiesta è successiva quindi hai tu accesso
                 response = CommunicationServiceOuterClass.Authorization.newBuilder()
                         .setOk(true)
                         .setFrom(myPort)
@@ -121,6 +132,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
             //passo la risposta nello stream
         }
 
+
         responseObserver.onNext(response);
 
         responseObserver.onCompleted();
@@ -135,7 +147,6 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         robotState.getInstance().adjustClock(authorization.getClock());
 
         Authorizations.getInstance().addAuthorization(authorization);
-
         Authorizations.getInstance().unblockMechanic();
 
         responseObserver.onNext(null);
@@ -147,26 +158,39 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
     @Override
     public void organize(CommunicationServiceOuterClass.UncontrolledCrash request, StreamObserver<Empty> responseObserver) {
 
-        //call to remove
-        logger.warning("Somebody told me to remove " + request.getId() + " because it has crashed");
-
-        robotState.getInstance().adjustClock(request.getClock());
-        //i calculate who needs to move and i remove him
-        crashSimulator.dealUncontrolledCrash(request.getId());
-
-        //if i'm waiting to obtain its authorization?
-        //what happens if i notify and nobody is waiting?
-        //if i'm needing i need to control
-        //what if he said ok and now i need to remove also its authorization
-        if(robotState.getInstance().getState() == STATE.NEEDING) {
-            if(Authorizations.getInstance().isPresent(request.getId())) {
-                Authorizations.getInstance().removeOne(request.getId());
-            }
-        }
-
         responseObserver.onNext(null);
 
         //completo e finisco la comunicazione
         responseObserver.onCompleted();
+
+        //i need to do this ONLY if i haven't already
+        if(RobotList.getInstance().isPresent(request.getId())) {
+            //call to remove
+            logger.warning("Somebody told me to remove " + request.getId() + " because it has crashed");
+
+            //faccio dopo le mie operazioni perché potrei rischiare di chiudere il canale
+
+            robotState.getInstance().adjustClock(request.getClock());
+            //i calculate who needs to move and i remove him
+            crashSimulator.dealUncontrolledCrash(request.getId());
+
+            //if i'm waiting to obtain its authorization?
+            //what happens if i notify and nobody is waiting?
+            //if i'm needing i need to control
+            //what if he said ok and now i need to remove also its authorization
+            if (robotState.getInstance().getState() == STATE.NEEDING) {
+                if (Authorizations.getInstance().isPresent(request.getId())) {
+                    Authorizations.getInstance().removeOne(request.getId());
+                }
+                //i still need to look BECAUSE if i'm waiting for him => example he has crashed while the mechanic
+                //i need to go now!!
+                Authorizations.getInstance().controlAuthorizations();
+            }
+        }
+        else logger.warning("Robot already deleted for an older request");
+
     }
+
+
+
 }

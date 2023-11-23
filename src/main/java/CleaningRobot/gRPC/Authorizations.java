@@ -1,5 +1,6 @@
 package CleaningRobot.gRPC;
 
+import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import com.example.chat.CommunicationServiceOuterClass.*;
 
@@ -42,8 +43,14 @@ public class Authorizations {
         return authorizations;
     }
 
-    public boolean isPresent(int id) {
-        return authorizations.get(id).getOk();
+    //mettere una copia non è ok ma mettere i synchronized rischia
+    public boolean isPresent(int from) {
+        //i use a copy
+        List<Authorization> copy = getAuthorizations();
+        return copy.get(from).getOk();
+        /*synchronized (authorizations) {
+            return authorizations.get(from).getOk();
+        }*/
     }
 
     public void removeOne(int id) {

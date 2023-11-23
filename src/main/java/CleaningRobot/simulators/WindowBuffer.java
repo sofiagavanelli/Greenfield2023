@@ -19,7 +19,7 @@ public class WindowBuffer implements Buffer {
     private final int size;
     private final List<Measurement> buffer;
 
-    private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(WindowBuffer.class.getSimpleName());
 
     public WindowBuffer(int size) {
         this.size = size;

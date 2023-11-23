@@ -64,7 +64,7 @@ public class RobotPositions {
             //if there is only one element then the district will be empty
             distribution.remove(district);
         else if(old.size() > 1) {
-            old.remove(id);
+            old.remove((Integer) id);
             distribution.put(district, old);
         }
 
@@ -83,7 +83,6 @@ public class RobotPositions {
 
         int d = 0;
 
-        //ma ha ancora senso il while? non viene mai fatto più di una volta
         d = pos.nextInt(4);
         //if this district is empty then it's okay
         if(districts.get(d) == 0) {
@@ -99,8 +98,8 @@ public class RobotPositions {
                 }
             }
         }
-        //if i still havent' found it then
-        // there isn't one with less than it means they are all equal and we can choose this
+        //if i still haven't found it then
+        // there isn't one with less than the others and it means they are all equal and we can choose this
         if(!found) {
             d = d + 1;
         }

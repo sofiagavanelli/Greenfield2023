@@ -28,7 +28,7 @@ public class RestFunc {
     static String serverAddress = "http://localhost:1337";
     static ClientResponse clientResponse = null;
 
-    private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(RestFunc.class.getSimpleName());
 
     static {
         Locale.setDefault(new Locale("en", "EN"));

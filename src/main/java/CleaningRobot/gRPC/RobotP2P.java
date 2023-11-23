@@ -2,6 +2,7 @@ package CleaningRobot.gRPC;
 
 import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
+import CleaningRobot.breakHandler.STATE;
 import CleaningRobot.breakHandler.crashSimulator;
 import CleaningRobot.breakHandler.robotState;
 import Utils.RestFunc;
@@ -152,8 +153,10 @@ public class RobotP2P {
 
         int botPort = RobotInfo.getInstance().getPortN();
 
+        //should i increment the clock?
         CommunicationServiceOuterClass.Request ask = CommunicationServiceOuterClass.Request.newBuilder()
                 .setFrom(botPort)
+                //clock time AT THE MOMENT
                 .setClock(robotState.getInstance().getClock())
                 .build();
 
@@ -197,14 +200,14 @@ public class RobotP2P {
 
                     @Override
                     public void onCompleted() {
-                        //channel.shutdownNow();
+                        channel.shutdownNow();
                     }
 
                 });
 
                 //you need this. otherwise the method will terminate before that answers from the server are received
                 try {
-                    channel.awaitTermination(10, TimeUnit.SECONDS);
+                    channel.awaitTermination(30, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
                     logger.severe("Problems with message sending");
                 }
@@ -326,8 +329,9 @@ public class RobotP2P {
 
 
     public static void organizeGrid(int id, int district) {
+        //if it's still here, maybe in the meantime i have received a message to delete it
+
         //dealing with re-organization
-        //posso chiamare una funzione di GRPC da qui dentro? o mi appoggio da qualche altra parte?
         logger.warning("Someone crashed during my message");
 
         //SHOULD I FIRST SEND THE MSG TO EVERYBODY? TO BE THE LEAST AMOUNT OF TIME WITHOUT THIS INFORMATION
@@ -338,6 +342,15 @@ public class RobotP2P {
         RestFunc.deleteRobot(id);
         //i understand who needs to move and i delete him
         crashSimulator.dealUncontrolledCrash(id);
+
+        //if i needed just him then i can go now!!!!!
+        if(robotState.getInstance().getState() == STATE.NEEDING) {
+            if(Authorizations.getInstance().isPresent(id)) {
+                Authorizations.getInstance().removeOne(id);
+            }
+            Authorizations.getInstance().controlAuthorizations();
+        }
+
     }
 
     public static void getByPort(int port) {

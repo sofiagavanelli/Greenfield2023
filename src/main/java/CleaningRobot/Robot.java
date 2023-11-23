@@ -24,7 +24,6 @@ public class Robot {
 
     private static int botId;
     private static int botPort;
-    static boolean stopCondition = false;
 
     WindowBuffer newB;
     Reader readSensor;
@@ -34,7 +33,7 @@ public class Robot {
     Server gRPCserver;
     MqttPub pub;
 
-    private static final Logger logger = Logger.getLogger(AdminServer.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(Robot.class.getSimpleName());
 
     static {
         Locale.setDefault(new Locale("en", "EN"));
@@ -100,7 +99,7 @@ public class Robot {
 
         gRPCserver.shutdown();
 
-        stopCondition = true;
+        //stopCondition = true;
 
     }
 
@@ -127,6 +126,7 @@ public class Robot {
         botPort = sc.nextInt();
 
         boolean added;
+        boolean stopCondition = false;
 
         Robot bot = new Robot();
         added = RestFunc.addNewRobot(botId, botPort);
@@ -147,10 +147,15 @@ public class Robot {
 
             String cmd = sc.nextLine();
 
-            if(cmd.equalsIgnoreCase("fix"))
+            if(cmd.equalsIgnoreCase("fix")) {
+                logger.warning("You decided this robot needs the mechanic");
                 crashSimulator.signalCrash();
-            else if (cmd.equalsIgnoreCase("quit"))
+            }
+            else if (cmd.equalsIgnoreCase("quit")) {
                 bot.stop();
+                stopCondition = true;
+            }
+
         }
 
         logger.info("Going out");

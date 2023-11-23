@@ -70,14 +70,28 @@ public class RobotList {
                 //va anche tolto dalle posizioni !!!
                 RobotPositions.getInstance().removeFromDistrict(r.getDistrict());
                 RobotPositions.getInstance().removeFromDistribution(r.getDistrict(), r.getId());
+
+                return true;
             }
         }
 
-        return true;
+        return false;
 
     }
 
 
+    public boolean isPresent(int id) {
+
+        List<RobotInfo> copy = getRobotslist();
+
+        for(RobotInfo r : copy) {
+            if (r.getId() == (id)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
 }

@@ -50,7 +50,7 @@ public class RobotsService {
             return Response.ok(RobotList.getInstance()).build();
         }
 
-        else return Response.status(Response.Status.BAD_REQUEST).entity("Problems deleting robot").build();
+        else return Response.status(Response.Status.BAD_REQUEST).entity("Problems deleting robot, it had already been deleted").build();
     }
 
     //permette di prelevare un utente con un determinato nome
