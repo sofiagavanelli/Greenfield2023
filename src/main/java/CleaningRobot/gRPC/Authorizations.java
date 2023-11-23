@@ -31,36 +31,50 @@ public class Authorizations {
         return instance;
     }
 
-    public synchronized void addAuthorization(Authorization newA) {
-        authorizations.add(newA);
+    public void addAuthorization(Authorization newA) {
+        synchronized(authorizations) {
+            authorizations.add(newA);
+            logger.info("i have " + authorizations.size() + " auth of " + (RobotList.getInstance().getRobotslist().size()-1));
+            if(authorizations.size() == (RobotList.getInstance().getRobotslist().size()-1))
+                authorizations.notifyAll();
+        }
     }
 
-    public synchronized void removeAll() {
-        authorizations.clear();
+    public void removeAll() {
+        synchronized(authorizations) {
+            authorizations.clear();
+        }
     }
 
-    public synchronized List<Authorization> getAuthorizations() {
-        return authorizations;
+    public List<Authorization> getAuthorizations() {
+        synchronized(authorizations) {
+            return authorizations;
+        }
     }
 
-    //mettere una copia non è ok ma mettere i synchronized rischia
+    //mettere una copia non è ok ma mettere i synchronized rischia di metterci troppo per acquisire il lock!!
     public boolean isPresent(int from) {
         //i use a copy
-        List<Authorization> copy = getAuthorizations();
-        return copy.get(from).getOk();
-        /*synchronized (authorizations) {
-            return authorizations.get(from).getOk();
-        }*/
+        //List<Authorization> copy = getAuthorizations();
+        //return copy.get(from).getOk();
+        synchronized (authorizations) {
+            //return authorizations.get(from).getOk();
+            for(Authorization a : authorizations) {
+                if(a.getFrom() == from)
+                    return true;
+            }
+            return false;
+        }
     }
 
-    public void removeOne(int id) {
+    public void removeOne(int botPort) {
 
         List<Authorization> listCopy = getAuthorizations();
 
         for(Authorization a : listCopy) {
-            if (a.getFrom() == (id)) {
+            if (a.getFrom() == (botPort)) {
                 synchronized (authorizations) {
-                    authorizations.removeIf(req -> req.getFrom() == id);
+                    authorizations.removeIf(req -> req.getFrom() == botPort);
                 }
             }
         }

@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.sym.error;
+
 @XmlRootElement
 @XmlAccessorType (XmlAccessType.FIELD)
 public class RobotList {
@@ -94,4 +96,15 @@ public class RobotList {
     }
 
 
+    public int getPortById(int id) {
+
+        List<RobotInfo> copy = getRobotslist();
+
+        for(RobotInfo r : copy) {
+            if(r.getId() == id)
+                return r.getPortN();
+        }
+
+        return error;
+    }
 }

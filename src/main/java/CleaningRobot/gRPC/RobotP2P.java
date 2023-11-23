@@ -7,7 +7,9 @@ import CleaningRobot.breakHandler.crashSimulator;
 import CleaningRobot.breakHandler.robotState;
 import Utils.RestFunc;
 import com.example.chat.CommunicationServiceGrpc;
+import com.example.chat.CommunicationServiceGrpc.*;
 import com.example.chat.CommunicationServiceOuterClass;
+import com.example.chat.CommunicationServiceOuterClass.*;
 import com.google.protobuf.Empty;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -30,7 +32,7 @@ public class RobotP2P {
         List<RobotInfo> listCopy = RobotList.getInstance().getRobotslist();
 
         //creating the response object which will be provided as input to the RPC method
-        CommunicationServiceOuterClass.Presentation broadcast =  CommunicationServiceOuterClass.Presentation.newBuilder()
+        Presentation broadcast =  Presentation.newBuilder()
                 .setPort(RobotInfo.getInstance().getPortN())
                 .setDistrict(RobotInfo.getInstance().getDistrict())
                 .setId(RobotInfo.getInstance().getId())
@@ -50,7 +52,7 @@ public class RobotP2P {
             final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
             //creating an asynchronous stub on the channel
-            CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
+            CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
             //calling the RPC method. since it is asynchronous, we need to define handlers
             stub.presentationMsg(broadcast, new StreamObserver<Empty>() {
@@ -67,19 +69,17 @@ public class RobotP2P {
 
                 @Override
                 public void onCompleted() {
-
                     channel.shutdownNow();
-
                 }
 
             });
 
             //you need this. otherwise the method will terminate before that answers from the server are received
-            try {
+            /*try {
                 channel.awaitTermination(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 logger.severe("Problems with message sending");
-            }
+            }*/
 
         }
 
@@ -93,7 +93,7 @@ public class RobotP2P {
         int myPort = RobotInfo.getInstance().getPortN();
         int myD = RobotInfo.getInstance().getDistrict();
 
-        CommunicationServiceOuterClass.Goodbye bye =  CommunicationServiceOuterClass.Goodbye.newBuilder()
+        Goodbye bye =  Goodbye.newBuilder()
                 .setFrom(myPort)
                 .setId(myID)
                 .setDistrict(myD)
@@ -113,7 +113,7 @@ public class RobotP2P {
                 final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
                 //creating an asynchronous stub on the channel
-                CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
+                CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
                 //calling the RPC method. since it is asynchronous, we need to define handlers
                 stub.removalMsg(bye, new StreamObserver<Empty>() {
@@ -136,11 +136,11 @@ public class RobotP2P {
                 });
 
                 //you need this. otherwise the method will terminate before that answers from the server are received
-                try {
+                /*try {
                     channel.awaitTermination(10, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
                     logger.severe("Problems with message sending");
-                }
+                }*/
 
             }
         }
@@ -154,7 +154,7 @@ public class RobotP2P {
         int botPort = RobotInfo.getInstance().getPortN();
 
         //should i increment the clock?
-        CommunicationServiceOuterClass.Request ask = CommunicationServiceOuterClass.Request.newBuilder()
+        Request ask = CommunicationServiceOuterClass.Request.newBuilder()
                 .setFrom(botPort)
                 //clock time AT THE MOMENT
                 .setClock(robotState.getInstance().getClock())
@@ -165,54 +165,54 @@ public class RobotP2P {
 
         for (RobotInfo element : listCopy) {
 
-            if(element.getPortN() != botPort) {
-                //in questo caso non mando il messaggio a me stesso
+            //in questo caso non mando il messaggio a me stesso
+            if(element.getPortN() == botPort)
+                continue;
 
-                robotState.getInstance().incrementClock();
+            robotState.getInstance().incrementClock();
 
-                //logger.info("I'm sending my mechanic request to: " + element.getPortN());
+            //logger.info("I'm sending my mechanic request to: " + element.getPortN());
 
-                String target = "localhost:" + element.getPortN();
+            String target = "localhost:" + element.getPortN();
 
-                //plaintext channel on the address (ip/port) which offers the GreetingService service
-                final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
+            //plaintext channel on the address (ip/port) which offers the GreetingService service
+            final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
 
-                //creating an asynchronous stub on the channel
-                CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
+            //creating an asynchronous stub on the channel
+            CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
-                //calling the RPC method. since it is asynchronous, we need to define handlers
-                stub.requestMechanic(ask, new StreamObserver<CommunicationServiceOuterClass.Authorization>() {
+            //calling the RPC method. since it is asynchronous, we need to define handlers
+            stub.requestMechanic(ask, new StreamObserver<CommunicationServiceOuterClass.Authorization>() {
 
-                    @Override
-                    public void onNext(CommunicationServiceOuterClass.Authorization value) {
-                        //quando ricevo la risposta
-                        if(value.getOk()) {
-                            logger.info("I received an authorization from: " + element.getPortN());
-                            Authorizations.getInstance().addAuthorization(value);
-                        }
-
+                @Override
+                public void onNext(CommunicationServiceOuterClass.Authorization value) {
+                    //quando ricevo la risposta
+                    if(value.getOk()) {
+                        logger.info("I received an authorization from: " + element.getPortN());
+                        Authorizations.getInstance().addAuthorization(value);
                     }
 
-                    @Override
-                    public void onError(Throwable t) {
-                        organizeGrid(element.getId(), element.getDistrict());
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        channel.shutdownNow();
-                    }
-
-                });
-
-                //you need this. otherwise the method will terminate before that answers from the server are received
-                try {
-                    channel.awaitTermination(30, TimeUnit.SECONDS);
-                } catch (InterruptedException e) {
-                    logger.severe("Problems with message sending");
                 }
 
-            }
+                @Override
+                public void onError(Throwable t) {
+                    organizeGrid(element.getId(), element.getDistrict());
+                }
+
+                @Override
+                public void onCompleted() {
+                    channel.shutdownNow();
+                }
+
+            });
+
+            //you need this. otherwise the method will terminate before that answers from the server are received
+            /*try {
+                channel.awaitTermination(30, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                logger.severe("Problems with message sending");
+            }*/
+
 
         }
 
@@ -226,7 +226,7 @@ public class RobotP2P {
         int botPort = RobotInfo.getInstance().getPortN();
 
         //creating the HelloResponse object which will be provided as input to the RPC method
-        CommunicationServiceOuterClass.Authorization answer = CommunicationServiceOuterClass.Authorization.newBuilder()
+        Authorization answer = CommunicationServiceOuterClass.Authorization.newBuilder()
                 .setFrom(botPort)
                 .setOk(true)
                 .setClock(robotState.getInstance().getClock())
@@ -239,7 +239,7 @@ public class RobotP2P {
 
             String target = "localhost:" + last.getFrom();
             final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
-            CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
+            CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
             //calling the RPC method. since it is asynchronous, we need to define handlers
             stub.answerPending(answer, new StreamObserver<Empty>() {
@@ -257,20 +257,19 @@ public class RobotP2P {
 
                 @Override
                 public void onCompleted() {
-
+                    channel.shutdownNow();
                 }
 
             });
 
             //you need this. otherwise the method will terminate before that answers from the server are received
-            try {
+            /*try {
                 channel.awaitTermination(10, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 logger.severe("Problems with message sending");
-            }
+            }*/
 
             size = size - 1;
-
 
         }
 
@@ -282,7 +281,7 @@ public class RobotP2P {
         int botPort = RobotInfo.getInstance().getPortN();
 
         //these are the crashed robot's information
-        CommunicationServiceOuterClass.UncontrolledCrash robot = CommunicationServiceOuterClass.UncontrolledCrash.newBuilder()
+        UncontrolledCrash robot = CommunicationServiceOuterClass.UncontrolledCrash.newBuilder()
                 .setId(botID)
                 .setDistrict(botDistrict)
                 .setClock(robotState.getInstance().getClock())
@@ -295,7 +294,8 @@ public class RobotP2P {
 
                 String target = "localhost:" + element.getPortN();
                 final ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
-                CommunicationServiceGrpc.CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
+
+                CommunicationServiceStub stub = CommunicationServiceGrpc.newStub(channel);
 
                 stub.organize(robot, new StreamObserver<Empty>() {
 
@@ -307,20 +307,20 @@ public class RobotP2P {
 
                     @Override
                     public void onError(Throwable throwable) {
-
+                        //get by port?
                     }
 
                     @Override
                     public void onCompleted() {
-
+                        channel.shutdownNow();
                     }
                 });
 
-                try {
+                /*try {
                     channel.awaitTermination(10, TimeUnit.SECONDS);
                 } catch (InterruptedException e) {
                     logger.severe("Problems with message sending");
-                }
+                }*/
 
             }
 
@@ -333,6 +333,7 @@ public class RobotP2P {
 
         //dealing with re-organization
         logger.warning("Someone crashed during my message");
+        int requestPort = RobotList.getInstance().getPortById(id);
 
         //SHOULD I FIRST SEND THE MSG TO EVERYBODY? TO BE THE LEAST AMOUNT OF TIME WITHOUT THIS INFORMATION
         //i tell everybody who has died
@@ -345,10 +346,10 @@ public class RobotP2P {
 
         //if i needed just him then i can go now!!!!!
         if(robotState.getInstance().getState() == STATE.NEEDING) {
-            if(Authorizations.getInstance().isPresent(id)) {
-                Authorizations.getInstance().removeOne(id);
+            if(Authorizations.getInstance().isPresent(requestPort)) {
+                Authorizations.getInstance().removeOne(requestPort);
             }
-            Authorizations.getInstance().controlAuthorizations();
+            Authorizations.getInstance().unblockMechanic();
         }
 
     }

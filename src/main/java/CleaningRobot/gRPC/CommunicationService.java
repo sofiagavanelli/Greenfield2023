@@ -14,6 +14,8 @@ import io.grpc.stub.StreamObserver;
 import java.util.Locale;
 import java.util.logging.Logger;
 
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.sym.error;
+
 public class CommunicationService extends CommunicationServiceGrpc.CommunicationServiceImplBase {
 
     private static final Logger logger = Logger.getLogger(CommunicationService.class.getSimpleName());
@@ -32,10 +34,10 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         RobotList.getInstance().remove(request.getId());
 
         if(robotState.getInstance().getState() == STATE.NEEDING) {
-            if(Authorizations.getInstance().isPresent(request.getId())) {
-                Authorizations.getInstance().removeOne(request.getId());
+            if(Authorizations.getInstance().isPresent(request.getFrom())) {
+                Authorizations.getInstance().removeOne(request.getFrom());
             }
-            Authorizations.getInstance().controlAuthorizations();
+            Authorizations.getInstance().unblockMechanic();
         }
 
         responseObserver.onNext(null);
@@ -133,6 +135,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         }
 
 
+        if(response.getOk())
+            logger.info("I said okay to " + request.getFrom() + "'s request");
         responseObserver.onNext(response);
 
         responseObserver.onCompleted();
@@ -167,6 +171,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         if(RobotList.getInstance().isPresent(request.getId())) {
             //call to remove
             logger.warning("Somebody told me to remove " + request.getId() + " because it has crashed");
+            int requestPort = RobotList.getInstance().getPortById(request.getId());
 
             //faccio dopo le mie operazioni perché potrei rischiare di chiudere il canale
 
@@ -177,14 +182,15 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
             //if i'm waiting to obtain its authorization?
             //what happens if i notify and nobody is waiting?
             //if i'm needing i need to control
+
             //what if he said ok and now i need to remove also its authorization
             if (robotState.getInstance().getState() == STATE.NEEDING) {
-                if (Authorizations.getInstance().isPresent(request.getId())) {
-                    Authorizations.getInstance().removeOne(request.getId());
+                if (Authorizations.getInstance().isPresent(requestPort)) {
+                    Authorizations.getInstance().removeOne(requestPort);
                 }
                 //i still need to look BECAUSE if i'm waiting for him => example he has crashed while the mechanic
                 //i need to go now!!
-                Authorizations.getInstance().controlAuthorizations();
+                Authorizations.getInstance().unblockMechanic();
             }
         }
         else logger.warning("Robot already deleted for an older request");
