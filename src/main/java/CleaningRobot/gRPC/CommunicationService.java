@@ -105,8 +105,8 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
                         .build();
             } else if(Authorizations.getInstance().isPresentByPort(request.getFrom()) && mine.getClock() ==  request.getClock()) {
                 //IF WE HAVE THE SAME CLOCK VALUE: POSSIBLE
-                //if we have the same clock value but YOU have already say YES to me then i have to say no to you
-                //otherwise i say yes
+                //if we have the same clock value but YOU have already said YES to me then I have to say no to you
+                //otherwise I say yes
                 //maybe i'm before you in the list and the request is already arrived!!
                 MechanicRequests.getInstance().addRequest(request);
 
@@ -137,7 +137,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
 
         if(response.getOk())
-            logger.info("I said okay to " + request.getFrom() + "'s request");
+            logger.warning("I said okay to " + request.getFrom() + "'s mechanic request");
         responseObserver.onNext(response);
 
         responseObserver.onCompleted();

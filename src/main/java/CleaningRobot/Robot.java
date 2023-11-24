@@ -79,7 +79,7 @@ public class Robot {
         mechanicHandler.stopMechanic();
         mechanicHandler.join();
 
-        logger.warning("Going to stop the other threads: there is a sleep somewhere, it can take some time.");
+        logger.warning("Going to stop the other threads: there is a random sleep somewhere, it can take some time.");
 
         botSimulator.stopMeGently();
         botSimulator.join();
