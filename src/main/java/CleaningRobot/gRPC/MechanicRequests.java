@@ -6,7 +6,7 @@ import java.util.*;
 
 public class MechanicRequests {
 
-    List<Request> requests;
+    final List<Request> requests;
     Request personal;
 
     private static MechanicRequests instance;
@@ -23,7 +23,9 @@ public class MechanicRequests {
     }
 
     public void addRequest(Request newR) {
-        requests.add(newR);
+        synchronized (requests) {
+            requests.add(newR);
+        }
     }
 
     public void addPersonal(Request mine){
@@ -38,7 +40,9 @@ public class MechanicRequests {
     public void removePersonal() { personal = null; }
 
     public List<Request> getRequests() {
-        return requests;
+        synchronized (requests) {
+            return requests;
+        }
     }
 
 

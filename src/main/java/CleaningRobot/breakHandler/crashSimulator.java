@@ -27,7 +27,7 @@ public class crashSimulator extends Thread {
                 sleep(10000);
             } catch (InterruptedException e) {
                 //DEAL
-                logger.severe("An interrupt happened during sleep");
+                logger.severe("Interrupt happened during crash simulator's sleep");
             }
 
             int i = rnd.nextInt(100);
@@ -36,7 +36,6 @@ public class crashSimulator extends Thread {
 
                 //non stoppando niente devo cambiare lo stato solo quando è working, se è già needing non faccio nulla
                 if(robotState.getInstance().getState() == STATE.WORKING) {
-                    logger.warning("This robot needs the mechanic");
                     signalCrash();
                 }
             }
@@ -63,6 +62,7 @@ public class crashSimulator extends Thread {
 
     public static void signalCrash() {
         synchronized (crash) {
+            logger.warning("This robot needs the mechanic");
             robotState.getInstance().setState(STATE.NEEDING);
             crash.notify();
         }
@@ -71,9 +71,7 @@ public class crashSimulator extends Thread {
 
     public static void dealUncontrolledCrash(int id) {
 
-        //logger.warning("A robot crashed unexpectedly");
-
-        //in this remove there is also the removeFromDistribution
+        //in this remove there is also the removeFromDistribution and removeFromDistrict
         RobotList.getInstance().remove(id);
 
         HashMap<Integer, List<Integer>> distribution = RobotPositions.getInstance().getDistribution();

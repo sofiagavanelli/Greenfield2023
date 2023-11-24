@@ -99,8 +99,6 @@ public class Robot {
 
         gRPCserver.shutdown();
 
-        //stopCondition = true;
-
     }
 
     private void startGRPCServer() {
@@ -148,7 +146,7 @@ public class Robot {
             String cmd = sc.nextLine();
 
             if(cmd.equalsIgnoreCase("fix")) {
-                logger.warning("You decided this robot needs the mechanic");
+                //logger.warning("You decided this robot needs the mechanic");
                 crashSimulator.signalCrash();
             }
             else if (cmd.equalsIgnoreCase("quit")) {

@@ -34,7 +34,7 @@ public class Authorizations {
     public void addAuthorization(Authorization newA) {
         synchronized(authorizations) {
             authorizations.add(newA);
-            logger.info("i have " + authorizations.size() + " auth of " + (RobotList.getInstance().getRobotslist().size()-1));
+            //what if this is the last one needed?
             if(authorizations.size() == (RobotList.getInstance().getRobotslist().size()-1))
                 authorizations.notifyAll();
         }
@@ -53,7 +53,7 @@ public class Authorizations {
     }
 
     //mettere una copia non è ok ma mettere i synchronized rischia di metterci troppo per acquisire il lock!!
-    public boolean isPresent(int from) {
+    public boolean isPresentByPort(int from) {
         //i use a copy
         //List<Authorization> copy = getAuthorizations();
         //return copy.get(from).getOk();
@@ -96,7 +96,6 @@ public class Authorizations {
                 }
             }
         }
-        //questa funzione è stata chiamata per risvegliare dei thread in attesa dopo il rilascio del meccanico
 
     }
 

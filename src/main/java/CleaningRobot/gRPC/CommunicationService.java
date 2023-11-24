@@ -34,7 +34,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         RobotList.getInstance().remove(request.getId());
 
         if(robotState.getInstance().getState() == STATE.NEEDING) {
-            if(Authorizations.getInstance().isPresent(request.getFrom())) {
+            if(Authorizations.getInstance().isPresentByPort(request.getFrom())) {
                 Authorizations.getInstance().removeOne(request.getFrom());
             }
             Authorizations.getInstance().unblockMechanic();
@@ -58,6 +58,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
         RobotInfo newBot = new RobotInfo(request.getId(), request.getPort(), request.getX(), request.getY(), request.getDistrict());
         RobotList.getInstance().add(newBot);
         //i add to the distribution
+        RobotPositions.getInstance().addDistrict(request.getDistrict());
         RobotPositions.getInstance().addIntoDistribution(request.getDistrict(), request.getId());
 
         //se io sono in attesa e un robot è appena entrato allora devo aggiungere
@@ -102,7 +103,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
                         .setOk(false)
                         .setFrom(myPort)
                         .build();
-            } else if(Authorizations.getInstance().isPresent(request.getFrom()) && mine.getClock() ==  request.getClock()) {
+            } else if(Authorizations.getInstance().isPresentByPort(request.getFrom()) && mine.getClock() ==  request.getClock()) {
                 //IF WE HAVE THE SAME CLOCK VALUE: POSSIBLE
                 //if we have the same clock value but YOU have already say YES to me then i have to say no to you
                 //otherwise i say yes
@@ -185,7 +186,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
 
             //what if he said ok and now i need to remove also its authorization
             if (robotState.getInstance().getState() == STATE.NEEDING) {
-                if (Authorizations.getInstance().isPresent(requestPort)) {
+                if (Authorizations.getInstance().isPresentByPort(requestPort)) {
                     Authorizations.getInstance().removeOne(requestPort);
                 }
                 //i still need to look BECAUSE if i'm waiting for him => example he has crashed while the mechanic
@@ -193,7 +194,7 @@ public class CommunicationService extends CommunicationServiceGrpc.Communication
                 Authorizations.getInstance().unblockMechanic();
             }
         }
-        else logger.warning("Robot already deleted for an older request");
+        else logger.info("Robot already deleted for an older request");
 
     }
 

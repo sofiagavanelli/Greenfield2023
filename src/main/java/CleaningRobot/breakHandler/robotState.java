@@ -21,22 +21,30 @@ public class robotState {
         return instance;
     }
 
-    public synchronized STATE getState() {
-        return current;
+    public STATE getState() {
+        synchronized(current) {
+            return current;
+        }
     }
 
-    public synchronized void setState(STATE newS) {
+    public void setState(STATE newS) {
         incrementClock();
-        current = newS;
+        synchronized(current) {
+            current = newS;
+        }
     }
 
     //CLOCK
-    public synchronized void setClock(int value) {
-        logicalClock = value;
+    public void setClock(int value) {
+        synchronized(lock) {
+            logicalClock = value;
+        }
     }
 
-    public synchronized int getClock() {
-        return logicalClock;
+    public int getClock() {
+        synchronized(lock) {
+            return logicalClock;
+        }
     }
 
     public void incrementClock() {

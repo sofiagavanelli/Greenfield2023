@@ -4,14 +4,16 @@ import java.util.*;
 
 public class RobotPositions {
 
+    //the index of the array is the district and the integer is the number of robots
     private final ArrayList<Integer> districts;
+    //hashmap<district, list of robot's ID>
     private final HashMap<Integer, List<Integer>> distribution;
 
     private static RobotPositions instance;
 
     //--> il costruttore infatti è privato
     private RobotPositions() {
-        districts = new ArrayList<Integer>(Collections.nCopies(4, 0)); //ne crea una nuova//
+        districts = new ArrayList<Integer>(Collections.nCopies(4, 0));
         distribution = new HashMap<>();
     }
 
@@ -22,6 +24,7 @@ public class RobotPositions {
         return instance;
     }
 
+    //ROBOTS DISTRICT
     public synchronized ArrayList<Integer> getRobotsDistricts() {
         return new ArrayList<>(districts);
     }
@@ -31,10 +34,15 @@ public class RobotPositions {
         //districts.add(i-1, 1);
     }
 
+    public void removeFromDistrict(int i) {
+        districts.set(i-1, districts.get(i-1)-1);
+    }
+
     public synchronized int getDistrict(int i) {
         return(districts.get(i-1));
     }
 
+    //ROBOTS DISTRIBUTION
     public synchronized HashMap<Integer, List<Integer>> getDistribution() {
         return new HashMap<>(distribution);
     }
@@ -70,11 +78,6 @@ public class RobotPositions {
 
     }
 
-    public void removeFromDistrict(int i) {
-
-        districts.set(i-1, districts.get(i-1)-1);
-    }
-
     public boolean newPosition(RobotInfo bot) {
 
         Random pos = new Random();
@@ -104,7 +107,7 @@ public class RobotPositions {
             d = d + 1;
         }
 
-        //we put the elements in 0=1, 1=2, 2=3, 3=4 where (position=district)
+        //we put the elements in 0=1, 1=2, 2=3, 3=4 where (position=district-1)
         addDistrict(d);
 
         int x = pos.nextInt(5);
