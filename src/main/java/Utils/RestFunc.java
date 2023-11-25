@@ -44,7 +44,6 @@ public class RestFunc {
         String postPath = "/robots/add";
         RobotInfo bot1 = new RobotInfo(botId, botPort);
         clientResponse = RestFunc.postRequest(client,serverAddress+postPath, bot1);
-        //System.out.println(clientResponse.toString());
 
         assert clientResponse != null;
         if(clientResponse.getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
@@ -53,7 +52,7 @@ public class RestFunc {
         }
         else {
             System.out.println(clientResponse.toString());
-            //qui cosa sto facendo: chiedo al server la lista dei robot
+
             RobotList robs = clientResponse.getEntity(RobotList.class);
             List<RobotInfo> copyRobs = robs.getRobotslist();
             RobotList.getInstance().setRobotslist(copyRobs);
@@ -64,8 +63,13 @@ public class RestFunc {
                     botDistrict = r.getDistrict();
                     x = r.getX();
                     y = r.getY();
-                } else
+                } else {
+                    //solo in questo caso perché sono quelli che sono arrivati prima di me e di cui quindi
+                    //non ricevo il messaggio, gli altri (tra cui anche me stesso) li aggiungo quando ricevo
+                    //le loro info tramite il presentationMSG di grpc
+                    RobotPositions.getInstance().addDistrict(r.getDistrict());
                     RobotPositions.getInstance().addIntoDistribution(r.getDistrict(), r.getId());
+                }
             }
 
             RobotInfo.getInstance().setAll(botId, botDistrict, x, y, botPort);
@@ -93,7 +97,6 @@ public class RestFunc {
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(r);
-        //System.out.println(input);
 
         try {
             return webResource.type("application/json").post(ClientResponse.class, input);
@@ -117,7 +120,6 @@ public class RestFunc {
 
         WebResource webResource = client.resource(url);
         String input = new Gson().toJson(id);
-        //System.out.println(input);
 
         try {
             return webResource.type("application/json").delete(ClientResponse.class, input);

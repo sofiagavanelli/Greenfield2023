@@ -16,7 +16,6 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class RobotP2P {
@@ -213,7 +212,7 @@ public class RobotP2P {
                 @Override
                 public void onError(Throwable t) {
                     //i need another function to find the id of the crashed robot -> for the district
-                    getByPort(last.getFrom());
+                    getByPortAndOrganize(last.getFrom());
                 }
 
                 @Override
@@ -260,7 +259,7 @@ public class RobotP2P {
                 @Override
                 public void onError(Throwable throwable) {
                     //get by port --> what if it crashed during reorganize
-                    getByPort(element.getPortN());
+                    getByPortAndOrganize(element.getPortN());
                 }
 
                 @Override
@@ -301,7 +300,7 @@ public class RobotP2P {
 
     }
 
-    public static void getByPort(int port) {
+    public static void getByPortAndOrganize(int port) {
 
         List<RobotInfo> copy = RobotList.getInstance().getRobotslist();
 

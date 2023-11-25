@@ -78,7 +78,6 @@ public class PollutionStats {
         double sum = 0;
         double averageAll = 0;
 
-
         List<RobotInfo> IDs = RobotList.getInstance().getRobotslist();
         
         int n = 0;
