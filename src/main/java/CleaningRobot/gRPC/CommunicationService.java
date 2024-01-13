@@ -14,8 +14,6 @@ import io.grpc.stub.StreamObserver;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.sym.error;
-
 public class CommunicationService extends CommunicationServiceGrpc.CommunicationServiceImplBase {
 
     private static final Logger logger = Logger.getLogger(CommunicationService.class.getSimpleName());

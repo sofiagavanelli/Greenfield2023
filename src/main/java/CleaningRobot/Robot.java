@@ -74,6 +74,7 @@ public class Robot {
         //not failing anymore
         crashTest.stopCrash();
         crashTest.join();
+        //one last trip to the mechanic ? --> removable
         if(robotState.getInstance().getState() == STATE.WORKING)
             crashSimulator.signalCrash();
         mechanicHandler.stopMechanic();

@@ -105,6 +105,8 @@ public class RobotList {
                 return r.getPortN();
         }
 
+        //it's a way to return something when you don't find the robot by id (which means it doesn't exist)
+        //i cant return false because it's not an int (return 0 would be tricky)
         return error;
     }
 }

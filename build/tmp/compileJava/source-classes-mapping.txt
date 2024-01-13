@@ -1,5 +1,5 @@
-CleaningRobot/MQTT/Reader.java
- CleaningRobot.MQTT.Reader
+CleaningRobot/gRPC/CommunicationService.java
+ CleaningRobot.gRPC.CommunicationService
 CleaningRobot/breakHandler/Mechanic.java
  CleaningRobot.breakHandler.Mechanic
 CleaningRobot/simulators/PM10Simulator.java
@@ -39,8 +39,8 @@ CleaningRobot/simulators/WindowBuffer.java
  CleaningRobot.simulators.WindowBuffer
 AdminServer/services/RobotsService.java
  AdminServer.services.RobotsService
-AdminServer/AdminServer.java
- AdminServer.AdminServer
+Utils/RestFunc.java
+ Utils.RestFunc
 AdminServer/beans/RobotInfo.java
  AdminServer.beans.RobotInfo
 CleaningRobot/simulators/Simulator.java
@@ -49,8 +49,13 @@ AdminServer/services/StatsService.java
  AdminServer.services.StatsService
 CleaningRobot/MQTT/MqttPub.java
  CleaningRobot.MQTT.MqttPub
-CleaningRobot/gRPC/CommunicationService.java
- CleaningRobot.gRPC.CommunicationService
+CleaningRobot/gRPC/RobotP2P.java
+ CleaningRobot.gRPC.RobotP2P
+ CleaningRobot.gRPC.RobotP2P$1
+ CleaningRobot.gRPC.RobotP2P$2
+ CleaningRobot.gRPC.RobotP2P$3
+ CleaningRobot.gRPC.RobotP2P$4
+ CleaningRobot.gRPC.RobotP2P$5
 CleaningRobot/gRPC/MechanicRequests.java
  CleaningRobot.gRPC.MechanicRequests
 Utils/MqttMsg.java
@@ -77,18 +82,13 @@ CleaningRobot/breakHandler/crashSimulator.java
  CleaningRobot.breakHandler.crashSimulator
 CleaningRobot/simulators/Measurement.java
  CleaningRobot.simulators.Measurement
-AdminServer/beans/RobotList.java
- AdminServer.beans.RobotList
-CleaningRobot/Robot.java
- CleaningRobot.Robot
-CleaningRobot/gRPC/RobotP2P.java
- CleaningRobot.gRPC.RobotP2P
- CleaningRobot.gRPC.RobotP2P$1
- CleaningRobot.gRPC.RobotP2P$2
- CleaningRobot.gRPC.RobotP2P$3
- CleaningRobot.gRPC.RobotP2P$4
- CleaningRobot.gRPC.RobotP2P$5
 AdminClient/REST/AdminClient.java
  AdminClient.REST.AdminClient
-Utils/RestFunc.java
- Utils.RestFunc
+CleaningRobot/Robot.java
+ CleaningRobot.Robot
+CleaningRobot/MQTT/Reader.java
+ CleaningRobot.MQTT.Reader
+AdminServer/AdminServer.java
+ AdminServer.AdminServer
+AdminServer/beans/RobotList.java
+ AdminServer.beans.RobotList
