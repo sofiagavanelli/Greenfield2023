@@ -4,6 +4,7 @@ import AdminServer.beans.RobotInfo;
 import AdminServer.beans.RobotList;
 import AdminServer.beans.RobotPositions;
 import CleaningRobot.MQTT.MqttPub;
+import Utils.RestFunc;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -107,6 +108,7 @@ public class crashSimulator extends Thread {
         if(changes.get(myId) != null) {
             RobotInfo.getInstance().setDistrict(changes.get(myId));
             MqttPub.changeTopic(changes.get(myId));
+            RestFunc.tellChangeTopic(myId, changes.get(myId));
             logger.warning("I needed to move because of this crash, my new district is: " + RobotInfo.getInstance().getDistrict());
         }
 

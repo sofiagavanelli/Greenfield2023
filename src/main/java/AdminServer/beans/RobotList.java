@@ -60,6 +60,23 @@ public class RobotList {
 
     }
 
+    public boolean changeDistrict(int id, int newD) {
+
+        if(isPresent(id)) {
+            synchronized (robotsList) {
+                for (RobotInfo r : robotsList) {
+                    if (r.getId() == id)
+                        r.setDistrict(newD);
+                }
+            }
+
+            return true;
+        }
+        else
+            return false;
+
+    }
+
     public boolean remove(int robotID) {
 
         List<RobotInfo> listCopy = getRobotslist();

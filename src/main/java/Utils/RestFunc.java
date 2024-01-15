@@ -90,8 +90,27 @@ public class RestFunc {
 
     }
 
+    public static void tellChangeTopic(int id, int newDistrict) {
+        String changePath = "/robots/change/" + id + ":" + newDistrict;
+
+        clientResponse = RestFunc.putRequest(client, serverAddress+changePath);
+
+    }
+
 
     /*****utility*/
+
+    private static ClientResponse putRequest(Client client, String url) {
+
+        WebResource webResource = client.resource(url);
+
+        try {
+            return webResource.type("application/json").put(ClientResponse.class);
+        } catch (ClientHandlerException e) {
+            logger.severe("Server non disponibile");
+            return null;
+        }
+    }
 
     public static ClientResponse postRequest(Client client, String url, RobotInfo r) {
 

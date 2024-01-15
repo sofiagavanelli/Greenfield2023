@@ -65,4 +65,17 @@ public class RobotsService {
             return Response.status(Response.Status.NOT_FOUND).entity("Problems obtaining list").build();
     }
 
+    @Path("change/{id}:{newD}")
+    @PUT
+    @Consumes({"application/json", "application/xml"})
+    public Response changeDistrict(@PathParam("id") int ID, @PathParam("newD") int newDistrict){
+
+        if(RobotList.getInstance().changeDistrict(ID, newDistrict)) {
+            logger.warning("ROBOT-" + ID + " moved to district " + newDistrict);
+            return Response.ok(RobotList.getInstance()).build();
+        }
+
+        else return Response.status(Response.Status.BAD_REQUEST).entity("Problems deleting robot, it had already been deleted").build();
+    }
+
 }
