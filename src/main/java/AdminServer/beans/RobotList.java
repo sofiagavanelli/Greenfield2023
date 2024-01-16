@@ -65,8 +65,13 @@ public class RobotList {
         if(isPresent(id)) {
             synchronized (robotsList) {
                 for (RobotInfo r : robotsList) {
-                    if (r.getId() == id)
+                    if (r.getId() == id) {
+                        RobotPositions.getInstance().removeFromDistrict(r.getDistrict());
+                        RobotPositions.getInstance().removeFromDistribution(r.getDistrict(), r.getId());
                         r.setDistrict(newD);
+                        RobotPositions.getInstance().addDistrict(newD);
+                        RobotPositions.getInstance().addIntoDistribution(newD, r.getId());
+                    }
                 }
             }
 
