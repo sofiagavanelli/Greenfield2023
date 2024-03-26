@@ -2,7 +2,7 @@
 
 In a smart city named Greenfield, a fleet of robots moves around the districts of the city to clean their streets.
 
-<img src="https://github.com/sofiagavanelli/Greenfield2023/assets/49269518/fbf6737f-f527-41ec-9fbf-9efaf24ccd36" width="200")
+<img src="https://github.com/sofiagavanelli/Greenfield2023/assets/49269518/fbf6737f-f527-41ec-9fbf-9efaf24ccd36" width="40%">
 
 The cleaning robots move around the four smart city districts. Occasionally, such robots need to go for maintenance issues to the mechanic of Greenfield, which can handle only a single robot at a time. Each robot is also equipped with a sensor that periodically detects the air pollution levels of Greenfield.
 Such pollution measurements are periodically transmitted from the robots of each district to an Administrator Server through MQTT. The Administrator Server is in charge of dynamically registering and removing cleaning robots from the system. Moreover, it collects and analyses the air pollution levels of Greenfield in order to provide pollution information to the experts (Administrator Client) of the environmental department of Greenfield.
